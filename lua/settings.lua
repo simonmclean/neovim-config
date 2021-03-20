@@ -1,3 +1,8 @@
+-- Init commands
+vim.cmd('set termguicolors')
+vim.cmd('let g:lightline = {"colorscheme": "blue-moon"}')
+vim.cmd('colorscheme blue-moon')
+
 -- General options
 vim.o.clipboard='unnamed'
 vim.o.ignorecase=true

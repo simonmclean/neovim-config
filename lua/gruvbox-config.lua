@@ -1,0 +1,2 @@
+-- vim.o.background = "dark"
+-- vim.g.airline_theme = 'gruvbox'

@@ -1,11 +1,11 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-    execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-    execute 'packadd packer.nvim'
+  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+  execute 'packadd packer.nvim'
 end
 
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
@@ -23,8 +23,9 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-surround'
 
 	-- UI
-	use 'vim-airline/vim-airline'
-	use 'vim-airline/vim-airline-themes'
+	use 'itchyny/lightline.vim'
+	-- use 'vim-airline/vim-airline'
+	-- use 'vim-airline/vim-airline-themes'
 	use {
 		'liuchengxu/vim-which-key',
 		cmd = 'WhichKey'
@@ -53,5 +54,6 @@ return require('packer').startup(function(use)
 
 	-- Themes
 	use 'mhartington/oceanic-next'
-	use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+	use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}} -- doesn't yet support airline
+	use 'kyazdani42/blue-moon'
 end)
