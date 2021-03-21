@@ -58,4 +58,6 @@ return require('packer').startup(function(use)
 	use 'mhartington/oceanic-next'
 	use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}} -- doesn't yet support airline
 	use 'kyazdani42/blue-moon'
+	use 'bluz71/vim-nightfly-guicolors'
+	use 'sainnhe/sonokai'
 end)
