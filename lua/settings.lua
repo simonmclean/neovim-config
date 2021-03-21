@@ -1,5 +1,6 @@
 -- Init commands
 vim.cmd('set termguicolors')
+vim.cmd('set shortmess-=F')
 vim.cmd('let g:lightline = {"colorscheme": "blue-moon"}')
 vim.cmd('colorscheme blue-moon')
 
@@ -10,6 +11,7 @@ vim.o.smartcase=true
 vim.o.showcmd=true
 
 -- Window options
+vim.wo.signcolumn='yes'
 vim.wo.cursorline=true
 vim.wo.number=true
 vim.wo.relativenumber=true

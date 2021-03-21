@@ -10,6 +10,7 @@ require('camelcasemotion-config')
 require('emmet-config')
 require('indentline-config')
 require('whichkey-config')
+require('lsp/lspconfig-config')
 
 -- Theme configs
 -- require('oceanic-next-config')
