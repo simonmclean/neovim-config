@@ -8,7 +8,6 @@ command! -nargs=0 Source :luafile ~/.config/nvim/init.lua
 command! -nargs=0 Config :e ~/.config/nvim/init.lua
 
 " Show git log for current or highlighted lines
-" command! -range Glines :call <SID>GitLogLines(<line1>, <line2>)
 command! -range Glines :lua require('functions').git_log_lines(<line1>, <line2>)
 
 " Shorthand for console.log()
