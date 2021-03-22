@@ -1,6 +1,7 @@
 -- Global config
 require('plugins')
 require('settings')
+require('functions')
 require('mappings')
 
 -- Vimscript stuff (TODO: Port this over to lua)
