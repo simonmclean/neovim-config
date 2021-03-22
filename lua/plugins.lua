@@ -39,7 +39,7 @@ return require('packer').startup(function(use)
 	-- use 'kabouzeid/nvim-lspinstall'
 	use { 'neoclide/coc.nvim', branch = 'release' }
 	-- Tree Sitter
-	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	-- use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	-- Language support
 	use 'sheerun/vim-polyglot'
 	use 'mustache/vim-mustache-handlebars'
