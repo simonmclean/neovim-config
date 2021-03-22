@@ -20,7 +20,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd FileType qf set nocursorline
 
 " Checkout up to date master branch
-command! Master :Git checkout master | Gfetch --prune | Gpull
+command! Master :Git checkout master | Git fetch --prune | Git pull
 
 " Exclude block navigation from the jumplist
 nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>
