@@ -1,3 +1,6 @@
+-- Things that need to be initialised first
+require('plugin-configs/lightline')
+
 -- Global config
 require('plugins')
 require('settings')
