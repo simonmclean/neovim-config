@@ -1,6 +1,3 @@
--- Things that need to be initialised first
-require('plugin-configs/lightline')
-
 -- Global config
 require('plugins')
 require('settings')
@@ -17,5 +14,6 @@ require('plugin-configs/camelcasemotion')
 require('plugin-configs/emmet')
 require('plugin-configs/indentline')
 require('plugin-configs/whichkey')
+require('plugin-configs/lightline')
 -- require('plugin-configs/treesitter')
 -- require('lsp/lspconfig')

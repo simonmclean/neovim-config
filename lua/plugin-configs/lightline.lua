@@ -1,4 +1,5 @@
 local config = {
+	colorscheme = vim.g.lightline.colorscheme,
 	active = {
 		left = {
 			{ 'mode', 'paste' },
