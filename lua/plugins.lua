@@ -14,6 +14,7 @@ return require('packer').startup(function(use)
 	-- Git
 	use 'airblade/vim-gitgutter'
 	use 'tpope/vim-fugitive'
+	use 'tpope/vim-rhubarb'
 	-- Better editing
 	use 'bkad/camelcasemotion'
 	use 'mattn/emmet-vim'
