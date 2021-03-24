@@ -9,6 +9,7 @@ let g:coc_global_extensions = [
   \'coc-rust-analyzer',
   \'coc-eslint',
   \'coc-deno',
+  \'coc-lua',
   \'coc-metals',
   \]
 autocmd FileType json syntax match Comment +\/\/.\+$+
