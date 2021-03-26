@@ -21,3 +21,6 @@ function! ReplaceMotion(type)
   let &selection = sel_save
 endfunction
 
+function! LspStatusline()
+  return luaeval('require("plugin-configs/lightline").lsp_statusline()')
+endfunction
