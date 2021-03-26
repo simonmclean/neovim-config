@@ -1,4 +1,5 @@
-require('lsp/diagnostic')
+local efm_config = require('lsp/efm')
+local lua_settings = require('lsp/lua')
 
 -- keymaps
 local on_attach = function(client, bufnr)
@@ -24,6 +25,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>ac', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
@@ -43,28 +45,6 @@ local on_attach = function(client, bufnr)
     ]], false)
   end
 end
-
--- Configure lua language server for neovim development
-local lua_settings = {
-  Lua = {
-    runtime = {
-      -- LuaJIT in the case of Neovim
-      version = 'LuaJIT',
-      path = vim.split(package.path, ';'),
-    },
-    diagnostics = {
-      -- Get the language server to recognize the `vim` global
-      globals = {'vim'},
-    },
-    workspace = {
-      -- Make the server aware of Neovim runtime files
-      library = {
-        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-      },
-    },
-  }
-}
 
 -- config that activates keymaps and enables snippet support
 local function make_config()
@@ -93,6 +73,10 @@ local function setup_servers()
     -- language specific config
     if server == "lua" then
       config.settings = lua_settings
+    end
+
+    if server == "efm" then
+      config = efm_config
     end
 
     require'lspconfig'[server].setup(config)

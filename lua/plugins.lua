@@ -36,9 +36,14 @@ return require('packer').startup(function(use)
 		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 	}
 	-- LSP
-	-- use 'neovim/nvim-lspconfig'
-	-- use 'kabouzeid/nvim-lspinstall'
-	use { 'neoclide/coc.nvim', branch = 'release' }
+	use 'neovim/nvim-lspconfig'
+	use 'kabouzeid/nvim-lspinstall'
+	use 'hrsh7th/nvim-compe'
+	use {
+		'RishabhRD/nvim-lsputils',
+		requires = {{'RishabhRD/popfix'}}
+	}
+	-- use { 'neoclide/coc.nvim', branch = 'release' }
 	-- Tree Sitter
 	-- use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	-- Language support
