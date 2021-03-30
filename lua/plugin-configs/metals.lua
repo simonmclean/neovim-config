@@ -1,3 +1,5 @@
+vim.o.shortmess = vim.o.shortmess:gsub('F', '') -- No idea what this means, but it's required apparently
+
 local metals_config = require'metals'.bare_config
 
 metals_config.init_options.statusBarProvider = 'on'
