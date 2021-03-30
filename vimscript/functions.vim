@@ -28,3 +28,7 @@ endfunction
 function! LspStatuslineWarnings()
   return luaeval('require("plugin-configs/lightline").lsp_statusline_warnings()')
 endfunction
+
+function! LspStatuslineHints()
+  return luaeval('require("plugin-configs/lightline").lsp_statusline_hints()')
+endfunction
