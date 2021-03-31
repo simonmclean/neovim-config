@@ -23,3 +23,6 @@ require'compe'.setup {
     vsnip = true;
   };
 }
+
+local opts = { silent=true, expr=true }
+vim.api.nvim_set_keymap('i', '<CR>', 'compe#confirm("<CR>")', opts)
