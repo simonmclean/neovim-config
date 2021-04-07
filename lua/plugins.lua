@@ -30,6 +30,10 @@ return require('packer').startup(function(use)
 		cmd = 'WhichKey'
 	}
 	use 'yggdroot/indentline'
+	use {
+		'lukas-reineke/indent-blankline.nvim',
+		brand = 'lua'
+	}
 	use '~/code/tryptic'
 	use {
 		'nvim-telescope/telescope.nvim',
