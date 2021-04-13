@@ -29,10 +29,9 @@ return require('packer').startup(function(use)
 		'liuchengxu/vim-which-key',
 		cmd = 'WhichKey'
 	}
-	use 'yggdroot/indentline'
 	use {
 		'lukas-reineke/indent-blankline.nvim',
-		brand = 'lua'
+		branch = 'lua'
 	}
 	use '~/code/tryptic'
 	use {
