@@ -19,8 +19,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Disable cursorline in quickfix
 autocmd FileType qf set nocursorline
 
-" Checkout up to date master branch
+" Checkout up to date master/main branch
 command! Master :Git checkout master | Git fetch --prune | Git pull
+command! Main :Git checkout main | Git fetch --prune | Git pull
 
 " Exclude block navigation from the jumplist
 nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>
