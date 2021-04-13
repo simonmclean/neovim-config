@@ -49,9 +49,9 @@ return require('packer').startup(function(use)
 	}
 	-- use { 'neoclide/coc.nvim', branch = 'release' }
 	-- Tree Sitter
-	-- use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	-- Language support
-	use 'sheerun/vim-polyglot'
+	-- use 'sheerun/vim-polyglot'
 	use 'mustache/vim-mustache-handlebars'
 	use {
 		'styled-components/vim-styled-components',
