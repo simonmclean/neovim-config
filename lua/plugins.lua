@@ -21,6 +21,7 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-commentary'
 	use 'tpope/vim-repeat'
 	use 'tpope/vim-surround'
+	use 'windwp/nvim-autopairs'
 	-- UI
 	use 'itchyny/lightline.vim'
 	-- use 'vim-airline/vim-airline'
