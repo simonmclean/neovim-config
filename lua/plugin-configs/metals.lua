@@ -2,6 +2,10 @@ vim.o.shortmess = vim.o.shortmess:gsub('F', '') -- No idea what this means, but 
 
 local metals_config = require'metals'.bare_config
 
+metals_config.settings = {
+  javaHome = "/Library/Java/JavaVirtualMachines/jdk-11.0.11.jdk/Contents/Home"
+}
+
 metals_config.init_options.statusBarProvider = 'on'
 
 metals_config.on_attach = require'lsp/lspconfig-config'.on_attach

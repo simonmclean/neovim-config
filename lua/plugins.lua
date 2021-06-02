@@ -48,6 +48,8 @@ return require('packer').startup(function(use)
 		requires = {{'RishabhRD/popfix'}}
 	}
 	-- use { 'neoclide/coc.nvim', branch = 'release' }
+	-- DEBUGGING
+	use 'mfussenegger/nvim-dap'
 	-- Tree Sitter
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	-- Language support
