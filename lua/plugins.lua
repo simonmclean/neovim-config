@@ -40,10 +40,6 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall'
   use 'hrsh7th/nvim-compe'
-  use {
-    'RishabhRD/nvim-lsputils',
-    requires = {{'RishabhRD/popfix'}}
-  }
   -- use { 'neoclide/coc.nvim', branch = 'release' }
   -- DEBUGGING
   use 'mfussenegger/nvim-dap'
