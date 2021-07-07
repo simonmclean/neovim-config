@@ -30,10 +30,7 @@ return require('packer').startup(function(use)
 		'liuchengxu/vim-which-key',
 		cmd = 'WhichKey'
 	}
-	use {
-		'lukas-reineke/indent-blankline.nvim',
-		branch = 'lua'
-	}
+	use 'lukas-reineke/indent-blankline.nvim'
 	use '~/code/tryptic'
 	use {
 		'nvim-telescope/telescope.nvim',
@@ -72,4 +69,7 @@ return require('packer').startup(function(use)
 	use 'kyazdani42/blue-moon'
 	use 'bluz71/vim-nightfly-guicolors'
 	use 'sainnhe/sonokai'
+	use 'shaunsingh/moonlight.nvim'
+	use 'tjdevries/colorbuddy.vim'
+	use 'bkegley/gloombuddy'
 end)
