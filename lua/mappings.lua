@@ -28,4 +28,4 @@ map('n', '<leader>j', ':call append(line("."), "")<cr>', silent_noremap)
 map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', silent_noremap)
 
 -- Tryptic
-map('n', '<leader>-', ':Tryptic<cr>', silent_noremap)
+-- map('n', '<leader>-', ':Tryptic<cr>', silent_noremap)

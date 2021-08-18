@@ -24,6 +24,14 @@ return require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
   -- UI
   use 'itchyny/lightline.vim'
+  use {
+   'ms-jpq/chadtree',
+   branch = 'chad',
+   run = ':CHADdeps'
+  }
+  use 'preservim/nerdtree'
+  use 'Xuyuanp/nerdtree-git-plugin'
+  use 'ryanoasis/vim-devicons'
   -- use 'vim-airline/vim-airline'
   -- use 'vim-airline/vim-airline-themes'
   use {
