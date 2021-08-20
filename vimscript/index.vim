@@ -23,6 +23,9 @@ autocmd FileType qf set nocursorline
 command! Master :Git checkout master | Git fetch --prune | Git pull
 command! Main :Git checkout main | Git fetch --prune | Git pull
 
+" Restore the previous session associated with the current directory
+command! Restore :lua require("persistence").load()
+
 " Exclude block navigation from the jumplist
 nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>
 nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>

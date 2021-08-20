@@ -15,6 +15,7 @@ return require('packer').startup(function(use)
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
+
   -- Better editing
   use 'bkad/camelcasemotion'
   use 'mattn/emmet-vim'
@@ -22,6 +23,7 @@ return require('packer').startup(function(use)
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
   use 'windwp/nvim-autopairs'
+
   -- UI
   use 'itchyny/lightline.vim'
   use {
@@ -44,15 +46,19 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
+
   -- LSP
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall'
   use 'hrsh7th/nvim-compe'
   -- use { 'neoclide/coc.nvim', branch = 'release' }
+
   -- DEBUGGING
   use 'mfussenegger/nvim-dap'
+
   -- Tree Sitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+
   -- Language support
   -- use 'sheerun/vim-polyglot'
   use 'mustache/vim-mustache-handlebars'
@@ -62,11 +68,21 @@ return require('packer').startup(function(use)
   }
   use 'scalameta/nvim-metals'
   use 'vim-scripts/svg.vim'
+
   -- Utils
   use 'heavenshell/vim-jsdoc'
   use 'tpope/vim-eunuch'
   use 'tpope/vim-sensible'
   use 'tpope/vim-sleuth'
+  use({
+    "folke/persistence.nvim",
+    event = "BufReadPre",
+    module = "persistence",
+    config = function()
+      require("persistence").setup()
+    end,
+  })
+
   -- Themes
   use 'mhartington/oceanic-next'
   use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}} -- doesn't yet support airline
