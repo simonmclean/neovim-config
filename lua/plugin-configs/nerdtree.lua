@@ -1,5 +1,5 @@
 local map = vim.api.nvim_set_keymap
 
 map('n', '<leader>-', ':NERDTreeFind<cr>', {})
-map('n', '<leader>+', ':NERDTreeClose<cr>', {})
+map('n', '<leader>=', ':NERDTreeClose<cr>', {})
 
