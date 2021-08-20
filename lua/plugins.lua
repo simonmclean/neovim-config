@@ -26,11 +26,6 @@ return require('packer').startup(function(use)
 
   -- UI
   use 'itchyny/lightline.vim'
-  use {
-   'ms-jpq/chadtree',
-   branch = 'chad',
-   run = ':CHADdeps'
-  }
   use 'preservim/nerdtree'
   use 'Xuyuanp/nerdtree-git-plugin'
   use 'ryanoasis/vim-devicons'
@@ -51,7 +46,6 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall'
   use 'hrsh7th/nvim-compe'
-  -- use { 'neoclide/coc.nvim', branch = 'release' }
 
   -- DEBUGGING
   use 'mfussenegger/nvim-dap'
@@ -60,7 +54,6 @@ return require('packer').startup(function(use)
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
   -- Language support
-  -- use 'sheerun/vim-polyglot'
   use 'mustache/vim-mustache-handlebars'
   use {
     'styled-components/vim-styled-components',
