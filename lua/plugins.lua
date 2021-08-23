@@ -49,6 +49,13 @@ return require('packer').startup(function(use)
 
   -- DEBUGGING
   use 'mfussenegger/nvim-dap'
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {}
+    end
+}
 
   -- Tree Sitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -68,14 +75,14 @@ return require('packer').startup(function(use)
   use 'tpope/vim-eunuch'
   use 'tpope/vim-sensible'
   use 'tpope/vim-sleuth'
-  use({
+  use {
     "folke/persistence.nvim",
     event = "BufReadPre",
     module = "persistence",
     config = function()
       require("persistence").setup()
     end,
-  })
+  }
 
   -- Themes
   use 'mhartington/oceanic-next'
