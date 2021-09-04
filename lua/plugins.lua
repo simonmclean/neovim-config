@@ -69,6 +69,7 @@ return require('packer').startup(function(use)
   use 'scalameta/nvim-metals'
   use 'vim-scripts/svg.vim'
   use 'hashivim/vim-terraform'
+  use 'purescript-contrib/purescript-vim'
 
   -- Utils
   use 'heavenshell/vim-jsdoc'
