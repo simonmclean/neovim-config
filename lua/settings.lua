@@ -7,9 +7,11 @@ vim.cmd('set shortmess-=F')
 -- vim.cmd('colorscheme blue-moon')
 -- vim.cmd('let g:lightline = {"colorscheme": "nightfly"}')
 -- vim.cmd('colorscheme nightfly')
-vim.g.lightline = { colorscheme = 'sonokai' }
-vim.g.sonokai_style = 'maia'
-vim.g.colors_name = 'sonokai'
+-- vim.g.lightline = { colorscheme = 'sonokai' }
+-- vim.g.sonokai_style = 'maia'
+-- vim.g.colors_name = 'sonokai'
+vim.g.lightline = { colorscheme = 'tokyonight' }
+vim.g.colors_name = 'tokyonight'
 
 -- General options
 vim.o.clipboard='unnamed'

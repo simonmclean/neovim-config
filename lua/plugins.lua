@@ -93,4 +93,5 @@ return require('packer').startup(function(use)
   use 'shaunsingh/moonlight.nvim'
   use 'tjdevries/colorbuddy.vim'
   use 'bkegley/gloombuddy'
+  use 'folke/tokyonight.nvim'
 end)
