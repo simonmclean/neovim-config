@@ -1,6 +1,6 @@
 vim.o.shortmess = vim.o.shortmess:gsub('F', '') -- No idea what this means, but it's required apparently
 
-local metals_config = require'metals'.bare_config
+local metals_config = require("metals").bare_config()
 
 metals_config.settings = {
   javaHome = "/Library/Java/JavaVirtualMachines/jdk-11.0.11.jdk/Contents/Home"
