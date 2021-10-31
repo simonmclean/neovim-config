@@ -36,16 +36,19 @@ return require('packer').startup(function(use)
     cmd = 'WhichKey'
   }
   use 'lukas-reineke/indent-blankline.nvim'
-  use '~/code/tryptic'
+  -- use '~/code/tryptic'
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
 
+  -- BUILT-IN LSP
+  -- use 'neovim/nvim-lspconfig'
+  -- use 'kabouzeid/nvim-lspinstall'
+  -- use 'hrsh7th/nvim-cmp'
+
   -- LSP
-  use 'neovim/nvim-lspconfig'
-  use 'kabouzeid/nvim-lspinstall'
-  use 'hrsh7th/nvim-compe'
+  use { 'neoclide/coc.nvim', branch = 'release' }
 
   -- DEBUGGING
   use 'mfussenegger/nvim-dap'
@@ -66,7 +69,8 @@ return require('packer').startup(function(use)
     'styled-components/vim-styled-components',
     branch = 'main'
   }
-  use 'scalameta/nvim-metals'
+  -- use 'scalameta/nvim-metals'
+  use 'derekwyatt/vim-scala'
   use 'vim-scripts/svg.vim'
   use 'hashivim/vim-terraform'
   use 'purescript-contrib/purescript-vim'
