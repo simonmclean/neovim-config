@@ -4,7 +4,7 @@ local config = {
 		left = {
 			{ 'mode', 'paste' },
 			{ 'gitbranch', 'readonly', 'filename', 'modified' },
-			{ 'lsp_errors', 'lsp_warnings', 'lsp_hints', 'metals' }
+			{ 'lsp_errors', 'lsp_warnings', 'lsp_hints', 'metals', 'cocstatus' }
 		},
 		right = {
 			{ 'percent', 'lineinfo' },
@@ -14,7 +14,9 @@ local config = {
 	},
 	component_function = {
 		gitbranch = 'FugitiveHead',
-		metals = 'metals#status'
+		metals = 'metals#status',
+		cocstatus = 'coc#status',
+		currentfunction = 'CocCurrentFunction'
 	},
 	component_expand = {
 		lsp_errors = 'LspStatuslineErrors',
