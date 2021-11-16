@@ -12,5 +12,6 @@
     }
   },
   "codeLens.enable": true,
-  "Lua.diagnostics.globals": ["vim"]
+  "Lua.diagnostics.globals": ["vim"],
+  "metals.statusBarEnabled": true
 }
