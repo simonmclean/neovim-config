@@ -16,6 +16,8 @@ map('v', ';', ':', noremap)
 -- Jumps
 map('n', '[q', ':cprevious<cr>', {})
 map('n', ']q', ':cnext<cr>', {})
+map('n', '[b', ':bprevious<cr>', silent_noremap)
+map('n', ']b', ':bnext<cr>', silent_noremap)
 
 -- Toggle between 2 buffers
 map('n', '<leader><leader>', '<c-^>', noremap)
