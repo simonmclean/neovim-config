@@ -11,7 +11,7 @@ vim.cmd('set shortmess-=F')
 -- vim.g.sonokai_style = 'maia'
 -- vim.g.colors_name = 'sonokai'
 vim.g.lightline = { colorscheme = 'tokyonight' }
-vim.g.colors_name = 'tokyonight'
+vim.cmd("colorscheme tokyonight")
 
 -- General options
 vim.o.clipboard='unnamed'
