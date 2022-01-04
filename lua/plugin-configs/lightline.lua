@@ -31,7 +31,7 @@ local config = {
 }
 
 local function lsp_statusline_errors()
-	local error_count = vim.lsp.diagnostic.get_count(0, 'Error')
+	local error_count = vim.diagnostic.get_count(0, 'Error')
 	local error_count_display = error_count
 
 	if (error_count > 0) then
@@ -42,7 +42,7 @@ local function lsp_statusline_errors()
 end
 
 local function lsp_statusline_warnings()
-	local warning_count = vim.lsp.diagnostic.get_count(0, 'Warning')
+	local warning_count = vim.diagnostic.get_count(0, 'Warning')
 	local warning_count_display = warning_count
 
 	if (warning_count > 0) then
@@ -53,7 +53,7 @@ local function lsp_statusline_warnings()
 end
 
 local function lsp_statusline_hints()
-	local hint_count = vim.lsp.diagnostic.get_count(0, 'Hint')
+	local hint_count = vim.diagnostic.get_count(0, 'Hint')
 	local hint_count_display = hint_count
 
 	if (hint_count > 0) then
