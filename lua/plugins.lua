@@ -19,6 +19,7 @@ return require('packer').startup(function(use)
   -- Better editing
   use 'bkad/camelcasemotion'
   use 'mattn/emmet-vim'
+  use 'tpope/vim-abolish'
   use 'tpope/vim-commentary'
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
