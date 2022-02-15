@@ -11,7 +11,7 @@
       "filetypes": ["scala", "sbt"]
     }
   },
-  "codeLens.enable": true,
+  "codeLens.enable": false,
   "Lua.diagnostics.globals": ["vim"],
   "metals.statusBarEnabled": true
 }
