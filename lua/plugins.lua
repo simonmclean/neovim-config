@@ -89,7 +89,6 @@ return require('packer').startup(function(use)
       require("persistence").setup()
     end,
   }
-  use 'ThePrimeagen/harpoon'
 
   -- Themes
   use 'mhartington/oceanic-next'
