@@ -27,8 +27,24 @@ return require('packer').startup(function(use)
 
   -- UI
   use 'itchyny/lightline.vim'
-  use 'preservim/nerdtree'
-  use 'Xuyuanp/nerdtree-git-plugin'
+  use {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v2.x',
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+      {
+        's1n7ax/nvim-window-picker',
+        tag = 'v1.*',
+        config = function()
+          require'window-picker'.setup({ other_win_hl_color = '#12131b' })
+        end,
+      }
+    }
+  }
+  -- use 'preservim/nerdtree'
+  -- use 'Xuyuanp/nerdtree-git-plugin'
   use 'ryanoasis/vim-devicons'
   -- use 'vim-airline/vim-airline'
   -- use 'vim-airline/vim-airline-themes'
