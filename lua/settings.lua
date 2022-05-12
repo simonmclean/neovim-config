@@ -14,6 +14,7 @@ vim.g.lightline = { colorscheme = 'tokyonight' }
 vim.cmd("colorscheme tokyonight")
 
 -- General options
+vim.o.laststatus=3
 vim.o.clipboard='unnamed'
 vim.o.ignorecase=true
 vim.o.smartcase=true
