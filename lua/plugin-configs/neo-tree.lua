@@ -108,7 +108,8 @@ require("neo-tree").setup({
 			["m"] = "move", -- takes text input for destination
 			["q"] = "close_window",
 			["R"] = "refresh",
-			["?"] = "show_help",
+			["?"] = "none",
+			["g?"] = "show_help",
 		}
 	},
 	nesting_rules = {},
