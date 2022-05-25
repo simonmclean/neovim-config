@@ -1,5 +1,4 @@
 source ~/.config/nvim/vimscript/functions.vim
-source ~/.config/nvim/vimscript/coc.vim
 
 " Source init.lua
 command! -nargs=0 Source :luafile ~/.config/nvim/init.lua

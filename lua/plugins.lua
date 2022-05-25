@@ -64,9 +64,6 @@ return require('packer').startup(function(use)
   -- use 'kabouzeid/nvim-lspinstall'
   -- use 'hrsh7th/nvim-cmp'
 
-  -- LSP
-  use { 'neoclide/coc.nvim', branch = 'release' }
-
   -- DEBUGGING
   use 'mfussenegger/nvim-dap'
   use {

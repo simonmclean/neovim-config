@@ -4,7 +4,7 @@ local config = {
 		left = {
 			{ 'mode', 'paste' },
 			{ 'gitbranch', 'readonly', 'filename', 'modified' },
-			{ 'lsp_errors', 'lsp_warnings', 'lsp_hints', 'metals', 'cocstatus' }
+			-- { 'lsp_errors', 'lsp_warnings', 'lsp_hints', 'metals', 'cocstatus' }
 		},
 		right = {
 			{ 'percent', 'lineinfo' },
@@ -15,8 +15,8 @@ local config = {
 	component_function = {
 		gitbranch = 'FugitiveHead',
 		metals = 'metals#status',
-		cocstatus = 'coc#status',
-		currentfunction = 'CocCurrentFunction',
+		-- cocstatus = 'coc#status',
+		-- currentfunction = 'CocCurrentFunction',
 		filename = 'StatusLineSmartFilename'
 	},
 	component_expand = {
