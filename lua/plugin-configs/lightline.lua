@@ -16,7 +16,8 @@ local config = {
 		gitbranch = 'FugitiveHead',
 		metals = 'metals#status',
 		cocstatus = 'coc#status',
-		currentfunction = 'CocCurrentFunction'
+		currentfunction = 'CocCurrentFunction',
+		filename = 'StatusLineSmartFilename'
 	},
 	component_expand = {
 		lsp_errors = 'LspStatuslineErrors',
@@ -63,6 +64,17 @@ local function lsp_statusline_hints()
 	return ''
 end
 
+local function smart_file_display()
+	local relative_path = vim.fn.expand('%')
+	local columns = vim.api.nvim_eval('&columns')
+	local space_for_path_string = columns - 50 -- magic number
+	if (vim.o.laststatus == 3 and (string.len(relative_path) > space_for_path_string)) then
+		return vim.fn.expand('%:t')
+	else
+		return relative_path
+	end
+end
+
 vim.api.nvim_exec([[
   augroup lsp_lightline_update
     autocmd!
@@ -75,5 +87,6 @@ vim.g.lightline = config
 return {
 	lsp_statusline_errors = lsp_statusline_errors,
 	lsp_statusline_warnings = lsp_statusline_warnings,
-	lsp_statusline_hints = lsp_statusline_hints
+	lsp_statusline_hints = lsp_statusline_hints,
+	smart_file_display = smart_file_display
 }

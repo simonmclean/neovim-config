@@ -32,3 +32,7 @@ endfunction
 function! LspStatuslineHints()
   return luaeval('require("plugin-configs/lightline").lsp_statusline_hints()')
 endfunction
+
+function! StatusLineSmartFilename()
+  return luaeval('require("plugin-configs/lightline").smart_file_display()')
+endfunction
