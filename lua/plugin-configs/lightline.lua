@@ -66,10 +66,11 @@ end
 
 local function smart_file_display()
 	local relative_path = vim.fn.expand('%')
+	local file_name = vim.fn.expand('%:t')
 	local columns = vim.api.nvim_eval('&columns')
 	local space_for_path_string = columns - 50 -- magic number
-	if (vim.o.laststatus == 3 and (string.len(relative_path) > space_for_path_string)) then
-		return vim.fn.expand('%:t')
+	if (vim.o.laststatus ~= 3 or (string.len(relative_path) > space_for_path_string)) then
+		return file_name
 	else
 		return relative_path
 	end
