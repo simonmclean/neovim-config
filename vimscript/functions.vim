@@ -36,3 +36,7 @@ endfunction
 function! StatusLineSmartFilename()
   return luaeval('require("plugin-configs/lightline").smart_file_display()')
 endfunction
+
+function! MetalsStatusLine()
+  return luaeval('require("plugin-configs/lightline").metals_status()')
+endfunction

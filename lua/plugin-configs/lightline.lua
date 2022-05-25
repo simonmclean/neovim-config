@@ -4,7 +4,7 @@ local config = {
 		left = {
 			{ 'mode', 'paste' },
 			{ 'gitbranch', 'readonly', 'filename', 'modified' },
-			-- { 'lsp_errors', 'lsp_warnings', 'lsp_hints', 'metals', 'cocstatus' }
+			{ 'lsp_errors', 'lsp_warnings', 'lsp_hints', 'metals' }
 		},
 		right = {
 			{ 'percent', 'lineinfo' },
@@ -14,7 +14,7 @@ local config = {
 	},
 	component_function = {
 		gitbranch = 'FugitiveHead',
-		metals = 'metals#status',
+		metals = 'MetalsStatusLine',
 		-- cocstatus = 'coc#status',
 		-- currentfunction = 'CocCurrentFunction',
 		filename = 'StatusLineSmartFilename'
@@ -32,36 +32,36 @@ local config = {
 }
 
 local function lsp_statusline_errors()
-	local error_count = vim.diagnostic.get_count(0, 'Error')
-	local error_count_display = error_count
-
-	if (error_count > 0) then
-		return error_count_display
+	local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+	if (count > 0) then
+		return count
 	end
-
 	return ''
 end
 
 local function lsp_statusline_warnings()
-	local warning_count = vim.diagnostic.get_count(0, 'Warning')
-	local warning_count_display = warning_count
-
-	if (warning_count > 0) then
-		return warning_count_display
+	local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+	if (count > 0) then
+		return count
 	end
-
 	return ''
 end
 
 local function lsp_statusline_hints()
-	local hint_count = vim.diagnostic.get_count(0, 'Hint')
-	local hint_count_display = hint_count
-
-	if (hint_count > 0) then
-		return hint_count_display
+	local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+	if (count > 0) then
+		return count
 	end
-
 	return ''
+end
+
+local function metals_status()
+	local status = vim.g.metals_status
+	if (status == '' or status == nil) then
+		return ''
+	else
+		return status
+	end
 end
 
 local function smart_file_display()
@@ -79,7 +79,7 @@ end
 vim.api.nvim_exec([[
   augroup lsp_lightline_update
     autocmd!
-    autocmd User LspDiagnosticsChanged :call lightline#update()
+    autocmd DiagnosticChanged * :call lightline#update()
   augroup END
 ]], false)
 
@@ -89,5 +89,6 @@ return {
 	lsp_statusline_errors = lsp_statusline_errors,
 	lsp_statusline_warnings = lsp_statusline_warnings,
 	lsp_statusline_hints = lsp_statusline_hints,
-	smart_file_display = smart_file_display
+	smart_file_display = smart_file_display,
+	metals_status = metals_status
 }

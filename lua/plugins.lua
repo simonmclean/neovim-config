@@ -1,10 +1,10 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+  execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
   execute 'packadd packer.nvim'
 end
 
@@ -38,7 +38,7 @@ return require('packer').startup(function(use)
         's1n7ax/nvim-window-picker',
         tag = 'v1.*',
         config = function()
-          require'window-picker'.setup({ other_win_hl_color = '#12131b' })
+          require 'window-picker'.setup({ other_win_hl_color = '#12131b' })
         end,
       }
     }
@@ -56,11 +56,14 @@ return require('packer').startup(function(use)
   -- use '~/code/tryptic'
   use {
     'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+    requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
   }
 
-  -- BUILT-IN LSP
-  -- use 'neovim/nvim-lspconfig'
+  -- LSP
+  use 'williamboman/nvim-lsp-installer'
+  use 'neovim/nvim-lspconfig'
+  use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
+
   -- use 'kabouzeid/nvim-lspinstall'
   -- use 'hrsh7th/nvim-cmp'
 
@@ -72,7 +75,7 @@ return require('packer').startup(function(use)
     config = function()
       require("trouble").setup {}
     end
-}
+  }
 
   -- Tree Sitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -105,7 +108,7 @@ return require('packer').startup(function(use)
 
   -- Themes
   use 'mhartington/oceanic-next'
-  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}} -- doesn't yet support airline
+  use { "npxbr/gruvbox.nvim", requires = { "rktjmp/lush.nvim" } } -- doesn't yet support airline
   use 'kyazdani42/blue-moon'
   use 'bluz71/vim-nightfly-guicolors'
   use 'sainnhe/sonokai'
