@@ -28,6 +28,10 @@ return require('packer').startup(function(use)
   -- UI
   use 'itchyny/lightline.vim'
   use {
+     'hrsh7th/nvim-cmp',
+    requires = { 'hrsh7th/vim-vsnip', 'hrsh7th/cmp-nvim-lsp' }
+  }
+  use {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v2.x',
     requires = {
@@ -64,8 +68,6 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
 
-  -- use 'kabouzeid/nvim-lspinstall'
-  -- use 'hrsh7th/nvim-cmp'
 
   -- DEBUGGING
   use 'mfussenegger/nvim-dap'

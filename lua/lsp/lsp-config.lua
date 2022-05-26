@@ -1,3 +1,5 @@
+local cmp_config = require("plugin-configs/cmp")
+
 -- nvim-lsp-installer must be setup before nvim-lspconfig
 -- See https://github.com/williamboman/nvim-lsp-installer#setup
 require("nvim-lsp-installer").setup {}
@@ -43,6 +45,7 @@ for _, lsp in pairs(servers) do
       -- This will be the default in neovim 0.7+
       debounce_text_changes = 150,
     },
+    capabilities = cmp_config.capabilities,
     settings = {
       Lua = {
         diagnostics = {
