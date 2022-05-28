@@ -1,3 +1,4 @@
+local tbl_deep_extend = vim.tbl_deep_extend
 local cmp_config = require("plugin-configs/cmp")
 
 -- nvim-lsp-installer must be setup before nvim-lspconfig
@@ -48,22 +49,22 @@ local servers = {
   'bashls',
   'dockerls'
 }
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
+local config_overrides = {
+  tsserver = require'lsp/tsserver',
+  sumneko_lua = require'lsp/lua'
+}
+for _, language_server in pairs(servers) do
+  local default_config = {
     on_attach = on_attach,
-    flags = {
-      -- This will be the default in neovim 0.7+
-      debounce_text_changes = 150,
-    },
     capabilities = cmp_config.capabilities,
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { 'vim' }
-        }
-      }
-    }
   }
+  local lsp_config = require'lspconfig'[language_server]
+  if (config_overrides[language_server]) then
+    local custom_config = tbl_deep_extend('keep', config_overrides[language_server], default_config)
+    lsp_config.setup(custom_config)
+  else
+    lsp_config.setup(default_config)
+  end
 end
 
 -- Metals is initialized separately, because it's a special snowflake
@@ -76,7 +77,6 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     border = "single"
   }
 )
-
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
   vim.lsp.handlers.signature_help,
   {
