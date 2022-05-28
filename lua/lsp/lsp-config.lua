@@ -49,6 +49,7 @@ local servers = {
   'bashls',
   'dockerls'
 }
+-- These will be merged with a default config in the loop below
 local config_overrides = {
   tsserver = require'lsp/tsserver',
   sumneko_lua = require'lsp/lua'
