@@ -1,22 +1,32 @@
-local execute = vim.api.nvim_command
 local fn = vim.fn
+local packer_bootstrap
 
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  execute 'packadd packer.nvim'
+  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 
-return require('packer').startup(function(use)
+local packer_config = {
+  display = {
+    open_fn = function()
+      return require('packer.util').float({ border = 'single' })
+    end
+  }
+}
+
+return require('packer').startup({ function(use)
+  --------------------------------------------------------------------------
   -- Git
+  --------------------------------------------------------------------------
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
 
+  --------------------------------------------------------------------------
   -- Better editing
+  --------------------------------------------------------------------------
   use 'bkad/camelcasemotion'
   use 'mattn/emmet-vim'
   use 'tpope/vim-abolish'
@@ -25,10 +35,12 @@ return require('packer').startup(function(use)
   use 'tpope/vim-surround'
   use 'windwp/nvim-autopairs'
 
+  --------------------------------------------------------------------------
   -- UI
+  --------------------------------------------------------------------------
   use 'itchyny/lightline.vim'
   use {
-     'hrsh7th/nvim-cmp',
+    'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/vim-vsnip', 'hrsh7th/cmp-nvim-lsp' }
   }
   use {
@@ -47,11 +59,7 @@ return require('packer').startup(function(use)
       }
     }
   }
-  -- use 'preservim/nerdtree'
-  -- use 'Xuyuanp/nerdtree-git-plugin'
   use 'ryanoasis/vim-devicons'
-  -- use 'vim-airline/vim-airline'
-  -- use 'vim-airline/vim-airline-themes'
   use {
     'liuchengxu/vim-which-key',
     cmd = 'WhichKey'
@@ -63,13 +71,16 @@ return require('packer').startup(function(use)
     requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
   }
 
+  --------------------------------------------------------------------------
   -- LSP
+  --------------------------------------------------------------------------
   use 'williamboman/nvim-lsp-installer'
   use 'neovim/nvim-lspconfig'
   use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
 
-
-  -- DEBUGGING
+  --------------------------------------------------------------------------
+  -- Debugging
+  --------------------------------------------------------------------------
   use 'mfussenegger/nvim-dap'
   use {
     "folke/trouble.nvim",
@@ -79,22 +90,14 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- Tree Sitter
+  --------------------------------------------------------------------------
+  -- Treesitter
+  --------------------------------------------------------------------------
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-  -- Language support
-  use 'mustache/vim-mustache-handlebars'
-  use {
-    'styled-components/vim-styled-components',
-    branch = 'main'
-  }
-  -- use 'scalameta/nvim-metals'
-  use 'derekwyatt/vim-scala'
-  use 'vim-scripts/svg.vim'
-  use 'hashivim/vim-terraform'
-  use 'purescript-contrib/purescript-vim'
-
+  --------------------------------------------------------------------------
   -- Utils
+  --------------------------------------------------------------------------
   use 'heavenshell/vim-jsdoc'
   use 'tpope/vim-eunuch'
   use 'tpope/vim-sensible'
@@ -108,7 +111,9 @@ return require('packer').startup(function(use)
     end,
   }
 
+  --------------------------------------------------------------------------
   -- Themes
+  --------------------------------------------------------------------------
   use 'mhartington/oceanic-next'
   use { "npxbr/gruvbox.nvim", requires = { "rktjmp/lush.nvim" } } -- doesn't yet support airline
   use 'kyazdani42/blue-moon'
@@ -118,4 +123,8 @@ return require('packer').startup(function(use)
   use 'tjdevries/colorbuddy.vim'
   use 'bkegley/gloombuddy'
   use 'folke/tokyonight.nvim'
-end)
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end, config = packer_config })
