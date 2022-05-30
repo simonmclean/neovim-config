@@ -73,16 +73,10 @@ end
 -- Metals is initialized separately, because it's a special snowflake
 require("lsp/metals")(on_attach)
 
--- Adding pretty borders to things
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = "single"
-  }
-)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = "single"
-  }
-)
+-- Add border to all LSP popups
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = 'single'
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
