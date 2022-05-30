@@ -39,18 +39,20 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-  'tsserver',
-  'sumneko_lua',
-  'graphql',
-  'vimls',
-  'remark_ls',
-  'jsonls',
-  'html',
   'bashls',
-  'dockerls'
+  'dockerls',
+  'eslint',
+  'graphql',
+  'html',
+  'jsonls',
+  'remark_ls',
+  'sumneko_lua',
+  'tsserver',
+  'vimls',
 }
 -- These will be merged with a default config in the loop below
 local config_overrides = {
+  eslint = require'lsp/eslint',
   tsserver = require'lsp/tsserver',
   sumneko_lua = require'lsp/lua'
 }
