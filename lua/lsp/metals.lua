@@ -4,9 +4,10 @@ local function metals_setup(on_attach)
   local api = vim.api
 
   metals_config.settings = {
-    showImplicitArguments = true,
+    showImplicitArguments             = true,
     showImplicitConversionsAndClasses = true,
-    showInferredType = true,
+    showInferredType                  = true,
+    fallbackScalaVersion              = "2.13.5"
     -- excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
   }
 
