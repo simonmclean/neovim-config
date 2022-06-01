@@ -1,11 +1,9 @@
 -- Global config
+require('bootstrap')
 require('plugins')
-require('settings')
-require('functions')
-require('mappings')
 
 -- Vimscript stuff (TODO: Port this over to lua)
-vim.cmd('source ~/.config/nvim/vimscript/index.vim')
+vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 
 -- Plugin configs
 require('plugin-configs/telescope')
@@ -16,9 +14,7 @@ require('plugin-configs/emmet')
 require('plugin-configs/indentline')
 require('plugin-configs/whichkey')
 require('plugin-configs/lightline')
--- require('plugin-configs/metals')
 require('plugin-configs/treesitter')
 require('plugin-configs/autopairs')
 require('plugin-configs/neo-tree')
--- require('plugin-configs/nerdtree')
 require('lsp/lsp-config')
