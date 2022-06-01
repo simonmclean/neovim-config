@@ -35,6 +35,16 @@ vim.wo.relativenumber=true
 vim.wo.wrap=false
 
 --------------------------------------------------------------------------
+-- Functions
+--------------------------------------------------------------------------
+
+local function CheckoutLatestMain()
+  local main_branch = vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
+  main_branch = main_branch:gsub("%s+", "")
+  vim.api.nvim_exec('Git checkout ' .. main_branch .. ' | Git fetch --prune | Git pull', false)
+end
+
+--------------------------------------------------------------------------
 -- Custom commands
 --------------------------------------------------------------------------
 
@@ -48,9 +58,7 @@ create_cmd('Source', ':luafile ~/.config/nvim/init.lua', {})
 create_cmd('Config', ':e ~/.config/nvim/init.lua', {})
 
 -- Checkout up-to-date master branch
--- TODO: Change this to a single function which identifies the main branch
-create_cmd('Master', ':Git checkout master | Git fetch --prune | Git pull', {})
-create_cmd('Main', ':Git checkout main | Git fetch --prune | Git pull', {})
+create_cmd('Main', CheckoutLatestMain, {})
 
 -- Restore previous session for the current directory
 create_cmd('Restore', function() require 'persistence'.load() end, {})
