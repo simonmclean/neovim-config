@@ -38,7 +38,10 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   -- UI
   --------------------------------------------------------------------------
-  use 'itchyny/lightline.vim'
+  use {
+    'nvim-lualine/lualine.nvim',
+    require = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
   use {
     'hrsh7th/nvim-cmp',
     requires = {
