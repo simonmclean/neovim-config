@@ -1,4 +1,4 @@
-local function metals_setup(on_attach)
+local function metals_setup(on_attach, capabilities)
   local metals_config = require("metals").bare_config()
 
   local api = vim.api
@@ -14,6 +14,7 @@ local function metals_setup(on_attach)
   metals_config.init_options.statusBarProvider = 'on'
 
   metals_config.on_attach = on_attach
+  metals_config.capabilities = capabilities
 
   -- Autocmd that will actually be in charging of starting the whole thing
   local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
