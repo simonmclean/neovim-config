@@ -38,22 +38,23 @@ require('lualine').setup {
         'filename',
         path = 1, -- relative path
       },
-      -- TODO: The color option on these lsp_diagnostics_count components doesn't work
+      -- TODO: Get these colours programatically from highlight groups, instead of hardcoding
+      -- Also fix issue of light text on light background
       {
         lsp_diagnostics_count("INFO"),
-        { color = { bg = "#4287f5" } }
+        color = { bg = "#0db9d7" }
       },
       {
         lsp_diagnostics_count("HINT"),
-        { color = { bg = "#4287f5" } }
+        color = { bg = "#1abc9c" }
       },
       {
         lsp_diagnostics_count("WARN"),
-        { color = { bg = "#4287f5" } }
+        color = { bg = "#e0af68" }
       },
       {
         lsp_diagnostics_count("ERROR"),
-        { color = 'DiagnosticError' }
+        color = { bg = '#db4b4b' }
       },
       metals_status
     },
