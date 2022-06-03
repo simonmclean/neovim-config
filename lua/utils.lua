@@ -20,4 +20,13 @@ function M.get_highlight_value(highlight_name)
   return M.last(key_value_pair)
 end
 
+function M.vim_exec(cmds, capture_return)
+  local result = vim.api.nvim_exec(cmds)
+  if (capture_return) then
+    return result
+  else
+    return nil
+  end
+end
+
 return M

@@ -1,3 +1,7 @@
+local utils = require'utils'
+
+local vim_exec = utils.vim_exec
+
 --------------------------------------------------------------------------
 -- Settings
 --------------------------------------------------------------------------
@@ -19,29 +23,29 @@ vim.g.lightline = { colorscheme = 'tokyonight' }
 vim.cmd("colorscheme tokyonight")
 
 -- General options
-vim.o.laststatus=3
-vim.o.clipboard='unnamed'
-vim.o.ignorecase=true
-vim.o.smartcase=true
-vim.o.showcmd=true
-vim.o.showmode=false -- the mode is already displayed in the statusline
-vim.o.hidden=true
+vim.o.laststatus = 3
+vim.o.clipboard = 'unnamed'
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.showcmd = true
+vim.o.showmode = false -- the mode is already displayed in the statusline
+vim.o.hidden = true
 
 -- Window options
-vim.wo.signcolumn='yes'
-vim.wo.cursorline=true
-vim.wo.number=true
-vim.wo.relativenumber=true
-vim.wo.wrap=false
+vim.wo.signcolumn = 'yes'
+vim.wo.cursorline = true
+vim.wo.number = true
+vim.wo.relativenumber = true
+vim.wo.wrap = false
 
 --------------------------------------------------------------------------
 -- Functions
 --------------------------------------------------------------------------
 
-local function CheckoutLatestMain()
+local function checkout_latest_master()
   local main_branch = vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
   main_branch = main_branch:gsub("%s+", "")
-  vim.api.nvim_exec('Git checkout ' .. main_branch .. ' | Git fetch --prune | Git pull', false)
+  vim_exec('Git checkout ' .. main_branch .. ' | Git fetch --prune | Git pull', false)
 end
 
 --------------------------------------------------------------------------
@@ -58,7 +62,7 @@ create_cmd('Source', ':luafile ~/.config/nvim/init.lua', {})
 create_cmd('Config', ':e ~/.config/nvim/init.lua', {})
 
 -- Checkout up-to-date master branch
-create_cmd('Main', CheckoutLatestMain, {})
+create_cmd('Main', checkout_latest_master, {})
 
 -- Restore previous session for the current directory
 create_cmd('Restore', function() require 'persistence'.load() end, {})

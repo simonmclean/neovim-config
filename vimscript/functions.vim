@@ -20,23 +20,3 @@ function! ReplaceMotion(type)
 
   let &selection = sel_save
 endfunction
-
-function! LspStatuslineErrors()
-  return luaeval('require("plugin-configs/lightline").lsp_statusline_errors()')
-endfunction
-
-function! LspStatuslineWarnings()
-  return luaeval('require("plugin-configs/lightline").lsp_statusline_warnings()')
-endfunction
-
-function! LspStatuslineHints()
-  return luaeval('require("plugin-configs/lightline").lsp_statusline_hints()')
-endfunction
-
-function! StatusLineSmartFilename()
-  return luaeval('require("plugin-configs/lightline").smart_file_display()')
-endfunction
-
-function! MetalsStatusLine()
-  return luaeval('require("plugin-configs/lightline").metals_status()')
-endfunction
