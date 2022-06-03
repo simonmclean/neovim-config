@@ -46,7 +46,6 @@ local servers = {
   'graphql',
   'html',
   'jsonls',
-  'remark_ls',
   'sumneko_lua',
   'tsserver',
   'vimls',
