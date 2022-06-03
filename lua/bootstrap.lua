@@ -1,4 +1,4 @@
-local utils = require'utils'
+local utils = require 'utils'
 
 local vim_exec = utils.vim_exec
 
@@ -48,6 +48,16 @@ local function checkout_latest_master()
   vim_exec('Git checkout ' .. main_branch .. ' | Git fetch --prune | Git pull')
 end
 
+local function git_push_new_remote()
+  local current_branch_name = vim.fn.system('git rev-parse --abbrev-ref HEAD')
+  local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
+  if string.find(upstream_status, 'fatal: no upstream') then
+    vim_exec('Git push -u origin ' .. current_branch_name)
+  else
+    print("Error: Remote branch already exists")
+  end
+end
+
 --------------------------------------------------------------------------
 -- Custom commands
 --------------------------------------------------------------------------
@@ -63,6 +73,9 @@ create_cmd('Config', ':e ~/.config/nvim/init.lua', {})
 
 -- Checkout up-to-date master branch
 create_cmd('Main', checkout_latest_master, {})
+
+-- Push new branch
+create_cmd('PushNew', git_push_new_remote, {})
 
 -- Restore previous session for the current directory
 create_cmd('Restore', function() require 'persistence'.load() end, {})

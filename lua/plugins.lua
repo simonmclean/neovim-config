@@ -84,6 +84,7 @@ return require('packer').startup({ function(use)
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
   }
+
   --------------------------------------------------------------------------
   -- LSP
   --------------------------------------------------------------------------

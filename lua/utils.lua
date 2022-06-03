@@ -23,7 +23,7 @@ end
 
 --- Wrapper around vim.api.nvim_exec where the 2nd arg defaults to false
 function M.vim_exec(cmds, capture_return)
-  local result = vim.api.nvim_exec(cmds)
+  local result = vim.api.nvim_exec(cmds, true)
   if (capture_return) then
     return result
   else
