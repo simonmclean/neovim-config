@@ -12,6 +12,10 @@ function M.last(list)
   return list[#list]
 end
 
+function M.remove_linebreaks(str)
+  return str:gsub("[\n\r]", "")
+end
+
 --- Gets the guifg value for a given highlight
 function M.get_highlight_value(highlight_name)
   local h = vim.api.nvim_exec('hi ' .. highlight_name, true)

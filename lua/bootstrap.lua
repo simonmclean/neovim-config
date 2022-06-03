@@ -49,10 +49,11 @@ local function checkout_latest_master()
 end
 
 local function git_push_new_remote()
-  local current_branch_name = vim.fn.system('git rev-parse --abbrev-ref HEAD')
+  vim.cmd('Git fetch')
+  local current_branch_name = utils.remove_linebreaks(vim.fn.system('git rev-parse --abbrev-ref HEAD'))
   local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
   if string.find(upstream_status, 'fatal: no upstream') then
-    vim_exec('Git push -u origin ' .. current_branch_name)
+    vim.cmd('Git push -u origin ' .. current_branch_name)
   else
     print("Error: Remote branch already exists")
   end
@@ -90,7 +91,7 @@ local create_abbr = function(abbr, cmd)
 end
 
 create_abbr('clog', [[console.log();<Left><Left><C-R>=Eatchar('\s')<CR>]])
-create_abbr('vpp', [[vim.pretty_print();<Left><Left><C-R>=Eatchar('\s')<CR>]])
+create_abbr('vpp', [[vim.pretty_print()<Left><C-R>=Eatchar('\s')<CR>]])
 
 --------------------------------------------------------------------------
 -- Autocommands
