@@ -49,11 +49,11 @@ local function checkout_latest_master()
 end
 
 local function git_push_new_remote()
-  vim.cmd('Git fetch')
+  vim.api.nvim_command('Git fetch')
   local current_branch_name = utils.remove_linebreaks(vim.fn.system('git rev-parse --abbrev-ref HEAD'))
   local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
   if string.find(upstream_status, 'fatal: no upstream') then
-    vim.cmd('Git push -u origin ' .. current_branch_name)
+    vim.api.nvim_command('Git push -u origin ' .. current_branch_name)
   else
     print("Error: Remote branch already exists")
   end
