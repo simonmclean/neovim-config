@@ -45,7 +45,7 @@ vim.wo.wrap = false
 local function checkout_latest_master()
   local main_branch = vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
   main_branch = main_branch:gsub("%s+", "")
-  vim_exec('Git checkout ' .. main_branch .. ' | Git fetch --prune | Git pull', false)
+  vim_exec('Git checkout ' .. main_branch .. ' | Git fetch --prune | Git pull')
 end
 
 --------------------------------------------------------------------------
@@ -90,8 +90,7 @@ local create_autocmd = vim.api.nvim_create_autocmd
 -- Remove trailing whitespace on save
 create_autocmd('BufWritePre', {
   callback = function()
-    print('boom')
-    vim.api.nvim_exec([[%s/\s\+$//e]], false)
+    vim_exec([[%s/\s\+$//e]])
   end,
   group = 'SimonMcLeanBootstrap'
 })
