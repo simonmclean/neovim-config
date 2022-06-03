@@ -1,3 +1,5 @@
+local utils = require 'utils'
+
 local function metals_status()
   local status = vim.g.metals_status
   if (status == '' or status == nil) then
@@ -7,15 +9,31 @@ local function metals_status()
   end
 end
 
+local highlight_map = {
+  ERROR = { 'DiagnosticError', 'StatusLine' },
+  WARN = { 'DiagnosticWarn', 'StatusLine' },
+  INFO = { 'DiagnosticInfo', 'StatusLine' },
+  HINT = { 'DiagnosticHint', 'StatusLine' },
+}
+
 -- diagnostic_type can be one of ERROR, WARN, INFO, HINT
-local function lsp_diagnostics_count(diagnostic_type)
-  return function()
+local function lsp_diagnostics_count_component(diagnostic_type)
+  local function component()
     local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[diagnostic_type] })
     if (count > 0) then
       return count
     end
     return ''
   end
+
+  local colors = highlight_map[diagnostic_type]
+  local bg_color = utils.get_highlight_value(colors[1])
+  local fg_color = utils.get_highlight_value(colors[2])
+
+  return {
+    component,
+    color = { fg = fg_color, bg = bg_color }
+  }
 end
 
 require('lualine').setup {
@@ -38,24 +56,10 @@ require('lualine').setup {
         'filename',
         path = 1, -- relative path
       },
-      -- TODO: Get these colours programatically from highlight groups, instead of hardcoding
-      -- Also fix issue of light text on light background
-      {
-        lsp_diagnostics_count("INFO"),
-        color = { bg = "#0db9d7" }
-      },
-      {
-        lsp_diagnostics_count("HINT"),
-        color = { bg = "#1abc9c" }
-      },
-      {
-        lsp_diagnostics_count("WARN"),
-        color = { bg = "#e0af68" }
-      },
-      {
-        lsp_diagnostics_count("ERROR"),
-        color = { bg = '#db4b4b' }
-      },
+      lsp_diagnostics_count_component("INFO"),
+      lsp_diagnostics_count_component("HINT"),
+      lsp_diagnostics_count_component("WARN"),
+      lsp_diagnostics_count_component("ERROR"),
       metals_status
     },
     lualine_x = {},

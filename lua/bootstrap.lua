@@ -73,6 +73,7 @@ local create_abbr = function(abbr, cmd)
 end
 
 create_abbr('clog', [[console.log();<Left><Left><C-R>=Eatchar('\s')<CR>]])
+create_abbr('vpp', [[vim.pretty_print();<Left><Left><C-R>=Eatchar('\s')<CR>]])
 
 --------------------------------------------------------------------------
 -- Autocommands
