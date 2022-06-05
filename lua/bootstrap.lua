@@ -151,6 +151,9 @@ map('n', '<leader>j', ':call append(line("."), "")<cr>', silent)
 map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', silent)
 
 -- Exclude block navigation from the jumplist
--- TODO: Write this binding using lua instead of vimscript
 vim.cmd('nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>')
 vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>')
+
+-- Shortcut for substitute
+map('n', '<leader>/', ':%s/')
+map('v', '<leader>/', ':s/')
