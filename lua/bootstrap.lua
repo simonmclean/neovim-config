@@ -107,10 +107,24 @@ create_autocmd('BufWritePre', {
 })
 
 -- Disable cursorline in quickfix
-create_autocmd('Filetype', {
+create_autocmd('FileType', {
   pattern = 'qf',
   command = 'setlocal nocursorline',
   group = my_augroup
+})
+
+-- Auto install treesitter parsers
+create_autocmd('FileType', {
+  group = my_augroup,
+  callback = function()
+    local parsers = require 'nvim-treesitter.parsers'
+    local lang = parsers.get_buf_lang()
+    if (parsers.get_parser_configs()[lang] and not parsers.has_parser(lang)) then
+      vim.schedule_wrap(function()
+        vim.cmd('TSInstall ' .. lang)
+      end)
+    end
+  end
 })
 
 --------------------------------------------------------------------------
