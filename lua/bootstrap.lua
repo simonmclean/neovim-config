@@ -45,15 +45,15 @@ vim.wo.wrap = false
 local function checkout_latest_master()
   local main_branch = vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
   main_branch = main_branch:gsub("%s+", "")
-  vim_exec('Git checkout ' .. main_branch .. ' | Git fetch --prune | Git pull')
+  vim.cmd('Git checkout ' .. main_branch .. ' | Git fetch --prune | Git pull', true)
 end
 
 local function git_push_new_remote()
-  vim.api.nvim_command('Git fetch')
+  vim.cmd('Git fetch')
   local current_branch_name = utils.remove_linebreaks(vim.fn.system('git rev-parse --abbrev-ref HEAD'))
   local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
   if string.find(upstream_status, 'fatal: no upstream') then
-    vim.api.nvim_command('Git push -u origin ' .. current_branch_name)
+    vim.cmd('Git push -u origin ' .. current_branch_name)
   else
     print("Error: Remote branch already exists")
   end
