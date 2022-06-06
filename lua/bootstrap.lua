@@ -78,9 +78,6 @@ create_cmd('Main', checkout_latest_master, {})
 -- Push new branch
 create_cmd('PushNew', git_push_new_remote, {})
 
--- Restore previous session for the current directory
-create_cmd('Restore', function() require 'persistence'.load() end, {})
-
 --------------------------------------------------------------------------
 -- Abbreviations
 --------------------------------------------------------------------------
@@ -97,7 +94,7 @@ create_abbr('vpp', [[vim.pretty_print()<Left><C-R>=Eatchar('\s')<CR>]])
 -- Autocommands
 --------------------------------------------------------------------------
 
-vim.api.nvim_create_augroup("SimonMcLeanBootstrap", { clear = true })
+local my_augroup = vim.api.nvim_create_augroup("SimonMcLeanBootstrap", { clear = true })
 
 local create_autocmd = vim.api.nvim_create_autocmd
 
@@ -106,14 +103,14 @@ create_autocmd('BufWritePre', {
   callback = function()
     vim_exec([[%s/\s\+$//e]])
   end,
-  group = 'SimonMcLeanBootstrap'
+  group = my_augroup
 })
 
 -- Disable cursorline in quickfix
 create_autocmd('Filetype', {
   pattern = 'qf',
   command = 'setlocal nocursorline',
-  group = 'SimonMcLeanBootstrap'
+  group = my_augroup
 })
 
 --------------------------------------------------------------------------
