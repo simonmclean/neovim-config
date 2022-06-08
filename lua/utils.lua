@@ -35,4 +35,12 @@ function M.vim_exec(cmds, capture_return)
   end
 end
 
+---Check if a target directory exists in a given table
+function M.dir_list_includes(dir, dirs_table)
+  local dir_expanded = vim.fn.expand(dir)
+  return dirs_table and next(vim.tbl_filter(function(pattern)
+    return dir_expanded:match(vim.fn.expand(pattern))
+  end, dirs_table))
+end
+
 return M

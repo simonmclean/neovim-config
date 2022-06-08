@@ -166,3 +166,6 @@ vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<C
 -- Shortcut for substitute
 map('n', '<leader>/', ':%s/')
 map('v', '<leader>/', ':s/')
+
+-- Persisted sessions
+map('n', '<leader>s', ':Telescope persisted<CR>')

@@ -116,14 +116,7 @@ return require('packer').startup({ function(use)
   use 'tpope/vim-eunuch'
   use 'tpope/vim-sensible'
   use 'tpope/vim-sleuth'
-  use {
-    "folke/persistence.nvim",
-    event = "BufReadPre",
-    module = "persistence",
-    config = function()
-      require("persistence").setup()
-    end,
-  }
+  use 'olimorris/persisted.nvim'
 
   --------------------------------------------------------------------------
   -- Themes
