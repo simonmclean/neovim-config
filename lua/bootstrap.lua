@@ -12,15 +12,13 @@ vim.cmd('set termguicolors')
 vim.cmd('set shortmess-=F')
 
 -- Colourscheme theme
--- vim.cmd('let g:lightline = {"colorscheme": "blue-moon"}')
 -- vim.cmd('colorscheme blue-moon')
--- vim.cmd('let g:lightline = {"colorscheme": "nightfly"}')
 -- vim.cmd('colorscheme nightfly')
--- vim.g.lightline = { colorscheme = 'sonokai' }
 -- vim.g.sonokai_style = 'maia'
 -- vim.g.colors_name = 'sonokai'
-vim.g.lightline = { colorscheme = 'tokyonight' }
-vim.cmd("colorscheme tokyonight")
+-- vim.cmd("colorscheme tokyonight")
+vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+vim.cmd('colorscheme catppuccin')
 
 -- General options
 vim.o.laststatus = 3

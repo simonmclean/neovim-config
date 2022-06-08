@@ -137,6 +137,10 @@ return require('packer').startup({ function(use)
   use 'tjdevries/colorbuddy.vim'
   use 'bkegley/gloombuddy'
   use 'folke/tokyonight.nvim'
+  use {
+    "catppuccin/nvim",
+    as = "catppuccin"
+  }
 
   if packer_bootstrap then
     require('packer').sync()
