@@ -7,6 +7,8 @@ return {
     "typescript",
     "typescriptreact",
     "typescript.tsx",
-    "vue"
+    "vue",
+    "yaml",
+    "json"
   }
 }
