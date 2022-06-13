@@ -40,7 +40,7 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'catppuccin',
-    component_separators = '|',
+    component_separators = { left = nil, right = nil },
     section_separators = { left = nil, right = nil },
     disabled_filetypes = {},
     always_divide_middle = true,
@@ -49,12 +49,22 @@ require('lualine').setup {
   sections = {
     lualine_a = { 'mode' },
     lualine_b = {
-      { 'branch', icons_enabled = false }
+      {
+        'branch',
+        icons_enabled = false,
+        color = 'StatusLine'
+      }
     },
     lualine_c = {
+      '%=',
       {
+        'filetype',
+        icon_only = true
+      },
+      {
+
         'filename',
-        path = 1, -- relative path
+        path = 0,
       },
       lsp_diagnostics_count_component("INFO"),
       lsp_diagnostics_count_component("HINT"),
@@ -63,8 +73,8 @@ require('lualine').setup {
       metals_status
     },
     lualine_x = {},
-    lualine_y = { 'filetype' },
-    lualine_z = { 'location' }
+    lualine_y = {},
+    lualine_z = { 'progress', 'location' }
   },
   tabline = {},
   extensions = {}
