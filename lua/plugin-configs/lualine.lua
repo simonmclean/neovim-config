@@ -10,10 +10,10 @@ local function metals_status()
 end
 
 local highlight_map = {
-  ERROR = { 'DiagnosticError', 'StatusLine' },
-  WARN = { 'DiagnosticWarn', 'StatusLine' },
-  INFO = { 'DiagnosticInfo', 'StatusLine' },
-  HINT = { 'DiagnosticHint', 'StatusLine' },
+  ERROR = 'DiagnosticError',
+  WARN = 'DiagnosticWarn',
+  INFO = 'DiagnosticInfo',
+  HINT = 'DiagnosticHint',
 }
 
 -- diagnostic_type can be one of ERROR, WARN, INFO, HINT
@@ -26,13 +26,11 @@ local function lsp_diagnostics_count_component(diagnostic_type)
     return ''
   end
 
-  local colors = highlight_map[diagnostic_type]
-  local bg_color = utils.get_highlight_value(colors[1])
-  local fg_color = utils.get_highlight_value(colors[2])
+  local colors = utils.get_highlight_value(highlight_map[diagnostic_type])
 
   return {
     component,
-    color = { fg = fg_color, bg = bg_color }
+    color = { fg = colors.fg, bg = colors.bg }
   }
 end
 

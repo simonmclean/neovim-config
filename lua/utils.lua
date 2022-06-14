@@ -20,9 +20,12 @@ end
 function M.get_highlight_value(highlight_name)
   local h = vim.api.nvim_exec('hi ' .. highlight_name, true)
   local h_list = M.split_string(h, ' ')
-  local guifg = M.last(h_list)
-  local key_value_pair = M.split_string(guifg, '=')
-  return M.last(key_value_pair)
+  local guifg = h_list[5]
+  local guibg = h_list[6]
+  return {
+    fg = M.last(M.split_string(guifg, '=')),
+    bg = M.last(M.split_string(guibg, '=')),
+  }
 end
 
 --- Wrapper around vim.api.nvim_exec where the 2nd arg defaults to false
