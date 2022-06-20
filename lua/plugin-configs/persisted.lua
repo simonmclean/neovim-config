@@ -38,9 +38,11 @@ require("persisted").setup({
       vim.cmd("silent bufdo bwipeout")
       -- Stop current LSPs
       vim.lsp.stop_client(vim.lsp.get_active_clients())
-      -- Clear metals status line text
-      vim.g.metals_status = nil
     end,
+    after_source = function()
+      -- Clear metals status line text
+      vim.schedule(function() vim.g.metals_status = nil end)
+    end
   },
 })
 

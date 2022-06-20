@@ -26,11 +26,24 @@ local function lsp_diagnostics_count_component(diagnostic_type)
     return ''
   end
 
-  local colors = utils.get_highlight_value(highlight_map[diagnostic_type])
+  local hightlight_name = highlight_map[diagnostic_type]
+  local highlight_colors = utils.get_highlight_values(hightlight_name)
+  local bg, fg
+
+  -- Try using the diagnostic color's foreground and background colors.
+  -- If there is no background color for this theme, then use the foreground as the background,
+  -- and use the StatusLine background as the foreground. So basically an inverted colorscheme
+  if highlight_colors.background then
+    bg = highlight_colors.background
+    fg = highlight_colors.foreground
+  else
+    bg = highlight_colors.foreground
+    fg = utils.get_highlight_values('StatusLine').background
+  end
 
   return {
     component,
-    color = { fg = colors.fg, bg = colors.bg }
+    color = { fg = fg, bg = bg }
   }
 end
 

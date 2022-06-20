@@ -16,16 +16,23 @@ function M.remove_linebreaks(str)
   return str:gsub("[\n\r]", "")
 end
 
---- Gets the guifg value for a given highlight
-function M.get_highlight_value(highlight_name)
-  local h = vim.api.nvim_exec('hi ' .. highlight_name, true)
-  local h_list = M.split_string(h, ' ')
-  local guifg = h_list[5]
-  local guibg = h_list[6]
-  return {
-    fg = M.last(M.split_string(guifg, '=')),
-    bg = M.last(M.split_string(guibg, '=')),
-  }
+function M.dec_to_hex(n, chars)
+  chars = chars or 6
+  local hex = string.format("%0" .. chars .. "x", n)
+  while #hex < chars do
+    hex = "0" .. hex
+  end
+  return hex
+end
+
+function M.get_highlight_values(highlight_name)
+  local highlight_map = vim.api.nvim_get_hl_by_name(highlight_name, true)
+  for key, value in pairs(highlight_map) do
+    if (key == 'foreground' or key == 'background') then
+      highlight_map[key] = M.dec_to_hex(value)
+    end
+  end
+  return highlight_map
 end
 
 --- Wrapper around vim.api.nvim_exec where the 2nd arg defaults to false
