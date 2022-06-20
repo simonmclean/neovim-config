@@ -62,7 +62,7 @@ require('lualine').setup {
     lualine_b = {
       {
         'branch',
-        icons_enabled = false,
+        icon = '  ',
         color = 'StatusLine'
       }
     },
