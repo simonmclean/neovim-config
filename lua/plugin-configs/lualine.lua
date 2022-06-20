@@ -75,7 +75,7 @@ require('lualine').setup {
       {
 
         'filename',
-        path = 0,
+        path = 1,
       },
       lsp_diagnostics_count_component("INFO"),
       lsp_diagnostics_count_component("HINT"),
