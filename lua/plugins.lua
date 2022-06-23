@@ -17,6 +17,8 @@ local packer_config = {
 }
 
 return require('packer').startup({ function(use)
+  use 'wbthomason/packer.nvim'
+
   --------------------------------------------------------------------------
   -- Git
   --------------------------------------------------------------------------
@@ -38,10 +40,8 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   -- UI
   --------------------------------------------------------------------------
-  use {
-    'nvim-lualine/lualine.nvim',
-    require = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
+  use 'nvim-lualine/lualine.nvim'
+  use 'kyazdani42/nvim-web-devicons'
   use {
     'hrsh7th/nvim-cmp',
     requires = {

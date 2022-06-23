@@ -25,6 +25,7 @@ require('plugin-configs/treesitter')
 require('plugin-configs/autopairs')
 require('plugin-configs/neo-tree')
 require('plugin-configs/persisted')
+require('plugin-configs/web-devicons')
 
 --------------------------------------------------------------------------
 -- LSP config
