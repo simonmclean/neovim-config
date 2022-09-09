@@ -47,6 +47,24 @@ local function lsp_diagnostics_count_component(diagnostic_type)
   }
 end
 
+local function project_directory_component()
+  local function component()
+    local path = vim.fn.getcwd()
+    local parts = utils.split_string(path, '/')
+    return utils.last(parts)
+  end
+
+  return {
+    component,
+    icon = '  ',
+    color = 'StatusLine',
+    -- on_click won't work until neovim 0.8
+    on_click = function()
+      require('telescope.builtin').find_files()
+    end
+  }
+end
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -60,14 +78,18 @@ require('lualine').setup {
   sections = {
     lualine_a = { 'mode' },
     lualine_b = {
+      project_directory_component(),
       {
         'branch',
-        icon = '  ',
-        color = 'StatusLine'
-      }
+        icon = ' ',
+        color = 'StatusLine',
+        -- on_click won't work until neovim 0.8
+        on_click = function()
+          require('telescope.builtin').git_branches()
+        end
+      },
     },
     lualine_c = {
-      '%=',
       {
         'filetype',
         icon_only = true
@@ -75,7 +97,7 @@ require('lualine').setup {
       {
 
         'filename',
-        path = 1,
+        path = 0,
       },
       lsp_diagnostics_count_component("INFO"),
       lsp_diagnostics_count_component("HINT"),
