@@ -1,7 +1,8 @@
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    install_path })
   vim.cmd [[packadd packer.nvim]]
 end
 
@@ -77,7 +78,9 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   -- LSP
   --------------------------------------------------------------------------
-  use 'williamboman/nvim-lsp-installer'
+  use "williamboman/mason.nvim"
+  use "williamboman/mason-lspconfig.nvim"
+  use 'jose-elias-alvarez/null-ls.nvim'
   use 'neovim/nvim-lspconfig'
   use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
 
