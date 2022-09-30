@@ -57,6 +57,12 @@ local function git_push_new_remote()
   end
 end
 
+local function lua_input_box()
+  vim.ui.input({ prompt = 'Enter lua to evaluate: ', completion = 'command' }, function(input)
+    vim.cmd('lua vim.pretty_print(' .. input .. ')')
+  end)
+end
+
 --------------------------------------------------------------------------
 -- Custom commands
 --------------------------------------------------------------------------
@@ -75,6 +81,8 @@ create_cmd('Main', checkout_latest_master, {})
 
 -- Push new branch
 create_cmd('PushNew', git_push_new_remote, {})
+
+create_cmd('Lua', lua_input_box, {})
 
 --------------------------------------------------------------------------
 -- Abbreviations
