@@ -1,6 +1,7 @@
 local cmp = require 'cmp'
 
 vim.o.completeopt = 'menu,menuone,noselect'
+vim.g.vsnip_snippet_dir = '~/.config/nvim/vsnip'
 
 cmp.setup({
 	preselect = false,
@@ -26,7 +27,7 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
-		-- { name = 'vsnip' }, -- For vsnip users.
+		{ name = 'vsnip' }, -- For vsnip users.
 		-- { name = 'luasnip' }, -- For luasnip users.
 		-- { name = 'ultisnips' }, -- For ultisnips users.
 		-- { name = 'snippy' }, -- For snippy users.

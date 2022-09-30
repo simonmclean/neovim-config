@@ -2,7 +2,7 @@ local utils = require 'utils'
 
 local function metals_status()
   local status = vim.g.metals_status
-  if (status == '' or status == nil) then
+  if (status == '' or status == nil or type(status) == "table") then
     return ''
   else
     return status
