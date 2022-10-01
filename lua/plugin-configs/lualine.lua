@@ -64,7 +64,7 @@ local function project_directory_component()
   }
 end
 
-local winbar_color = 'cleared'
+local winbar_color = 'Normal'
 
 -- TODO: Figure out how to use this icon component in
 -- conjunction with the 'cleared' highlight color
@@ -82,7 +82,18 @@ local filename = {
 
 local spacer = { '%=', color = winbar_color }
 
-local winbar = { spacer, filename, spacer }
+local winbar = {
+  lualine_a = {
+    spacer,
+    filetype_icon,
+    filename,
+    lsp_diagnostics_count_component("INFO"),
+    lsp_diagnostics_count_component("HINT"),
+    lsp_diagnostics_count_component("WARN"),
+    lsp_diagnostics_count_component("ERROR"),
+    spacer,
+  }
+}
 
 require('lualine').setup {
   options = {
@@ -96,12 +107,8 @@ require('lualine').setup {
     always_divide_middle = true,
     globalstatus = true,
   },
-  winbar = {
-    lualine_a = winbar
-  },
-  inactive_winbar = {
-    lualine_a = winbar
-  },
+  winbar = winbar,
+  inactive_winbar = winbar,
   sections = {
     lualine_a = { 'mode' },
     lualine_b = {
@@ -116,10 +123,6 @@ require('lualine').setup {
       },
     },
     lualine_c = {
-      lsp_diagnostics_count_component("INFO"),
-      lsp_diagnostics_count_component("HINT"),
-      lsp_diagnostics_count_component("WARN"),
-      lsp_diagnostics_count_component("ERROR"),
       metals_status
     },
     lualine_x = {},
@@ -136,5 +139,8 @@ require('lualine').setup {
     }
   },
   tabline = {},
-  extensions = {}
+  extensions = {},
+  refresh = {
+    winbar = 500
+  }
 }
