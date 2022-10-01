@@ -2,10 +2,10 @@ local utils = require 'utils'
 
 local function metals_status()
   local status = vim.g.metals_status
-  if (status == '' or status == nil or type(status) == "table") then
-    return ''
-  else
+  if (type(status) == 'string') then
     return status
+  else
+    return ''
   end
 end
 
@@ -58,12 +58,31 @@ local function project_directory_component()
     component,
     icon = '  ',
     color = 'StatusLine',
-    -- on_click won't work until neovim 0.8
     on_click = function()
       require('telescope.builtin').find_files()
     end
   }
 end
+
+local winbar_color = 'cleared'
+
+-- TODO: Figure out how to use this icon component in
+-- conjunction with the 'cleared' highlight color
+local filetype_icon = {
+  'filetype',
+  icon_only = true,
+  color = winbar_color
+}
+
+local filename = {
+  'filename',
+  path = 0,
+  color = winbar_color
+}
+
+local spacer = { '%=', color = winbar_color }
+
+local winbar = { spacer, filename, spacer }
 
 require('lualine').setup {
   options = {
@@ -71,9 +90,17 @@ require('lualine').setup {
     theme = 'catppuccin',
     component_separators = { left = nil, right = nil },
     section_separators = { left = nil, right = nil },
-    disabled_filetypes = {},
+    disabled_filetypes = {
+      winbar = { 'fugitive' }
+    },
     always_divide_middle = true,
     globalstatus = true,
+  },
+  winbar = {
+    lualine_a = winbar
+  },
+  inactive_winbar = {
+    lualine_a = winbar
   },
   sections = {
     lualine_a = { 'mode' },
@@ -83,22 +110,12 @@ require('lualine').setup {
         'branch',
         icon = ' ',
         color = 'StatusLine',
-        -- on_click won't work until neovim 0.8
         on_click = function()
           require('telescope.builtin').git_branches()
         end
       },
     },
     lualine_c = {
-      {
-        'filetype',
-        icon_only = true
-      },
-      {
-
-        'filename',
-        path = 0,
-      },
       lsp_diagnostics_count_component("INFO"),
       lsp_diagnostics_count_component("HINT"),
       lsp_diagnostics_count_component("WARN"),
