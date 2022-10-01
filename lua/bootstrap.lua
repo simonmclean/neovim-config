@@ -85,18 +85,6 @@ create_cmd('PushNew', git_push_new_remote, {})
 create_cmd('Lua', lua_input_box, {})
 
 --------------------------------------------------------------------------
--- Abbreviations
---------------------------------------------------------------------------
-
-local create_abbr = function(abbr, cmd)
-  local str = 'iabbr ' .. abbr .. ' ' .. cmd
-  vim.api.nvim_exec(str, false)
-end
-
-create_abbr('clog', [[console.log();<Left><Left><C-R>=Eatchar('\s')<CR>]])
-create_abbr('vpp', [[vim.pretty_print()<Left><C-R>=Eatchar('\s')<CR>]])
-
---------------------------------------------------------------------------
 -- Autocommands
 --------------------------------------------------------------------------
 
