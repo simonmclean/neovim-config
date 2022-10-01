@@ -9,44 +9,6 @@ local function metals_status()
   end
 end
 
-local highlight_map = {
-  ERROR = 'DiagnosticError',
-  WARN = 'DiagnosticWarn',
-  INFO = 'DiagnosticInfo',
-  HINT = 'DiagnosticHint',
-}
-
--- diagnostic_type can be one of ERROR, WARN, INFO, HINT
-local function lsp_diagnostics_count_component(diagnostic_type)
-  local function component()
-    local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[diagnostic_type] })
-    if (count > 0) then
-      return count
-    end
-    return ''
-  end
-
-  local hightlight_name = highlight_map[diagnostic_type]
-  local highlight_colors = utils.get_highlight_values(hightlight_name)
-  local bg, fg
-
-  -- Try using the diagnostic color's foreground and background colors.
-  -- If there is no background color for this theme, then use the foreground as the background,
-  -- and use the StatusLine background as the foreground. So basically an inverted colorscheme
-  if highlight_colors.background then
-    bg = highlight_colors.background
-    fg = highlight_colors.foreground
-  else
-    bg = highlight_colors.foreground
-    fg = utils.get_highlight_values('StatusLine').background
-  end
-
-  return {
-    component,
-    color = { fg = fg, bg = bg }
-  }
-end
-
 local function project_directory_component()
   local function component()
     local path = vim.fn.getcwd()
@@ -87,10 +49,7 @@ local winbar = {
     spacer,
     filetype_icon,
     filename,
-    lsp_diagnostics_count_component("INFO"),
-    lsp_diagnostics_count_component("HINT"),
-    lsp_diagnostics_count_component("WARN"),
-    lsp_diagnostics_count_component("ERROR"),
+    { 'diagnostics', icons_enabled = false, color = winbar_color },
     spacer,
   }
 }
