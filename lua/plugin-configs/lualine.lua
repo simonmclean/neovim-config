@@ -28,8 +28,6 @@ end
 
 local winbar_color = 'Normal'
 
--- TODO: Figure out how to use this icon component in
--- conjunction with the 'cleared' highlight color
 local filetype_icon = {
   'filetype',
   icon_only = true,
@@ -42,6 +40,8 @@ local filename = {
   color = winbar_color
 }
 
+local diagnostics = { 'diagnostics', icons_enabled = false, color = winbar_color }
+
 local spacer = { '%=', color = winbar_color }
 
 local winbar = {
@@ -49,7 +49,7 @@ local winbar = {
     spacer,
     filetype_icon,
     filename,
-    { 'diagnostics', icons_enabled = false, color = winbar_color },
+    diagnostics,
     spacer,
   }
 }
