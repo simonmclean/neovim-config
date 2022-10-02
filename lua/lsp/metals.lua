@@ -1,4 +1,6 @@
 local function metals_setup(on_attach, capabilities)
+  vim.opt_global.shortmess:remove("F")
+
   local metals_config = require("metals").bare_config()
 
   local api = vim.api
@@ -15,7 +17,7 @@ local function metals_setup(on_attach, capabilities)
 
   metals_config.on_attach = function(client, bufnr)
     on_attach(client, bufnr)
-    require'metals'.setup_dap()
+    require 'metals'.setup_dap()
   end
   metals_config.capabilities = capabilities
 

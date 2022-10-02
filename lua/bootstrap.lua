@@ -9,7 +9,6 @@ local vim_exec = utils.vim_exec
 -- Init commands
 -- TODO: Set these options in lua instead of vimscript
 vim.cmd('set termguicolors')
-vim.cmd('set shortmess-=F')
 
 -- Colourscheme theme
 -- vim.cmd('colorscheme blue-moon')
