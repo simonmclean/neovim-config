@@ -1,20 +1,18 @@
 {
-	"VulcanCodecRecord": {
-		"prefix": [
-			"vulcanRecord"
-		],
-		"body": [
-			"implicit val codec: Codec[${1:Foo}] = Codec.record(",
-			"\tname = \"${1:Foo}\",",
-			"\tnamespace = \"\",",
-			"\tdoc = \"\".some",
-			") { field =>",
-			"\t(",
-			"\t\tfield[](\"\", _.),",
-			"\t\tfield[](\"\", _.),",
-			"\t).mapN(${1:Foo}.apply)",
-			"}"
-		],
-		"description": "Vulcan codec for a record type"
-	}
+  "VulcanCodecRecord": {
+    "prefix": ["vulcanRecord"],
+    "body": [
+      "implicit val codec: Codec[${1:Foo}] = Codec.record(",
+      "\tname = \"${1:Foo}\",",
+      "\tnamespace = \"\",",
+      "\tdoc = \"\".some",
+      ") { field =>",
+      "\t(",
+      "\t\tfield[](\"\", _.),",
+      "\t\tfield[](\"\", _.),",
+      "\t).mapN(${1:Foo}.apply)",
+      "}"
+    ],
+    "description": "Vulcan codec for a record type"
+  }
 }
