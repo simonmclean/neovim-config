@@ -25,6 +25,14 @@ local function project_directory_component()
   }
 end
 
+local function date_component()
+  return {
+    function ()
+      return vim.fn.strftime('%a %d %b %H:%M')
+    end
+  }
+end
+
 local winbar_color = 'Normal'
 
 local filetype_icon = {
@@ -36,8 +44,15 @@ local filetype_icon = {
 local filename = {
   'filename',
   path = 0,
-  color = winbar_color
+  color = winbar_color,
+  -- file_status = false
 }
+
+-- TODO: Maybe raise an issue about the jankiness of this?
+-- local diff = {
+--   'diff',
+--   color = winbar_color
+-- }
 
 local diagnostics = { 'diagnostics', icons_enabled = false, color = winbar_color }
 
@@ -51,6 +66,7 @@ local winbar = {
     spacer,
     filetype_icon,
     filename,
+    -- diff,
     diagnostics,
     spacer,
   },
@@ -99,7 +115,7 @@ require('lualine').setup {
     },
     lualine_x = {},
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = { date_component() }
   },
   tabline = {},
   extensions = {},
