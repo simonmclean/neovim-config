@@ -12,8 +12,7 @@ end
 local function project_directory_component()
   local function component()
     local path = vim.fn.getcwd()
-    local parts = utils.split_string(path, '/')
-    return utils.last(parts)
+    return path
   end
 
   return {
