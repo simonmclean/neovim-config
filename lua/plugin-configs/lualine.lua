@@ -19,15 +19,12 @@ local function project_directory_component()
     component,
     icon = '  ',
     color = 'StatusLine',
-    on_click = function()
-      require('telescope.builtin').find_files()
-    end
   }
 end
 
 local function date_component()
   return {
-    function ()
+    function()
       return vim.fn.strftime('%a %d %b %H:%M')
     end
   }
@@ -45,6 +42,9 @@ local filename = {
   'filename',
   path = 0,
   color = winbar_color,
+  on_click = function()
+    require('telescope.builtin').find_files()
+  end,
   -- file_status = false
 }
 
@@ -54,7 +54,14 @@ local filename = {
 --   color = winbar_color
 -- }
 
-local diagnostics = { 'diagnostics', icons_enabled = false, color = winbar_color }
+local diagnostics = {
+  'diagnostics',
+  icons_enabled = false,
+  color = winbar_color,
+  on_click = function()
+    require 'telescope.builtin'.diagnostics()
+  end
+}
 
 local spacer = { '%=', color = winbar_color }
 
@@ -73,11 +80,14 @@ local winbar = {
   lualine_c = {
     {
       'location',
-      color = winbar_color,
-      fmt   = function(str)
+      color    = winbar_color,
+      fmt      = function(str)
         local rows_and_cols = utils.split_string(str, ':')
         local total_lines_count = vim.api.nvim_buf_line_count(0)
         return rows_and_cols[1] .. '/' .. total_lines_count .. ':' .. rows_and_cols[2]
+      end,
+      on_click = function()
+        require 'telescope.builtin'.lsp_document_symbols()
       end
     }
   }
