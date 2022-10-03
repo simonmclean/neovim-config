@@ -46,11 +46,25 @@ local spacer = { '%=', color = winbar_color }
 
 local winbar = {
   lualine_a = {
+    spacer
+  },
+  lualine_b = {
     spacer,
     filetype_icon,
     filename,
     diagnostics,
     spacer,
+  },
+  lualine_c = {
+    {
+      'location',
+      color = winbar_color,
+      fmt   = function(str)
+        local rows_and_cols = utils.split_string(str, ':')
+        local total_lines_count = vim.api.nvim_buf_line_count(0)
+        return rows_and_cols[1] .. '/' .. total_lines_count .. ':' .. rows_and_cols[2]
+      end
+    }
   }
 }
 
@@ -86,16 +100,7 @@ require('lualine').setup {
     },
     lualine_x = {},
     lualine_y = {},
-    lualine_z = {
-      {
-        'location',
-        fmt = function(str)
-          local rows_and_cols = utils.split_string(str, ':')
-          local total_lines_count = vim.api.nvim_buf_line_count(0)
-          return rows_and_cols[1] .. '/' .. total_lines_count .. ' : ' .. rows_and_cols[2]
-        end
-      }
-    }
+    lualine_z = {}
   },
   tabline = {},
   extensions = {},
