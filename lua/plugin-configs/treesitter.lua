@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     custom_captures = {
@@ -6,7 +6,5 @@ require'nvim-treesitter.configs'.setup {
       -- ["foo.bar"] = "Identifier",
     },
   },
-  indent = {
-    enable = true
-  }
+  auto_install = true
 }
