@@ -27,6 +27,7 @@ vim.o.smartcase = true
 vim.o.showcmd = true
 vim.o.showmode = false -- the mode is already displayed in the statusline
 vim.o.hidden = true
+vim.o.spell = true
 
 -- Window options
 vim.wo.signcolumn = 'yes'
