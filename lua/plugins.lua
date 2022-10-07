@@ -37,7 +37,7 @@ return require('packer').startup({ function(use)
   use 'windwp/nvim-autopairs'
 
   --------------------------------------------------------------------------
-  -- UI
+  -- FANCY UI
   --------------------------------------------------------------------------
   use 'nvim-lualine/lualine.nvim'
   use 'kyazdani42/nvim-web-devicons'
@@ -109,6 +109,7 @@ return require('packer').startup({ function(use)
   -- Treesitter
   --------------------------------------------------------------------------
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'nvim-treesitter/nvim-treesitter-textobjects'
 
   --------------------------------------------------------------------------
   -- Utils
