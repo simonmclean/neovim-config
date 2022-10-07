@@ -3,12 +3,14 @@ local cmp_config = require("plugin-configs/cmp")
 
 local servers = {
   'bashls',
+  'clojure_lsp',
   'dockerls',
   'graphql',
   'html',
   'jsonls',
   'sumneko_lua',
   'tsserver',
+  'terraformls',
   'vimls',
 }
 -- nvim-lsp-installer must be setup before nvim-lspconfig
