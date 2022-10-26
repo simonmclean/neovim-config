@@ -14,5 +14,14 @@
       "}"
     ],
     "description": "Vulcan codec for a record type"
+  },
+  "ForComprehension": {
+    "prefix": ["for", "yield"],
+    "body": [
+      "for {",
+      "\t${1:_} <- ()",
+      "} yield ()"
+    ],
+    "description": "for comprehension"
   }
 }
