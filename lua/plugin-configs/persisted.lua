@@ -25,6 +25,7 @@ require("persisted").setup({
   autoload = true,
   allowed_dirs = allowed_dirs,
   ignored_dirs = ignored_dirs,
+  branch_separator = "_",
   telescope = {
     before_source = function()
       -- Save session before switching
