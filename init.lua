@@ -28,6 +28,7 @@ require('plugin-configs/neo-tree')
 require('plugin-configs/persisted')
 require('plugin-configs/web-devicons')
 require('plugin-configs/null-ls')
+require('plugin-configs/window-picker')
 
 --------------------------------------------------------------------------
 -- LSP config

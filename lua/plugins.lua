@@ -53,19 +53,16 @@ return require('packer').startup({ function(use)
     }
   }
   use {
+    's1n7ax/nvim-window-picker',
+    tag = 'v1.*',
+  }
+  use {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v2.x',
     requires = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
-      {
-        's1n7ax/nvim-window-picker',
-        tag = 'v1.*',
-        config = function()
-          require 'window-picker'.setup({ other_win_hl_color = '#12131b' })
-        end,
-      }
     }
   }
   use 'ryanoasis/vim-devicons'
