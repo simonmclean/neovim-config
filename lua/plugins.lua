@@ -67,8 +67,14 @@ return require('packer').startup({ function(use)
   }
   use 'ryanoasis/vim-devicons'
   use {
-    'liuchengxu/vim-which-key',
-    cmd = 'WhichKey'
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
   }
   use 'lukas-reineke/indent-blankline.nvim'
   -- use '~/code/tryptic'
