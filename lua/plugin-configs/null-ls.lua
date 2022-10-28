@@ -8,6 +8,9 @@ null_ls.setup({
         null_ls.builtins.formatting.eslint_d,
 
         -- prettier
-        null_ls.builtins.formatting.prettier
+        null_ls.builtins.formatting.prettier,
+
+        -- clojure
+        null_ls.builtins.formatting.cljstyle
     },
 })
