@@ -23,6 +23,7 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'tpope/vim-rhubarb'
 
   --------------------------------------------------------------------------
