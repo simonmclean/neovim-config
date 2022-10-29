@@ -67,6 +67,7 @@ local function set_tab_size()
     local n = tonumber(arg)
     vim.bo.tabstop = n
     vim.bo.shiftwidth = n
+    vim.bo.expandtab = true
   end)
 end
 
