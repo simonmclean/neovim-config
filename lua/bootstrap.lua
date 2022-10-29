@@ -62,6 +62,14 @@ local function lua_input_box()
   end)
 end
 
+local function set_tab_size()
+  vim.ui.input({ prompt = 'How many spaces? ', completion = 'command' }, function(arg)
+    local n = tonumber(arg)
+    vim.bo.tabstop = n
+    vim.bo.shiftwidth = n
+  end)
+end
+
 --------------------------------------------------------------------------
 -- Custom commands
 --------------------------------------------------------------------------
@@ -82,6 +90,8 @@ create_cmd('Main', checkout_latest_master, {})
 create_cmd('PushNew', git_push_new_remote, {})
 
 create_cmd('Lua', lua_input_box, {})
+
+create_cmd('Tabs', set_tab_size, {})
 
 --------------------------------------------------------------------------
 -- Autocommands
