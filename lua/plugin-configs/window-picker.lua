@@ -8,7 +8,6 @@ window_picker.setup {
 }
 
 vim.keymap.set('n', '<tab>', function()
-  vim.pretty_print("hello")
   local picked_window_id = window_picker.pick_window() or vim.api.nvim_get_current_win()
   vim.api.nvim_set_current_win(picked_window_id)
 end, {})
