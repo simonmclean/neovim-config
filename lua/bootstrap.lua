@@ -32,7 +32,7 @@ vim.o.hidden = true
 vim.wo.signcolumn = 'yes'
 vim.wo.cursorline = true
 vim.wo.number = true
-vim.wo.relativenumber = true
+vim.wo.relativenumber = false
 vim.wo.wrap = false
 
 --------------------------------------------------------------------------
