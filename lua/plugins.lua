@@ -36,6 +36,7 @@ return require('packer').startup({ function(use)
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
   use 'windwp/nvim-autopairs'
+  use 'ggandor/leap.nvim'
 
   --------------------------------------------------------------------------
   -- FANCY UI
