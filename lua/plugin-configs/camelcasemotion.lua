@@ -1,3 +1,2 @@
-return function ()
-  vim.g.camelcasemotion_key = '<leader>'
-end
+vim.g.camelcasemotion_key = '<leader>'
+

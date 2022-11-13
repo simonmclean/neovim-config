@@ -1,6 +1,5 @@
 local tbl_deep_extend = vim.tbl_deep_extend
-
-local cmp_lsp = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local cmp_config = require("plugin-configs/cmp")
 
 local servers = {
   'bashls',
@@ -70,7 +69,7 @@ local config_overrides = {
 for _, language_server in pairs(servers) do
   local default_config = {
     on_attach = on_attach,
-    capabilities = cmp_lsp.capabilities,
+    capabilities = cmp_config.capabilities,
   }
   local lsp_config = require 'lspconfig'[language_server]
   if (config_overrides[language_server]) then
@@ -87,7 +86,7 @@ for _, language_server in pairs(servers) do
   end
 end
 -- Metals is initialized separately, because it's a special snowflake
-require("lsp/metals")(on_attach, cmp_lsp.capabilities)
+require("lsp/metals")(on_attach, cmp_config.capabilities)
 
 -- Add border to all LSP popups
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
