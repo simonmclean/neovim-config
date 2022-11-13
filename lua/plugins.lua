@@ -1,5 +1,6 @@
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+local packer_bootstrap
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
     install_path })
@@ -29,19 +30,34 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   -- Better editing
   --------------------------------------------------------------------------
-  use 'bkad/camelcasemotion'
-  use 'mattn/emmet-vim'
+  use {
+    'bkad/camelcasemotion',
+    config = require 'plugin-configs.camelcasemotion' ()
+  }
+  use {
+    'mattn/emmet-vim',
+    config = require 'plugin-configs.emmet' ()
+  }
   use 'tpope/vim-abolish'
   use 'tpope/vim-commentary'
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
-  use 'windwp/nvim-autopairs'
+  use {
+    'windwp/nvim-autopairs',
+    config = require('nvim-autopairs').setup()
+  }
 
   --------------------------------------------------------------------------
   -- FANCY UI
   --------------------------------------------------------------------------
-  use 'nvim-lualine/lualine.nvim'
-  use 'kyazdani42/nvim-web-devicons'
+  use {
+    'nvim-lualine/lualine.nvim',
+    config = require 'plugin-configs.lualine' ()
+  }
+  use {
+    'kyazdani42/nvim-web-devicons',
+    config = require 'plugin-configs.web-devicons' ()
+  }
   use {
     'hrsh7th/nvim-cmp',
     requires = {
@@ -51,11 +67,13 @@ return require('packer').startup({ function(use)
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline'
-    }
+    },
+    config = require 'plugin-configs.cmp' ()
   }
   use {
     's1n7ax/nvim-window-picker',
     tag = 'v1.*',
+    config = require 'plugin-configs.window-picker' ()
   }
   use {
     'nvim-neo-tree/neo-tree.nvim',
@@ -64,7 +82,8 @@ return require('packer').startup({ function(use)
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
-    }
+    },
+    config = require 'plugin-configs.neo-tree' ()
   }
   use 'ryanoasis/vim-devicons'
   -- Disabling this as until I figure out how to completely disable it in insert mode
@@ -79,15 +98,20 @@ return require('packer').startup({ function(use)
   --     }
   --   end
   -- }
-  use 'lukas-reineke/indent-blankline.nvim'
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = require 'plugin-configs.indentline' ()
+  }
   -- use '~/code/tryptic'
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
+    requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
+    config = require 'plugin-configs.telescope' ()
   }
   use {
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
+    config = require 'plugin-configs.code-action-menu' ()
   }
 
   --------------------------------------------------------------------------
@@ -95,7 +119,10 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
-  use 'jose-elias-alvarez/null-ls.nvim'
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = require 'plugin-configs.null-ls' ()
+  }
   use 'neovim/nvim-lspconfig'
   use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
 
@@ -114,8 +141,15 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   -- Treesitter
   --------------------------------------------------------------------------
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = require 'plugin-configs.treesitter'
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    config = require 'plugin-configs.treesitter-text-objects' ()
+  }
 
   --------------------------------------------------------------------------
   -- Utils
@@ -124,7 +158,10 @@ return require('packer').startup({ function(use)
   use 'tpope/vim-eunuch'
   use 'tpope/vim-sensible'
   use 'tpope/vim-sleuth'
-  use 'olimorris/persisted.nvim'
+  use {
+    'olimorris/persisted.nvim',
+    config = require 'plugin-configs.persisted' ()
+  }
 
   --------------------------------------------------------------------------
   -- Themes
