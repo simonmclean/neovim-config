@@ -1,5 +1,5 @@
 local tbl_deep_extend = vim.tbl_deep_extend
-local cmp_config = require("plugin-configs/cmp")
+local cmp_config = require("plugin-configs.nvim-cmp")
 
 local servers = {
   'bashls',

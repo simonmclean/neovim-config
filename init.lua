@@ -14,21 +14,33 @@ vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 
 require('plugins')
 
-require('plugin-configs.telescope')
-require('plugin-configs.camelcasemotion')
-require('plugin-configs.code-action-menu')
-require('plugin-configs.emmet')
-require('plugin-configs.indentline')
-require('plugin-configs.lualine')
-require('plugin-configs.treesitter')
-require('plugin-configs.treesitter-text-objects')
-require('plugin-configs.autopairs')
-require('plugin-configs.neo-tree')
-require('plugin-configs.persisted')
-require('plugin-configs.web-devicons')
-require('plugin-configs.null-ls')
-require('plugin-configs.window-picker')
-require('plugin-configs.leap')
+local utils = require 'utils'
+
+local function load_plugin_config(name)
+  if (utils.is_plugin_installed(name)) then
+    local submodule_name = string.gsub(name, '.nvim', '')
+    require('plugin-configs.' .. submodule_name)
+  end
+end
+
+utils.list_foreach({
+  'camelcasemotion',
+  'nvim-cmp',
+  'code-action-menu',
+  'emmet-vim',
+  'indent-blankline.nvim',
+  'leap.nvim',
+  'lualine.nvim',
+  'neo-tree.nvim',
+  'null-ls.nvim',
+  'nvim-autopairs',
+  'nvim-treesitter',
+  'nvim-treesitter-text-objects',
+  'nvim-web-devicons',
+  'nvim-window-picker',
+  'persisted.nvim',
+  'telescope.nvim',
+}, load_plugin_config)
 
 --------------------------------------------------------------------------
 -- LSP config

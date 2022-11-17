@@ -1,5 +1,15 @@
 local M = {}
 
+function M.is_plugin_installed(name)
+  local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer'
+  local path_start = packer_path .. '/start/' .. name
+  local path_opt = packer_path .. '/opt/' .. name
+  local oneOrZero = vim.fn.isdirectory(path_start) or vim.fn.isdirectory(path_opt)
+  return oneOrZero == 1
+end
+
+Test = M.is_plugin_installed
+
 function M.split_string(str, delimiter)
   local result = {};
   for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do
@@ -51,6 +61,20 @@ function M.dir_list_includes(dir, dirs_table)
   return dirs_table and next(vim.tbl_filter(function(pattern)
     return dir_expanded:match(vim.fn.expand(pattern))
   end, dirs_table))
+end
+
+function M.list_map(tbl, fn)
+  local newTbl = {}
+  for _, value in pairs(tbl) do
+    table.insert(newTbl, fn(value))
+  end
+  return newTbl
+end
+
+function M.list_foreach(tbl, fn)
+  for _, value in pairs(tbl) do
+    fn(value)
+  end
 end
 
 return M
