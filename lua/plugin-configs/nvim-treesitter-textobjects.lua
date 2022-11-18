@@ -11,7 +11,9 @@ require 'nvim-treesitter.configs'.setup {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner"
+        ["ic"] = "@class.inner",
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner"
       },
       -- You can choose the select mode (default is charwise 'v')
       selection_modes = {
@@ -23,7 +25,7 @@ require 'nvim-treesitter.configs'.setup {
       -- extended to include preceding xor succeeding whitespace. Succeeding
       -- whitespace has priority in order to act similarly to eg the built-in
       -- `ap`.
-      include_surrounding_whitespace = false,
+      include_surrounding_whitespace = true,
     },
     swap = {
       enable = true,

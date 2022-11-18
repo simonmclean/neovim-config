@@ -35,7 +35,7 @@ utils.list_foreach({
   'null-ls.nvim',
   'nvim-autopairs',
   'nvim-treesitter',
-  'nvim-treesitter-text-objects',
+  'nvim-treesitter-textobjects',
   'nvim-web-devicons',
   'nvim-window-picker',
   'persisted.nvim',
