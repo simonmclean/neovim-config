@@ -36,42 +36,6 @@ vim.wo.relativenumber = false
 vim.wo.wrap = false
 
 --------------------------------------------------------------------------
--- Functions
---------------------------------------------------------------------------
-
-local function checkout_latest_master()
-  local main_branch = vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
-  main_branch = main_branch:gsub("%s+", "")
-  vim.cmd('Git fetch --prune | Git checkout ' .. main_branch .. ' |  Git pull', true)
-end
-
-local function git_push_new_remote()
-  vim.cmd('Git fetch')
-  local current_branch_name = utils.remove_linebreaks(vim.fn.system('git rev-parse --abbrev-ref HEAD'))
-  local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
-  if string.find(upstream_status, 'fatal: no upstream') then
-    vim.cmd('Git push -u origin ' .. current_branch_name)
-  else
-    print("Error: Remote branch already exists")
-  end
-end
-
-local function lua_input_box()
-  vim.ui.input({ prompt = 'Enter lua to evaluate: ', completion = 'command' }, function(input)
-    vim.cmd('lua vim.pretty_print(' .. input .. ')')
-  end)
-end
-
-local function set_tab_size()
-  vim.ui.input({ prompt = 'How many spaces? ', completion = 'command' }, function(arg)
-    local n = tonumber(arg)
-    vim.bo.tabstop = n
-    vim.bo.shiftwidth = n
-    vim.bo.expandtab = true
-  end)
-end
-
---------------------------------------------------------------------------
 -- Custom commands
 --------------------------------------------------------------------------
 
@@ -85,14 +49,38 @@ create_cmd('Source', ':luafile ~/.config/nvim/init.lua', {})
 create_cmd('Config', ':e ~/.config/nvim/init.lua', {})
 
 -- Checkout up-to-date master branch
-create_cmd('Main', checkout_latest_master, {})
+create_cmd('Main', function()
+  local main_branch = vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
+  main_branch = main_branch:gsub("%s+", "")
+  vim.cmd('Git fetch --prune | Git checkout ' .. main_branch .. ' |  Git pull', true)
+end, {})
 
 -- Push new branch
-create_cmd('PushNew', git_push_new_remote, {})
+create_cmd('PushNew', function()
+  vim.cmd('Git fetch')
+  local current_branch_name = utils.remove_linebreaks(vim.fn.system('git rev-parse --abbrev-ref HEAD'))
+  local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
+  if string.find(upstream_status, 'fatal: no upstream') then
+    vim.cmd('Git push -u origin ' .. current_branch_name)
+  else
+    print("Error: Remote branch already exists")
+  end
+end, {})
 
-create_cmd('Lua', lua_input_box, {})
+create_cmd('Lua', function()
+  vim.ui.input({ prompt = 'Enter lua to evaluate: ', completion = 'command' }, function(input)
+    vim.cmd('lua vim.pretty_print(' .. input .. ')')
+  end)
+end, {})
 
-create_cmd('Tabs', set_tab_size, {})
+create_cmd('Tabs', function()
+  vim.ui.input({ prompt = 'How many spaces? ', completion = 'command' }, function(arg)
+    local n = tonumber(arg)
+    vim.bo.tabstop = n
+    vim.bo.shiftwidth = n
+    vim.bo.expandtab = true
+  end)
+end, {})
 
 --------------------------------------------------------------------------
 -- Autocommands
