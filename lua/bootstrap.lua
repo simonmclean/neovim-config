@@ -67,13 +67,13 @@ create_cmd('PushNew', function()
   end
 end, {})
 
-create_cmd('Lua', function()
+create_cmd('LuaPrint', function()
   vim.ui.input({ prompt = 'Enter lua to evaluate: ', completion = 'command' }, function(input)
     vim.cmd('lua vim.pretty_print(' .. input .. ')')
   end)
 end, {})
 
-create_cmd('Tabs', function()
+create_cmd('TabWidth', function()
   vim.ui.input({ prompt = 'How many spaces? ', completion = 'command' }, function(arg)
     local n = tonumber(arg)
     vim.bo.tabstop = n
