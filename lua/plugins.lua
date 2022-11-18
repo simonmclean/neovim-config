@@ -21,7 +21,13 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   -- Git
   --------------------------------------------------------------------------
-  use 'airblade/vim-gitgutter'
+  use {
+    'lewis6991/gitsigns.nvim',
+    tag = "release",
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
   use 'tpope/vim-fugitive'
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'tpope/vim-rhubarb'
