@@ -25,15 +25,16 @@ end
 
 utils.list_foreach({
   'camelcasemotion',
-  'nvim-cmp',
   'code-action-menu',
   'emmet-vim',
+  'gitsigns.nvim',
   'indent-blankline.nvim',
   'leap.nvim',
   'lualine.nvim',
   'neo-tree.nvim',
   'null-ls.nvim',
   'nvim-autopairs',
+  'nvim-cmp',
   'nvim-treesitter',
   'nvim-treesitter-textobjects',
   'nvim-web-devicons',
