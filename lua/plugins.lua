@@ -58,10 +58,6 @@ return require('packer').startup({ function(use)
     }
   }
   use {
-    's1n7ax/nvim-window-picker',
-    tag = 'v1.*',
-  }
-  use {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v2.x',
     requires = {
