@@ -67,18 +67,7 @@ return require('packer').startup({ function(use)
     }
   }
   use 'ryanoasis/vim-devicons'
-  -- Disabling this as until I figure out how to completely disable it in insert mode
-  -- Or at least stop it from being triggered by <space>
-  -- use {
-  --   "folke/which-key.nvim",
-  --   config = function()
-  --     require("which-key").setup {
-  --       -- your configuration comes here
-  --       -- or leave it empty to use the default settings
-  --       -- refer to the configuration section below
-  --     }
-  --   end
-  -- }
+  use "folke/which-key.nvim"
   use 'lukas-reineke/indent-blankline.nvim'
   -- use '~/code/tryptic'
   use {

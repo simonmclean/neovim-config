@@ -41,6 +41,7 @@ utils.list_foreach({
   'nvim-window-picker',
   'persisted.nvim',
   'telescope.nvim',
+  'which-key.nvim',
 }, load_plugin_config)
 
 --------------------------------------------------------------------------
