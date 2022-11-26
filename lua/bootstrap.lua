@@ -157,9 +157,9 @@ map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', silent)
 vim.cmd('nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>')
 vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>')
 
--- Shortcut for substitute
-map('n', '<leader>/', ':%s/')
-map('v', '<leader>/', ':s/')
+-- Substitue word under cursor or visual selection
+map('n', '<leader>/', 'yiw :%s/<C-r>"/')
+map('v', '<leader>/', 'y :s/<C-r>"/')
 
 -- Persisted sessions
 map('n', '<leader>s', ':Telescope persisted<CR>')
