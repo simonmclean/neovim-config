@@ -158,8 +158,11 @@ vim.cmd('nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<C
 vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>')
 
 -- Substitue word under cursor or visual selection
-map('n', '<leader>/', 'yiw :%s/<C-r>"/')
-map('v', '<leader>/', 'y :s/<C-r>"/')
+map('n', '<leader>/', 'yiw:%s/<C-r>"/')
+map('v', '<leader>/', 'y:s/<C-r>"/')
+
+-- Unwrap something. e.g. if the cursor is in `Foo`, `Foo(Bar)` will become `Bar`
+map('n','<leader>u', 'diwmz%x`zx')
 
 -- Persisted sessions
 map('n', '<leader>s', ':Telescope persisted<CR>')
