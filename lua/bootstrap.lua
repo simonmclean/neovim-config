@@ -34,6 +34,7 @@ vim.wo.cursorline = true
 vim.wo.number = true
 vim.wo.relativenumber = false
 vim.wo.wrap = false
+vim.g.mapleader = " "
 
 --------------------------------------------------------------------------
 -- Custom commands
@@ -82,6 +83,10 @@ create_cmd('TabWidth', function()
   end)
 end, {})
 
+-- Exclude block navigation from the jumplist
+vim.cmd('nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>')
+vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>')
+
 --------------------------------------------------------------------------
 -- Autocommands
 --------------------------------------------------------------------------
@@ -126,9 +131,6 @@ create_autocmd('FileType', {
 local map = vim.keymap.set
 local silent = { silent = true }
 
--- Leader
-vim.g.mapleader = " "
-
 -- Window control
 map('n', '|', ':vertical split<cr>', silent)
 map('n', '-', ':split<cr>', silent)
@@ -144,18 +146,14 @@ map('n', '[b', ':bprevious<cr>')
 map('n', ']b', ':bnext<cr>')
 
 -- Toggle between 2 buffers
-map('n', '<leader><leader>', '<c-^>', silent)
+map('n', '<leader><leader>', '<c-^>', { silent = true, desc = 'Previous buffer' })
 
 -- Add empty line above or below cursor
-map('n', '<leader>k', ':call append(line(".")-1, "")<cr>', silent)
-map('n', '<leader>j', ':call append(line("."), "")<cr>', silent)
+map('n', '<leader>k', ':call append(line(".")-1, "")<cr>', { silent = true, desc = 'Empty line below' })
+map('n', '<leader>j', ':call append(line("."), "")<cr>', { silent = true, desc = 'Empty line above' })
 
 -- Replace motion
 map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', { silent = true, desc = 'Replace motion' })
-
--- Exclude block navigation from the jumplist
-vim.cmd('nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>')
-vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>')
 
 map('n', '<leader>/', 'yiw:%s/<C-r>"/', { desc = 'Substitue word or selection' })
 map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
