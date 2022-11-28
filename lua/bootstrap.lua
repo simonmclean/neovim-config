@@ -151,18 +151,17 @@ map('n', '<leader>k', ':call append(line(".")-1, "")<cr>', silent)
 map('n', '<leader>j', ':call append(line("."), "")<cr>', silent)
 
 -- Replace motion
-map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', silent)
+map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', { silent = true, desc = 'Replace motion' })
 
 -- Exclude block navigation from the jumplist
 vim.cmd('nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>')
 vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>')
 
--- Substitue word under cursor or visual selection
-map('n', '<leader>/', 'yiw:%s/<C-r>"/')
-map('v', '<leader>/', 'y:s/<C-r>"/')
+map('n', '<leader>/', 'yiw:%s/<C-r>"/', { desc = 'Substitue word or selection' })
+map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
 
 -- Unwrap something. e.g. if the cursor is in `Foo`, `Foo(Bar)` will become `Bar`
-map('n','<leader>u', 'diwmz%x`zx')
+map('n', '<leader>u', 'diwmz%x`zx', { desc = 'Unwrap' })
 
 -- Persisted sessions
-map('n', '<leader>s', ':Telescope persisted<CR>')
+map('n', '<leader>s', ':Telescope persisted<CR>', { desc = 'Telescope persisted' })
