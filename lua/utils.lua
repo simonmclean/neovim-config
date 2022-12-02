@@ -4,11 +4,8 @@ function M.is_plugin_installed(name)
   local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer'
   local path_start = packer_path .. '/start/' .. name
   local path_opt = packer_path .. '/opt/' .. name
-  local oneOrZero = vim.fn.isdirectory(path_start) or vim.fn.isdirectory(path_opt)
-  return oneOrZero == 1
+  return (vim.fn.isdirectory(path_start) == 1) or (vim.fn.isdirectory(path_opt) == 1)
 end
-
-Test = M.is_plugin_installed
 
 function M.split_string(str, delimiter)
   local result = {};
@@ -16,6 +13,10 @@ function M.split_string(str, delimiter)
     table.insert(result, match);
   end
   return result;
+end
+
+function M.trim_string(s)
+  return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
 
 function M.last(list)
@@ -33,6 +34,10 @@ function M.dec_to_hex(n, chars)
     hex = "0" .. hex
   end
   return hex
+end
+
+function M.eval(fn)
+  return fn()
 end
 
 function M.get_highlight_values(highlight_name)
@@ -75,6 +80,26 @@ function M.list_foreach(tbl, fn)
   for _, value in pairs(tbl) do
     fn(value)
   end
+end
+
+function M.list_concat(tbl, el)
+  tbl = tbl or {}
+  -- Note: Despite the deprecation warning, table.unpack does not work
+  local new_tbl = { unpack(tbl) }
+  table.insert(new_tbl, el)
+  return new_tbl
+end
+
+-- Check if condition holds true for every element in a list
+function M.list_every(tbl, predicateFn)
+  local result = true
+  M.list_foreach(tbl, function(value)
+    local thisResult = predicateFn(value)
+    if (result == false or thisResult == false) then
+      result = false
+    end
+  end)
+  return result
 end
 
 return M

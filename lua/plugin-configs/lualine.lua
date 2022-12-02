@@ -1,9 +1,10 @@
 local utils = require 'utils'
+local scala_icon = require 'nvim-web-devicons'.get_icon("scala")
 
 local function metals_status()
   local status = vim.g.metals_status
-  if (type(status) == 'string') then
-    return status
+  if (type(status) == 'string' and utils.trim_string(status) ~= "") then
+    return scala_icon .. " " .. status
   else
     return ''
   end
