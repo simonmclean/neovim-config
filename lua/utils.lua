@@ -102,4 +102,13 @@ function M.list_every(tbl, predicateFn)
   return result
 end
 
+function M.list_join(tbl, sep)
+  sep = sep or ''
+  local result = ''
+  M.list_foreach(tbl, function (el)
+    result = result .. el .. sep
+  end)
+  return result
+end
+
 return M

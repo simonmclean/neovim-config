@@ -1,6 +1,7 @@
-local utils = require 'utils'
+local _ = require 'utils'
 
-local vim_exec = utils.vim_exec
+local vim_exec = _.vim_exec
+local api = vim.api
 
 --------------------------------------------------------------------------
 -- Settings
@@ -41,7 +42,7 @@ vim.g.mapleader = " "
 -- Custom commands
 --------------------------------------------------------------------------
 
-local create_cmd = vim.api.nvim_create_user_command
+local create_cmd = api.nvim_create_user_command
 
 -- Source init.lua
 -- TODO: This doesn't always work as intended because it doesn't reload modules...
@@ -60,7 +61,7 @@ end, {})
 -- Push new branch
 create_cmd('PushNew', function()
   vim.cmd('Git fetch')
-  local current_branch_name = utils.remove_linebreaks(vim.fn.system('git rev-parse --abbrev-ref HEAD'))
+  local current_branch_name = _.remove_linebreaks(vim.fn.system('git rev-parse --abbrev-ref HEAD'))
   local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
   if string.find(upstream_status, 'fatal: no upstream') then
     vim.cmd('Git push -u origin ' .. current_branch_name)
@@ -92,9 +93,9 @@ vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<C
 -- Autocommands
 --------------------------------------------------------------------------
 
-local my_augroup = vim.api.nvim_create_augroup("SimonMcLeanBootstrap", { clear = true })
+local my_augroup = api.nvim_create_augroup("SimonMcLeanBootstrap", { clear = true })
 
-local create_autocmd = vim.api.nvim_create_autocmd
+local create_autocmd = api.nvim_create_autocmd
 
 -- Remove trailing whitespace on save
 create_autocmd('BufWritePre', {
@@ -124,6 +125,68 @@ create_autocmd('FileType', {
     end
   end
 })
+
+--------------------------------------------------------------------------
+-- Tabline
+--------------------------------------------------------------------------
+
+-- TODO: Buffer count, icons, click handlers
+_G.my_custom_tabline = function()
+  local tabs = api.nvim_list_tabpages()
+  local current_tab = api.nvim_get_current_tabpage()
+  -- For each tab check if it's the currently focused one
+  local with_is_active = _.list_map(tabs, function(tab_id)
+    return {
+      tab_id = tab_id,
+      is_active = tab_id == current_tab
+    }
+  end)
+  -- For each tab get the focused window
+  local with_win_id = _.list_map(with_is_active, function(tab)
+    local win_id = api.nvim_tabpage_get_win(tab.tab_id)
+    tab['win_id'] = win_id
+    return tab
+  end)
+  -- For each window get the focused buffer
+  local with_buf_id = _.list_map(with_win_id, function(tab)
+    local buf_id = api.nvim_win_get_buf(tab.win_id)
+    tab['buf_id'] = buf_id
+    return tab
+  end)
+  -- For each tab set the title
+  local with_tab_titles = _.list_map(with_buf_id, function(tab)
+    local buf_name = api.nvim_buf_get_name(tab.buf_id)
+    local filename = _.last(_.split_string(buf_name, '/'))
+    if (filename == "") then
+      local filetype = api.nvim_buf_get_option(tab.buf_id, 'filetype')
+      if (filetype == "") then
+        tab['title'] = '[empty tab]'
+      else
+        tab['title'] = filetype
+      end
+    else
+      tab['title'] = filename
+    end
+    return tab
+  end)
+  -- Create the tabline strings, including highlight groups
+  local tabline_strings = _.list_map(with_tab_titles, function(tab)
+    local highlight_group
+    if (tab.is_active) then
+      highlight_group = '%#TabLineSel#'
+    else
+      highlight_group = '%#TabLine#'
+    end
+    return highlight_group .. ' ' .. tab.title .. ' '
+  end)
+  local tabline = _.list_join(tabline_strings) .. '%#TabLineFill#%='
+  return tabline
+end
+
+-- TODO: Make this pure lua
+vim.cmd([[
+set tabline=%!v:lua.my_custom_tabline()
+]])
 
 --------------------------------------------------------------------------
 -- Mappings
