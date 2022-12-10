@@ -130,7 +130,7 @@ create_autocmd('FileType', {
 -- Tabline
 --------------------------------------------------------------------------
 
--- TODO: Buffer count, icons, click handlers
+-- TODO: Windows count, click handlers, handle icons plugin not being installed
 _G.my_custom_tabline = function()
   local tabs = api.nvim_list_tabpages()
   local current_tab = api.nvim_get_current_tabpage()
@@ -143,29 +143,38 @@ _G.my_custom_tabline = function()
   end)
   -- For each tab get the focused window
   local with_win_id = _.list_map(with_is_active, function(tab)
-    local win_id = api.nvim_tabpage_get_win(tab.tab_id)
-    tab['win_id'] = win_id
+    tab['win_id'] = api.nvim_tabpage_get_win(tab.tab_id)
     return tab
   end)
-  -- For each window get the focused buffer
-  local with_buf_id = _.list_map(with_win_id, function(tab)
+  -- For each window get buffer info
+  local with_buf_data = _.list_map(with_win_id, function(tab)
     local buf_id = api.nvim_win_get_buf(tab.win_id)
     tab['buf_id'] = buf_id
+    tab['buf_name'] = api.nvim_buf_get_name(buf_id)
+    tab['buf_filetype'] = api.nvim_buf_get_option(buf_id, 'filetype')
     return tab
   end)
   -- For each tab set the title
-  local with_tab_titles = _.list_map(with_buf_id, function(tab)
-    local buf_name = api.nvim_buf_get_name(tab.buf_id)
-    local filename = _.last(_.split_string(buf_name, '/'))
+  local with_tab_titles = _.list_map(with_buf_data, function(tab)
+    local filename = _.last(_.split_string(tab.buf_name, '/'))
+    local icon = _.eval(function()
+      local icons_package = require 'nvim-web-devicons'
+      if (tab.buf_filetype and icons_package) then
+        local icon = icons_package.get_icon_by_filetype(tab.buf_filetype)
+        if (icon) then
+          return icon .. ' '
+        end
+        return ''
+      end
+    end)
     if (filename == "") then
-      local filetype = api.nvim_buf_get_option(tab.buf_id, 'filetype')
-      if (filetype == "") then
+      if (tab.buf_filetype == "") then
         tab['title'] = '[empty tab]'
       else
-        tab['title'] = filetype
+        tab['title'] = icon .. tab.buf_filetype
       end
     else
-      tab['title'] = filename
+      tab['title'] = icon .. filename
     end
     return tab
   end)
@@ -183,10 +192,7 @@ _G.my_custom_tabline = function()
   return tabline
 end
 
--- TODO: Make this pure lua
-vim.cmd([[
-set tabline=%!v:lua.my_custom_tabline()
-]])
+vim.o.tabline = '%!v:lua.my_custom_tabline()'
 
 --------------------------------------------------------------------------
 -- Mappings
