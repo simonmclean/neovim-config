@@ -85,6 +85,26 @@ create_cmd('TabWidth', function()
   end)
 end, {})
 
+-- To replace all instances of "foo" with "bar":
+-- :FindReplace foo bar
+-- or
+-- :FindReplace foo bar src/test/**/.*.ts
+-- TODO: Handle spaces in args
+create_cmd('FindReplace',
+  function(opts)
+    local args = _.split_string(opts.args, " ")
+    local find = args[1] or error("Missing 1st arg: find")
+    local replace_with = args[2] or error("Missing 2nd arg: replace_with")
+    local location = args[3] or "**/*"
+
+    -- see :h :s_flags for flag explanations
+    vim.cmd('vimgrep /' .. find .. '/gj ' .. location)
+    vim.cmd('cfdo %s/' .. find .. '/' .. replace_with .. '/ge | update')
+  end,
+  { nargs = 1,
+    complete = 'file'
+  })
+
 -- Exclude block navigation from the jumplist
 vim.cmd('nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>')
 vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>')

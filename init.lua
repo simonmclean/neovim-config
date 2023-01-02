@@ -49,7 +49,6 @@ end
 
 utils.list_foreach({
   'camelcasemotion',
-  'emmet-vim',
   'gitsigns.nvim',
   'indent-blankline.nvim',
   'leap.nvim',
@@ -75,4 +74,8 @@ require('lsp/lsp-config')
 --------------------------------------------------------------------------
 -- Tabline
 --------------------------------------------------------------------------
-require('tabline')
+require('tabline')({
+  filetype_icons = {
+    fugitive = require 'nvim-web-devicons'.get_icon_by_filetype('git')
+  }
+})
