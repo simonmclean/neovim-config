@@ -20,7 +20,7 @@ local utils = require 'utils'
 -- Either takes the name of the plugin as a string, or a table which includes a list of dependancies
 -- e.g. 'foo' or { 'foo' , deps = { 'bar', 'baz' } }
 local function load_plugin_config(plugin)
-  local pluginName = utils.eval(function ()
+  local pluginName = utils.eval(function()
     if (type(plugin) == 'string') then
       return plugin
     end
@@ -29,7 +29,7 @@ local function load_plugin_config(plugin)
 
   local isPluginInstalled = utils.is_plugin_installed(pluginName)
 
-  local areDepsInstalled = utils.eval(function ()
+  local areDepsInstalled = utils.eval(function()
     if (type(plugin) == 'string') then
       return true
     end
@@ -62,6 +62,7 @@ utils.list_foreach({
   { 'nvim-treesitter-textobjects', deps = { 'nvim-treesitter' } },
   'nvim-web-devicons',
   'persisted.nvim',
+  { 'pretty-vanilla-tabline.nvim', deps = { 'nvim-web-devicons' } },
   'telescope.nvim',
   'which-key.nvim',
 }, load_plugin_config)
@@ -70,12 +71,3 @@ utils.list_foreach({
 -- LSP config
 --------------------------------------------------------------------------
 require('lsp/lsp-config')
-
---------------------------------------------------------------------------
--- Tabline
---------------------------------------------------------------------------
-require('tabline')({
-  filetype_icons = {
-    fugitive = require 'nvim-web-devicons'.get_icon_by_filetype('git')
-  }
-})

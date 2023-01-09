@@ -77,6 +77,7 @@ return require('packer').startup({ function(use)
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
   }
+  use 'simonmclean/pretty-vanilla-tabline.nvim'
 
   --------------------------------------------------------------------------
   -- LSP
