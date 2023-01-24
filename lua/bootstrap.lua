@@ -177,7 +177,7 @@ map('n', '<leader>j', ':call append(line("."), "")<cr>', { silent = true, desc =
 -- Replace motion
 map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', { silent = true, desc = 'Replace motion' })
 
-map('n', '<leader>/', 'yiw:%s/<C-r>"/', { desc = 'Substitue word or selection' })
+map('n', '<leader>/', 'yiw:%S/<C-r>"/', { desc = 'Substitue word or selection' }) -- Capital S uses abolish.vim
 map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
 
 -- Unwrap something. e.g. if the cursor is in `Foo`, `Foo(Bar)` will become `Bar`
