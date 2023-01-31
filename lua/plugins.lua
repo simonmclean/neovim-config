@@ -78,6 +78,7 @@ return require('packer').startup({ function(use)
     cmd = 'CodeActionMenu',
   }
   use 'simonmclean/pretty-vanilla-tabline.nvim'
+  use 'shortcuts/no-neck-pain.nvim'
 
   --------------------------------------------------------------------------
   -- LSP

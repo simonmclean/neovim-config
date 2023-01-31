@@ -54,6 +54,7 @@ utils.list_foreach({
   'leap.nvim',
   { 'lualine.nvim', deps = { 'nvim-web-devicons' } },
   { 'neo-tree.nvim', deps = { 'telescope.nvim' } },
+  'no-neck-pain.nvim',
   'null-ls.nvim',
   'nvim-code-action-menu',
   'nvim-autopairs',
