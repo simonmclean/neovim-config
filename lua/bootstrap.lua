@@ -51,11 +51,26 @@ create_cmd('Source', ':luafile ~/.config/nvim/init.lua', {})
 -- Open init.lua
 create_cmd('Config', ':e ~/.config/nvim/init.lua', {})
 
--- Checkout up-to-date master branch
+-- Checkout up-to-date master or main branch
 create_cmd('Main', function()
-  local main_branch = vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
-  main_branch = main_branch:gsub("%s+", "")
-  vim.cmd('Git fetch --prune | Git checkout ' .. main_branch .. ' |  Git pull', true)
+  local main_branch = _.remove_linebreaks(
+    vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
+  )
+  local current_branch_name = _.remove_linebreaks(
+    vim.fn.system('git rev-parse --abbrev-ref HEAD')
+  )
+  local pull_command = 'Git pull'
+
+  if current_branch_name == main_branch then
+    -- If already on main, just fetch and pull latest
+    local update_command = 'Git fetch --prune'
+    vim.cmd(update_command .. ' | ' .. pull_command, true)
+  else
+    -- If not on main, first update main branch, then checkout
+    local update_command = 'Git fetch --prune origin ' .. main_branch .. ':' .. main_branch
+    local checkout_command = 'Git checkout ' .. main_branch
+    vim.cmd(update_command .. ' | ' .. checkout_command, true)
+  end
 end, {})
 
 -- Push new branch
