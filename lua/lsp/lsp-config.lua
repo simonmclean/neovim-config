@@ -8,7 +8,7 @@ local servers = {
   'graphql',
   'html',
   'jsonls',
-  'sumneko_lua',
+  'lua_ls',
   'tsserver',
   'terraformls',
   'vimls',

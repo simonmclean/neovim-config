@@ -8,7 +8,7 @@ local servers = {
   'graphql',
   'html',
   'jsonls',
-  'sumneko_lua',
+  'lua_ls',
   'tsserver',
   'terraformls',
   'vimls',
@@ -65,7 +65,7 @@ end
 local config_overrides = {
   eslint = require 'lsp/eslint',
   tsserver = require 'lsp/tsserver',
-  sumneko_lua = require 'lsp/lua'
+  lua_ls = require 'lsp/lua'
 }
 for _, language_server in pairs(servers) do
   local default_config = {
