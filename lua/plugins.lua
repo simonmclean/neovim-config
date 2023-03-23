@@ -112,7 +112,6 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   use 'heavenshell/vim-jsdoc'
   use 'tpope/vim-eunuch'
-  use 'tpope/vim-sensible'
   use 'tpope/vim-sleuth'
   use 'olimorris/persisted.nvim'
 

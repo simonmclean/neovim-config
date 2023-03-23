@@ -29,6 +29,7 @@ vim.o.showcmd = true
 vim.o.showmode = false -- the mode is already displayed in the statusline
 vim.o.hidden = true
 vim.o.undofile = true
+vim.o.scrolloff = 1
 
 -- Window options
 vim.wo.signcolumn = 'yes'
