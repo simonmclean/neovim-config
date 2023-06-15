@@ -10,9 +10,12 @@ local function metals_status()
   end
 end
 
-local function project_directory_component()
+local function project_directory_component(basename_only)
   local function component()
     local path = vim.fn.getcwd()
+    if basename_only then
+      return vim.fs.basename(path)
+    end
     return path
   end
 
@@ -111,7 +114,7 @@ require('lualine').setup {
   sections = {
     lualine_a = { 'mode' },
     lualine_b = {
-      project_directory_component(),
+      project_directory_component(true),
       {
         'branch',
         icon = ' ',
