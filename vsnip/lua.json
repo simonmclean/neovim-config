@@ -1,8 +1,8 @@
 {
-  "VimPrettyPrint": {
+  "VimPrint": {
     "prefix": ["pretty_print"],
-    "body": "vim.pretty_print($0)",
-    "description": "vim.pretty_print()"
+    "body": "vim.print($0)",
+    "description": "vim.print()"
   }
 }
 

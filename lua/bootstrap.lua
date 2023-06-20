@@ -88,7 +88,7 @@ end, {})
 
 create_cmd('LuaPrint', function()
   vim.ui.input({ prompt = 'Enter lua to evaluate: ', completion = 'command' }, function(input)
-    vim.cmd('lua vim.pretty_print(' .. input .. ')')
+    vim.cmd('lua vim.print(' .. input .. ')')
   end)
 end, {})
 
@@ -113,7 +113,6 @@ create_cmd('FindAndReplace',
                 vim.ui.input({ prompt = 'Replace "' .. find .. '" with "' .. replace_with .. '" in ' .. location .. '? (enter to confirm, esc to cancel)' },
                   function(answer)
                     if (answer) then
-                      vim.pretty_print({ find, replace_with, location })
                       -- see :h :s_flags for flag ecplanations
                       vim.cmd('vimgrep /' .. find .. '/gj ' .. location)
                       vim.cmd('cfdo %s/' .. find .. '/' .. replace_with .. '/ge | update')
