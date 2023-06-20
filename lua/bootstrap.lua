@@ -108,7 +108,7 @@ create_cmd('FindAndReplace',
       if (find and find ~= "") then
         vim.ui.input({ prompt = 'Replace with: ' }, function(replace_with)
           if (replace_with and replace_with ~= "") then
-            vim.ui.input({ prompt = 'In: ', default = '**/*', completion = 'dir' }, function(location)
+            vim.ui.input({ prompt = 'In (e.g. **/*.scala): ', completion = 'dir' }, function(location)
               if (location and location ~= "") then
                 vim.ui.input({ prompt = 'Replace "' .. find .. '" with "' .. replace_with .. '" in ' .. location .. '? (enter to confirm, esc to cancel)' },
                   function(answer)
