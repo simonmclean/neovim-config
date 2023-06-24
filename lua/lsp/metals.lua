@@ -1,5 +1,5 @@
 local function metals_setup(on_attach, capabilities)
-  vim.opt_global.shortmess:remove("F")
+  -- vim.opt_global.shortmess:remove("F")
 
   local metals_config = require("metals").bare_config()
 
