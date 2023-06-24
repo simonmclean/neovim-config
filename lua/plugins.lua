@@ -79,6 +79,13 @@ return require('packer').startup({ function(use)
   }
   use 'simonmclean/pretty-vanilla-tabline.nvim'
   use 'shortcuts/no-neck-pain.nvim'
+  use {
+     'folke/noice.nvim',
+     requires = {
+       'MunifTanjim/nui.nvim',
+       'rcarriga/nvim-notify'
+     }
+  }
 
   --------------------------------------------------------------------------
   -- LSP
