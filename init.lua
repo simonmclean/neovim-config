@@ -49,9 +49,9 @@ end
 
 utils.list_foreach({
   'camelcasemotion',
+  'flash.nvim',
   'gitsigns.nvim',
   'indent-blankline.nvim',
-  'leap.nvim',
   { 'lualine.nvim', deps = { 'nvim-web-devicons' } },
   { 'neo-tree.nvim', deps = { 'telescope.nvim' } },
   'no-neck-pain.nvim',
