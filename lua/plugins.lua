@@ -68,7 +68,6 @@ return require('packer').startup({ function(use)
   use 'ryanoasis/vim-devicons'
   use "folke/which-key.nvim"
   use 'lukas-reineke/indent-blankline.nvim'
-  -- use '~/code/tryptic'
   use {
     'nvim-telescope/telescope.nvim',
     requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
@@ -99,20 +98,11 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------
   -- Debugging
   --------------------------------------------------------------------------
-  use 'mfussenegger/nvim-dap'
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {}
-    end
-  }
 
   --------------------------------------------------------------------------
   -- Treesitter
   --------------------------------------------------------------------------
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
 
   --------------------------------------------------------------------------
   -- Utils

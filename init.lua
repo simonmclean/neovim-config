@@ -61,7 +61,6 @@ utils.list_foreach({
   'nvim-autopairs',
   'nvim-cmp',
   'nvim-treesitter',
-  { 'nvim-treesitter-textobjects', deps = { 'nvim-treesitter' } },
   'nvim-web-devicons',
   'persisted.nvim',
   { 'pretty-vanilla-tabline.nvim', deps = { 'nvim-web-devicons' } },
