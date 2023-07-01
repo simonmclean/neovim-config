@@ -60,6 +60,7 @@ utils.list_foreach({
   'nvim-code-action-menu',
   'nvim-autopairs',
   'nvim-cmp',
+  'nvim-notify',
   'nvim-treesitter',
   'nvim-web-devicons',
   'persisted.nvim',
