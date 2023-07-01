@@ -90,6 +90,7 @@ create_cmd('TabWidth', function()
 end, {})
 
 -- TODO: completion doesn't seem to work
+-- TODO: handle errors
 create_cmd('FindAndReplace',
   function()
     vim.ui.input({ prompt = 'Find: ' }, function(find)
