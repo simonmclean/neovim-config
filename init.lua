@@ -38,9 +38,9 @@ local function load_plugin_config(plugin)
 
   -- TODO: These messages can get lost. Figure out blocking print or filesystem logging maybe?
   if (not isPluginInstalled) then
-    print("Warning: Config for " .. pluginName .. " will not be loaded because the plugin is not installed")
+    vim.notify("Warning: Config for " .. pluginName .. " will not be loaded because the plugin is not installed", vim.log.levels.WARN)
   elseif (not areDepsInstalled) then
-    print("Warning: Config for " .. pluginName .. " will not be loaded one or more dependancies are not installed")
+    vim.notify("Warning: Config for " .. pluginName .. " will not be loaded one or more dependancies are not installed", vim.logl.levels.WARN)
   else
     local submodule_name = string.gsub(pluginName, '.nvim', '')
     require('plugin-configs.' .. submodule_name)
@@ -65,6 +65,7 @@ utils.list_foreach({
   'persisted.nvim',
   { 'pretty-vanilla-tabline.nvim', deps = { 'nvim-web-devicons' } },
   'telescope.nvim',
+  'tokyonight.nvim',
   'which-key.nvim',
 }, load_plugin_config)
 
@@ -72,3 +73,8 @@ utils.list_foreach({
 -- LSP config
 --------------------------------------------------------------------------
 require('lsp/lsp-config')
+
+--------------------------------------------------------------------------
+-- Theme config
+--------------------------------------------------------------------------
+require('theme')

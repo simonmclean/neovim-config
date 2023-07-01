@@ -7,20 +7,8 @@ local api = vim.api
 -- Settings
 --------------------------------------------------------------------------
 
--- Init commands
--- TODO: Set these options in lua instead of vimscript
-vim.cmd('set termguicolors')
-
--- Colourscheme theme
--- vim.cmd('colorscheme blue-moon')
--- vim.cmd('colorscheme nightfly')
--- vim.g.sonokai_style = 'maia'
--- vim.g.colors_name = 'sonokai'
--- vim.cmd("colorscheme tokyonight")
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-vim.cmd('colorscheme catppuccin')
-
 -- General options
+vim.o.termguicolors = true
 vim.o.laststatus = 3
 vim.o.clipboard = 'unnamed'
 vim.o.ignorecase = true

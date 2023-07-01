@@ -100,7 +100,7 @@ local winbar = {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'catppuccin',
+    theme = 'tokyonight',
     component_separators = { left = nil, right = nil },
     section_separators = { left = nil, right = nil },
     disabled_filetypes = {
