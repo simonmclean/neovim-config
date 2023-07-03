@@ -33,13 +33,6 @@ vim.g.mapleader = " "
 
 local create_cmd = api.nvim_create_user_command
 
--- Source init.lua
--- TODO: This doesn't always work as intended because it doesn't reload modules...
-create_cmd('Source', ':luafile ~/.config/nvim/init.lua', {})
-
--- Open init.lua
-create_cmd('Config', ':e ~/.config/nvim/init.lua', {})
-
 -- Checkout up-to-date master or main branch
 create_cmd('Main', function()
   local main_branch = _.remove_linebreaks(
@@ -70,7 +63,7 @@ create_cmd('PushNew', function()
   if string.find(upstream_status, 'fatal: no upstream') then
     vim.cmd('Git push -u origin ' .. current_branch_name)
   else
-    print("Error: Remote branch already exists")
+    vim.notify("Remote branch already exists", vim.log.levels.WARN)
   end
 end, {})
 
@@ -194,6 +187,3 @@ map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
 
 -- Unwrap something. e.g. if the cursor is in `Foo`, `Foo(Bar)` will become `Bar`
 map('n', '<leader>u', 'diwmz%x`zx', { desc = 'Unwrap' })
-
--- Persisted sessions
-map('n', '<leader>s', ':Telescope persisted<CR>', { desc = 'Telescope persisted' })
