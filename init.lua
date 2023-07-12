@@ -47,6 +47,7 @@ local function load_plugin_config(plugin)
   end
 end
 
+-- TODO: Maybe instead of this manual list, for each plugin we check if a config file exists?...
 utils.list_foreach({
   'camelcasemotion',
   'flash.nvim',
