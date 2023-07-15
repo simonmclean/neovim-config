@@ -1,50 +1,20 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-local packer_bootstrap
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
-    install_path })
-  vim.cmd [[packadd packer.nvim]]
-end
-
-local packer_config = {
-  display = {
-    open_fn = function()
-      return require('packer.util').float({ border = 'single' })
-    end
-  }
-}
-
-return require('packer').startup({ function(use)
-  use 'wbthomason/packer.nvim'
-
-  --------------------------------------------------------------------------
-  -- Git
-  --------------------------------------------------------------------------
-  use 'lewis6991/gitsigns.nvim'
-  use 'tpope/vim-fugitive'
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-  use 'tpope/vim-rhubarb'
-
-  --------------------------------------------------------------------------
-  -- Better editing
-  --------------------------------------------------------------------------
-  use 'bkad/camelcasemotion'
-  use 'tpope/vim-abolish'
-  use 'tpope/vim-commentary'
-  use 'tpope/vim-repeat'
-  use 'tpope/vim-surround'
-  use 'windwp/nvim-autopairs'
-  use 'folke/flash.nvim'
-
-  --------------------------------------------------------------------------
-  -- FANCY UI
-  --------------------------------------------------------------------------
-  use 'nvim-lualine/lualine.nvim'
-  use 'kyazdani42/nvim-web-devicons'
-  use {
+local plugins = {
+   'lewis6991/gitsigns.nvim',
+   'tpope/vim-fugitive',
+   { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+   'tpope/vim-rhubarb',
+  'bkad/camelcasemotion',
+  'tpope/vim-abolish',
+  'tpope/vim-commentary',
+  'tpope/vim-repeat',
+  'tpope/vim-surround',
+  'windwp/nvim-autopairs',
+  'folke/flash.nvim',
+  'nvim-lualine/lualine.nvim',
+  'kyazdani42/nvim-web-devicons',
+  {
     'hrsh7th/nvim-cmp',
-    requires = {
+    dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/vim-vsnip',
       'hrsh7th/cmp-vsnip',
@@ -52,81 +22,66 @@ return require('packer').startup({ function(use)
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline'
     }
-  }
-  use {
+  },
+  {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v2.x',
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     }
-  }
-  use 'ryanoasis/vim-devicons'
-  use "folke/which-key.nvim"
-  use 'lukas-reineke/indent-blankline.nvim'
-  use {
+  },
+  'ryanoasis/vim-devicons',
+  "folke/which-key.nvim",
+  'lukas-reineke/indent-blankline.nvim',
+  {
     'nvim-telescope/telescope.nvim',
-    requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
-  }
-  use {
+    dependencies = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
+  },
+  {
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
-  }
-  use 'simonmclean/pretty-vanilla-tabline.nvim'
-  use 'shortcuts/no-neck-pain.nvim'
-  use {
+  },
+  'simonmclean/pretty-vanilla-tabline.nvim',
+  'shortcuts/no-neck-pain.nvim',
+  {
      'folke/noice.nvim',
-     requires = {
+     dependencies = {
        'MunifTanjim/nui.nvim',
        'rcarriga/nvim-notify'
      }
-  }
-
-  --------------------------------------------------------------------------
-  -- LSP
-  --------------------------------------------------------------------------
-  use "williamboman/mason.nvim"
-  use "williamboman/mason-lspconfig.nvim"
-  use 'jose-elias-alvarez/null-ls.nvim'
-  use 'neovim/nvim-lspconfig'
-  use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
-
-  --------------------------------------------------------------------------
-  -- Debugging
-  --------------------------------------------------------------------------
-
-  --------------------------------------------------------------------------
-  -- Treesitter
-  --------------------------------------------------------------------------
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
-  --------------------------------------------------------------------------
-  -- Utils
-  --------------------------------------------------------------------------
-  use 'heavenshell/vim-jsdoc'
-  use 'tpope/vim-eunuch'
-  use 'tpope/vim-sleuth'
-  use 'olimorris/persisted.nvim'
-
-  --------------------------------------------------------------------------
-  -- Themes
-  --------------------------------------------------------------------------
-  use 'mhartington/oceanic-next'
-  use { "npxbr/gruvbox.nvim", requires = { "rktjmp/lush.nvim" } } -- doesn't yet support airline
-  use 'kyazdani42/blue-moon'
-  use 'bluz71/vim-nightfly-guicolors'
-  use 'sainnhe/sonokai'
-  use 'shaunsingh/moonlight.nvim'
-  use 'tjdevries/colorbuddy.vim'
-  use 'bkegley/gloombuddy'
-  use 'folke/tokyonight.nvim'
-  use {
+  },
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  'jose-elias-alvarez/null-ls.nvim',
+  'neovim/nvim-lspconfig',
+  { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim" } },
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  'heavenshell/vim-jsdoc',
+  'tpope/vim-eunuch',
+  'tpope/vim-sleuth',
+  'olimorris/persisted.nvim',
+  'mhartington/oceanic-next',
+  { "npxbr/gruvbox.nvim", dependencies = { "rktjmp/lush.nvim" } },
+  'kyazdani42/blue-moon',
+  'bluz71/vim-nightfly-guicolors',
+  'sainnhe/sonokai',
+  'shaunsingh/moonlight.nvim',
+  'tjdevries/colorbuddy.vim',
+  'bkegley/gloombuddy',
+  'folke/tokyonight.nvim',
+  {
     "catppuccin/nvim",
-    as = "catppuccin"
+    name = "catppuccin"
   }
+}
 
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end, config = packer_config })
+local options = {
+  ui = {
+    border = 'single',
+    title = ' Plugins '
+  }
+}
+
+require "lazy".setup(plugins, options)

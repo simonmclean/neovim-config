@@ -1,10 +1,8 @@
 local M = {}
 
 function M.is_plugin_installed(name)
-  local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer'
-  local path_start = packer_path .. '/start/' .. name
-  local path_opt = packer_path .. '/opt/' .. name
-  return (vim.fn.isdirectory(path_start) == 1) or (vim.fn.isdirectory(path_opt) == 1)
+  local plugin_path = vim.fn.stdpath('data') .. '/lazy/' .. name
+  return vim.fn.isdirectory(plugin_path) == 1
 end
 
 function M.split_string(str, delimiter)

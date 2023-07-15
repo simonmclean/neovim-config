@@ -109,7 +109,7 @@ require('lualine').setup {
       project_directory_component(true),
       {
         'branch',
-        icon = ' ',
+        icon = '󰊢',
         color = 'StatusLine',
       },
     },
