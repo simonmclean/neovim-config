@@ -1,82 +1,8 @@
---------------------------------------------------------------------------
--- Bootstrap
---------------------------------------------------------------------------
 require('bootstrap')
 
---------------------------------------------------------------------------
--- Vimscript TODO: Move all this to Lua
---------------------------------------------------------------------------
+-- TODO: Move all this to Lua
 vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 
---------------------------------------------------------------------------
--- Plugin configs
---------------------------------------------------------------------------
-
 require('plugins')
-
-local utils = require 'utils'
-
--- Checks if plugin exists in the filesystem before loading the config
--- Either takes the name of the plugin as a string, or a table which includes a list of dependancies
--- e.g. 'foo' or { 'foo' , deps = { 'bar', 'baz' } }
-local function load_plugin_config(plugin)
-  local pluginName = utils.eval(function()
-    if (type(plugin) == 'string') then
-      return plugin
-    end
-    return plugin[1]
-  end)
-
-  local isPluginInstalled = utils.is_plugin_installed(pluginName)
-
-  local areDepsInstalled = utils.eval(function()
-    if (type(plugin) == 'string') then
-      return true
-    end
-    return utils.list_every(plugin.deps, utils.is_plugin_installed)
-  end)
-
-  -- TODO: These messages can get lost. Figure out blocking print or filesystem logging maybe?
-  if (not isPluginInstalled) then
-    vim.notify("Warning: Config for " .. pluginName .. " will not be loaded because the plugin is not installed", vim.log.levels.WARN)
-  elseif (not areDepsInstalled) then
-    vim.notify("Warning: Config for " .. pluginName .. " will not be loaded one or more dependancies are not installed", vim.logl.levels.WARN)
-  else
-    local submodule_name = string.gsub(pluginName, '.nvim', '')
-    require('plugin-configs.' .. submodule_name)
-  end
-end
-
--- TODO: Maybe instead of this manual list, for each plugin we check if a config file exists?...
-utils.list_foreach({
-  'camelcasemotion',
-  'flash.nvim',
-  'gitsigns.nvim',
-  'indent-blankline.nvim',
-  { 'lualine.nvim', deps = { 'nvim-web-devicons' } },
-  { 'neo-tree.nvim', deps = { 'telescope.nvim' } },
-  'no-neck-pain.nvim',
-  'noice.nvim',
-  'null-ls.nvim',
-  'nvim-code-action-menu',
-  'nvim-autopairs',
-  'nvim-cmp',
-  'nvim-notify',
-  'nvim-treesitter',
-  'nvim-web-devicons',
-  'persisted.nvim',
-  { 'pretty-vanilla-tabline.nvim', deps = { 'nvim-web-devicons' } },
-  'telescope.nvim',
-  'tokyonight.nvim',
-  'which-key.nvim',
-}, load_plugin_config)
-
---------------------------------------------------------------------------
--- LSP config
---------------------------------------------------------------------------
 require('lsp/lsp-config')
-
---------------------------------------------------------------------------
--- Theme config
---------------------------------------------------------------------------
 require('theme')

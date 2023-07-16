@@ -1,19 +1,38 @@
 local plugins = {
-   'lewis6991/gitsigns.nvim',
-   'tpope/vim-fugitive',
-   { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
-   'tpope/vim-rhubarb',
-  'bkad/camelcasemotion',
+  {
+    'lewis6991/gitsigns.nvim',
+    config = require 'plugin-configs.gitsigns'
+  },
+  'tpope/vim-fugitive',
+  { 'sindrets/diffview.nvim', event = "VeryLazy", dependencies = 'nvim-lua/plenary.nvim' },
+  'tpope/vim-rhubarb',
+  {
+    'bkad/camelcasemotion',
+    config = require 'plugin-configs.camelcasemotion'
+  },
   'tpope/vim-abolish',
   'tpope/vim-commentary',
   'tpope/vim-repeat',
   'tpope/vim-surround',
-  'windwp/nvim-autopairs',
-  'folke/flash.nvim',
-  'nvim-lualine/lualine.nvim',
-  'kyazdani42/nvim-web-devicons',
+  {
+    'windwp/nvim-autopairs',
+    config = require 'plugin-configs.nvim-autopairs'
+  },
+  {
+    'folke/flash.nvim',
+    config = require 'plugin-configs.flash'
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    config = require 'plugin-configs.lualine'
+  },
+  {
+    'kyazdani42/nvim-web-devicons',
+    config = require 'plugin-configs.nvim-web-devicons'
+  },
   {
     'hrsh7th/nvim-cmp',
+    event = 'VeryLazy',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/vim-vsnip',
@@ -21,47 +40,83 @@ local plugins = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline'
-    }
+    },
+    config = require 'plugin-configs.nvim-cmp'
   },
   {
     'nvim-neo-tree/neo-tree.nvim',
+    event = 'VeryLazy',
     branch = 'v2.x',
     dependencies = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
-    }
+    },
+    config = require 'plugin-configs.neo-tree'
   },
   'ryanoasis/vim-devicons',
-  "folke/which-key.nvim",
-  'lukas-reineke/indent-blankline.nvim',
+  {
+    'folke/which-key.nvim',
+    config = require 'plugin-configs.which-key'
+  },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    config = require 'plugin-configs.indent-blankline'
+  },
   {
     'nvim-telescope/telescope.nvim',
-    dependencies = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
+    event = 'VeryLazy',
+    dependencies = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
+    config = require 'plugin-configs.telescope'
   },
   {
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
+    config = require 'plugin-configs.nvim-code-action-menu'
   },
-  'simonmclean/pretty-vanilla-tabline.nvim',
-  'shortcuts/no-neck-pain.nvim',
   {
-     'folke/noice.nvim',
-     dependencies = {
-       'MunifTanjim/nui.nvim',
-       'rcarriga/nvim-notify'
-     }
+    'simonmclean/pretty-vanilla-tabline.nvim',
+    config = require 'plugin-configs.pretty-vanilla-tabline'
   },
-  "williamboman/mason.nvim",
+  {
+    'shortcuts/no-neck-pain.nvim',
+    config = require 'plugin-configs.no-neck-pain'
+  },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      {
+        'rcarriga/nvim-notify',
+        config = require 'plugin-configs.nvim-notify'
+      }
+    },
+    config = require 'plugin-configs.noice'
+  },
+  {
+    'williamboman/mason.nvim',
+    build = ':MasonUpdate'
+  },
   "williamboman/mason-lspconfig.nvim",
-  'jose-elias-alvarez/null-ls.nvim',
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = require 'plugin-configs.null-ls'
+  },
   'neovim/nvim-lspconfig',
   { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim" } },
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = require 'plugin-configs.nvim-treesitter'
+  },
   'heavenshell/vim-jsdoc',
   'tpope/vim-eunuch',
   'tpope/vim-sleuth',
-  'olimorris/persisted.nvim',
+  {
+    'olimorris/persisted.nvim',
+    config = require 'plugin-configs.persisted'
+  },
   'mhartington/oceanic-next',
   { "npxbr/gruvbox.nvim", dependencies = { "rktjmp/lush.nvim" } },
   'kyazdani42/blue-moon',
@@ -70,7 +125,10 @@ local plugins = {
   'shaunsingh/moonlight.nvim',
   'tjdevries/colorbuddy.vim',
   'bkegley/gloombuddy',
-  'folke/tokyonight.nvim',
+  {
+    'folke/tokyonight.nvim',
+    config = require 'plugin-configs.tokyonight'
+  },
   {
     "catppuccin/nvim",
     name = "catppuccin"

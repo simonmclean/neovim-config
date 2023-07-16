@@ -1,3 +1,5 @@
-require 'notify'.setup {
-  render = 'minimal'
-}
+return function()
+  require 'notify'.setup {
+    render = 'minimal'
+  }
+end

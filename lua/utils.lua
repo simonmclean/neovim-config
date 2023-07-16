@@ -1,10 +1,5 @@
 local M = {}
 
-function M.is_plugin_installed(name)
-  local plugin_path = vim.fn.stdpath('data') .. '/lazy/' .. name
-  return vim.fn.isdirectory(plugin_path) == 1
-end
-
 function M.split_string(str, delimiter)
   local result = {};
   for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do

@@ -1,7 +1,9 @@
-require 'flash'.setup {
-  modes = {
-    char = {
-      enabled = false
+return function()
+  require 'flash'.setup {
+    modes = {
+      char = {
+        enabled = false
+      }
     }
   }
-}
+end

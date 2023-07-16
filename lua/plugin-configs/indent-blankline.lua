@@ -1,2 +1,3 @@
-vim.g.indentLine_char = '▏'
-
+return function()
+  vim.g.indentLine_char = '▏'
+end
