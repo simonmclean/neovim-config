@@ -103,7 +103,7 @@ local plugins = {
     config = require 'plugin-configs.null-ls'
   },
   'neovim/nvim-lspconfig',
-  { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim" } },
+  { 'scalameta/nvim-metals',  dependencies = { "nvim-lua/plenary.nvim" } },
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -116,21 +116,48 @@ local plugins = {
     'olimorris/persisted.nvim',
     config = require 'plugin-configs.persisted'
   },
-  'mhartington/oceanic-next',
-  { "npxbr/gruvbox.nvim", dependencies = { "rktjmp/lush.nvim" } },
-  'kyazdani42/blue-moon',
-  'bluz71/vim-nightfly-guicolors',
-  'sainnhe/sonokai',
-  'shaunsingh/moonlight.nvim',
-  'tjdevries/colorbuddy.vim',
-  'bkegley/gloombuddy',
+  {
+    'mhartington/oceanic-next',
+    lazy = true
+  },
+  {
+    "npxbr/gruvbox.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
+    lazy = true
+  },
+  {
+    'kyazdani42/blue-moon',
+    lazy = true
+  },
+  {
+    'bluz71/vim-nightfly-guicolors',
+    lazy = true
+  },
+  {
+    'sainnhe/sonokai',
+    lazy = true
+  },
+  {
+    'shaunsingh/moonlight.nvim',
+    lazy = true
+  },
+  {
+    'tjdevries/colorbuddy.vim',
+    lazy = true
+  },
+  {
+    'bkegley/gloombuddy',
+    lazy = true
+  },
   {
     'folke/tokyonight.nvim',
-    config = require 'plugin-configs.tokyonight'
+    config = require 'plugin-configs.tokyonight',
+    lazy = true
   },
   {
     "catppuccin/nvim",
-    name = "catppuccin"
+    name = "catppuccin",
+    lazy = true
   }
 }
 

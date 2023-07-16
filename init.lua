@@ -5,4 +5,4 @@ vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 
 require('plugins')
 require('lsp/lsp-config')
-require('theme')
+vim.cmd("colorscheme tokyonight")
