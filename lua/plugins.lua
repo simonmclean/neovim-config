@@ -54,7 +54,6 @@ local plugins = {
     },
     config = require 'plugin-configs.neo-tree'
   },
-  'ryanoasis/vim-devicons',
   {
     'folke/which-key.nvim',
     config = require 'plugin-configs.which-key'
