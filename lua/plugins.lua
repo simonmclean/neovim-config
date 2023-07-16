@@ -3,24 +3,48 @@ local plugins = {
     'lewis6991/gitsigns.nvim',
     config = require 'plugin-configs.gitsigns'
   },
-  'tpope/vim-fugitive',
-  { 'sindrets/diffview.nvim', event = "VeryLazy", dependencies = 'nvim-lua/plenary.nvim' },
-  'tpope/vim-rhubarb',
+  {
+    'tpope/vim-fugitive',
+  },
+  {
+    'sindrets/diffview.nvim',
+    event = "VeryLazy",
+    dependencies = 'nvim-lua/plenary.nvim'
+  },
+  {
+    'tpope/vim-rhubarb',
+    event = 'VeryLazy'
+  },
   {
     'bkad/camelcasemotion',
-    config = require 'plugin-configs.camelcasemotion'
+    config = require 'plugin-configs.camelcasemotion',
+    event = 'VeryLazy'
   },
-  'tpope/vim-abolish',
-  'tpope/vim-commentary',
-  'tpope/vim-repeat',
-  'tpope/vim-surround',
+  {
+    'tpope/vim-abolish',
+    event = 'VeryLazy'
+  },
+  {
+    'tpope/vim-commentary',
+    event = 'VeryLazy'
+  },
+  {
+    'tpope/vim-repeat',
+    event = 'VeryLazy'
+  },
+  {
+    'tpope/vim-surround',
+    event = 'VeryLazy'
+  },
   {
     'windwp/nvim-autopairs',
-    config = require 'plugin-configs.nvim-autopairs'
+    config = require 'plugin-configs.nvim-autopairs',
+    event = 'VeryLazy'
   },
   {
     'folke/flash.nvim',
-    config = require 'plugin-configs.flash'
+    config = require 'plugin-configs.flash',
+    event = 'VeryLazy'
   },
   {
     'nvim-lualine/lualine.nvim',
@@ -56,7 +80,8 @@ local plugins = {
   },
   {
     'folke/which-key.nvim',
-    config = require 'plugin-configs.which-key'
+    config = require 'plugin-configs.which-key',
+    event = 'VeryLazy'
   },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -79,7 +104,8 @@ local plugins = {
   },
   {
     'shortcuts/no-neck-pain.nvim',
-    config = require 'plugin-configs.no-neck-pain'
+    config = require 'plugin-configs.no-neck-pain',
+    event = 'VeryLazy'
   },
   {
     'folke/noice.nvim',
@@ -103,15 +129,24 @@ local plugins = {
     config = require 'plugin-configs.null-ls'
   },
   'neovim/nvim-lspconfig',
-  { 'scalameta/nvim-metals',  dependencies = { "nvim-lua/plenary.nvim" } },
+  { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim" } },
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = require 'plugin-configs.nvim-treesitter'
   },
-  'heavenshell/vim-jsdoc',
-  'tpope/vim-eunuch',
-  'tpope/vim-sleuth',
+  {
+    'heavenshell/vim-jsdoc',
+    event = 'VeryLazy'
+  },
+  {
+    'tpope/vim-eunuch',
+    event = 'VeryLazy'
+  },
+  {
+    'tpope/vim-sleuth',
+    event = 'VeryLazy'
+  },
   {
     'olimorris/persisted.nvim',
     config = require 'plugin-configs.persisted'
