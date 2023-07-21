@@ -68,15 +68,11 @@ local plugins = {
     config = require 'plugin-configs.nvim-cmp'
   },
   {
-    'nvim-neo-tree/neo-tree.nvim',
-    event = 'VeryLazy',
-    branch = 'v2.x',
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    config = require 'plugin-configs.neo-tree'
+    'simonmclean/tryptic',
+    dev = true,
+    config = function ()
+      require 'tryptic'.setup()
+    end
   },
   {
     'folke/which-key.nvim',
