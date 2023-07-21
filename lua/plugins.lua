@@ -200,6 +200,9 @@ local options = {
   ui = {
     border = 'single',
     title = ' Plugins '
+  },
+  dev = {
+    path = '~/code'
   }
 }
 
