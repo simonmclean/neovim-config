@@ -69,6 +69,9 @@ local plugins = {
   },
   {
     'simonmclean/tryptic',
+    dependencies = {
+      'tjdevries/plenary'
+    },
     dev = true,
     config = function ()
       require 'tryptic'.setup()
