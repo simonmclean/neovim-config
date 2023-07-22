@@ -70,7 +70,7 @@ local plugins = {
   {
     'simonmclean/tryptic',
     dependencies = {
-      'tjdevries/plenary'
+      'nvim-lua/plenary.nvim'
     },
     dev = true,
     config = function ()
