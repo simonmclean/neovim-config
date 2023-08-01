@@ -73,7 +73,7 @@ local plugins = {
       'nvim-lua/plenary.nvim'
     },
     dev = true,
-    config = function ()
+    config = function()
       require 'tryptic'.setup()
     end
   },
@@ -128,6 +128,7 @@ local plugins = {
     config = require 'plugin-configs.null-ls'
   },
   'neovim/nvim-lspconfig',
+  'folke/trouble.nvim',
   { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim" } },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -195,14 +196,4 @@ local plugins = {
   }
 }
 
-local options = {
-  ui = {
-    border = 'single',
-    title = ' Plugins '
-  },
-  dev = {
-    path = '~/code'
-  }
-}
-
-require "lazy".setup(plugins, options)
+require 'plugin-configs.lazy'(plugins)
