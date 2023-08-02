@@ -221,5 +221,5 @@ return function()
     },
   }
 
-  vim.cmd([[nnoremap <leader>- :Neotree reveal<cr>]])
+  -- vim.cmd([[nnoremap <leader>- :Neotree reveal<cr>]])
 end
