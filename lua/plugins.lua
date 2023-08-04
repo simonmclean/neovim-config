@@ -51,7 +51,7 @@ local plugins = {
     config = require 'plugin-configs/lualine'
   },
   {
-    'kyazdani42/nvim-web-devicons',
+    'nvim-tree/nvim-web-devicons',
     config = require 'plugin-configs/nvim-web-devicons'
   },
   {
@@ -71,7 +71,7 @@ local plugins = {
     'simonmclean/tryptic',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'kyazdani42/nvim-web-devicons'
+      'nvim-tree/nvim-web-devicons'
     },
     dev = true,
     config = function()
