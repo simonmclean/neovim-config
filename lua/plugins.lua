@@ -70,7 +70,8 @@ local plugins = {
   {
     'simonmclean/tryptic',
     dependencies = {
-      'nvim-lua/plenary.nvim'
+      'nvim-lua/plenary.nvim',
+      'kyazdani42/nvim-web-devicons'
     },
     dev = true,
     config = function()
