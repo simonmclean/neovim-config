@@ -1,7 +1,7 @@
 local plugins = {
   {
     'lewis6991/gitsigns.nvim',
-    config = require 'plugin-configs.gitsigns'
+    config = require 'plugin-configs/gitsigns'
   },
   {
     'tpope/vim-fugitive',
@@ -17,7 +17,7 @@ local plugins = {
   },
   {
     'bkad/camelcasemotion',
-    config = require 'plugin-configs.camelcasemotion',
+    config = require 'plugin-configs/camelcasemotion',
     event = 'VeryLazy'
   },
   {
@@ -38,21 +38,21 @@ local plugins = {
   },
   {
     'windwp/nvim-autopairs',
-    config = require 'plugin-configs.nvim-autopairs',
+    config = require 'plugin-configs/nvim-autopairs',
     event = 'VeryLazy'
   },
   {
     'folke/flash.nvim',
-    config = require 'plugin-configs.flash',
+    config = require 'plugin-configs/flash',
     event = 'VeryLazy'
   },
   {
     'nvim-lualine/lualine.nvim',
-    config = require 'plugin-configs.lualine'
+    config = require 'plugin-configs/lualine'
   },
   {
     'kyazdani42/nvim-web-devicons',
-    config = require 'plugin-configs.nvim-web-devicons'
+    config = require 'plugin-configs/nvim-web-devicons'
   },
   {
     'hrsh7th/nvim-cmp',
@@ -65,7 +65,7 @@ local plugins = {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline'
     },
-    config = require 'plugin-configs.nvim-cmp'
+    config = require 'plugin-configs/nvim-cmp'
   },
   {
     'simonmclean/tryptic',
@@ -79,31 +79,31 @@ local plugins = {
   },
   {
     'folke/which-key.nvim',
-    config = require 'plugin-configs.which-key',
+    config = require 'plugin-configs/which-key',
     event = 'VeryLazy'
   },
   {
     'lukas-reineke/indent-blankline.nvim',
-    config = require 'plugin-configs.indent-blankline'
+    config = require 'plugin-configs/indent-blankline'
   },
   {
     'nvim-telescope/telescope.nvim',
     event = 'VeryLazy',
     dependencies = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
-    config = require 'plugin-configs.telescope'
+    config = require 'plugin-configs/telescope'
   },
   {
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
-    config = require 'plugin-configs.nvim-code-action-menu'
+    config = require 'plugin-configs/nvim-code-action-menu'
   },
   {
     'simonmclean/pretty-vanilla-tabline.nvim',
-    config = require 'plugin-configs.pretty-vanilla-tabline'
+    config = require 'plugin-configs/pretty-vanilla-tabline'
   },
   {
     'shortcuts/no-neck-pain.nvim',
-    config = require 'plugin-configs.no-neck-pain',
+    config = require 'plugin-configs/no-neck-pain',
     event = 'VeryLazy'
   },
   {
@@ -113,10 +113,10 @@ local plugins = {
       'MunifTanjim/nui.nvim',
       {
         'rcarriga/nvim-notify',
-        config = require 'plugin-configs.nvim-notify'
+        config = require 'plugin-configs/nvim-notify'
       }
     },
-    config = require 'plugin-configs.noice'
+    config = require 'plugin-configs/noice'
   },
   {
     'williamboman/mason.nvim',
@@ -125,7 +125,7 @@ local plugins = {
   "williamboman/mason-lspconfig.nvim",
   {
     'jose-elias-alvarez/null-ls.nvim',
-    config = require 'plugin-configs.null-ls'
+    config = require 'plugin-configs/null-ls'
   },
   'neovim/nvim-lspconfig',
   'folke/trouble.nvim',
@@ -133,7 +133,7 @@ local plugins = {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    config = require 'plugin-configs.nvim-treesitter'
+    config = require 'plugin-configs/nvim-treesitter'
   },
   {
     'heavenshell/vim-jsdoc',
@@ -149,7 +149,7 @@ local plugins = {
   },
   {
     'olimorris/persisted.nvim',
-    config = require 'plugin-configs.persisted'
+    config = require 'plugin-configs/persisted'
   },
   {
     'mhartington/oceanic-next',
@@ -186,7 +186,7 @@ local plugins = {
   },
   {
     'folke/tokyonight.nvim',
-    config = require 'plugin-configs.tokyonight',
+    config = require 'plugin-configs/tokyonight',
     lazy = true
   },
   {
@@ -196,4 +196,4 @@ local plugins = {
   }
 }
 
-require 'plugin-configs.lazy'(plugins)
+require 'plugin-configs/lazy'(plugins)
