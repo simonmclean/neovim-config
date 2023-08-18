@@ -130,11 +130,26 @@ local plugins = {
   },
   'neovim/nvim-lspconfig',
   'folke/trouble.nvim',
-  { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim" } },
+  { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" } },
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = require 'plugin-configs/nvim-treesitter'
+  },
+  {
+    'mfussenegger/nvim-dap',
+    config = require 'plugin-configs/dap-config'
+  },
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = 'mfussenegger/nvim-dap',
+    config = require 'plugin-configs.dap-ui-config'
+  },
+  {
+    'theHamsta/nvim-dap-virtual-text',
+    config = function ()
+      require 'nvim-dap-virtual-text'.setup()
+    end
   },
   {
     'heavenshell/vim-jsdoc',
