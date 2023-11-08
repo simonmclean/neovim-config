@@ -1,11 +1,13 @@
 return function()
   local utils = require 'utils'
-  local scala_icon = require 'nvim-web-devicons'.get_icon("scala")
+  local scala_icon, scala_icon_highlight = require 'nvim-web-devicons'.get_icon_by_filetype("scala")
 
   local function metals_status()
     local status = vim.g.metals_status
     if (type(status) == 'string' and utils.trim_string(status) ~= "") then
-      return scala_icon .. " " .. status
+      local highlighted_icon = utils.with_highlight_group(scala_icon_highlight, scala_icon) -- TODO: Background should match StatusLine
+      local highlight_text = utils.with_highlight_group("StatusLine", status)
+      return highlighted_icon .. " " .. highlight_text
     else
       return ''
     end
@@ -48,16 +50,9 @@ return function()
     'filename',
     path = 0,
     color = winbar_color,
-    -- file_status = false
   }
 
-  -- TODO: Maybe raise an issue about the jankiness of this?
-  -- local diff = {
-  --   'diff',
-  --   color = winbar_color
-  -- }
-
-  local diagnostics = {
+  local win_diagnostics = {
     'diagnostics',
     icons_enabled = true,
     color = winbar_color,
@@ -73,8 +68,7 @@ return function()
       spacer,
       filetype_icon,
       filename,
-      -- diff,
-      diagnostics,
+      win_diagnostics,
       spacer,
     },
     lualine_c = {
@@ -112,7 +106,23 @@ return function()
           'branch',
           icon = '󰊢',
           color = 'StatusLine',
+          on_click = function ()
+            require 'telescope.builtin'.git_branches()
+          end
         },
+        {
+          'diagnostics',
+          sources = { 'nvim_workspace_diagnostic' },
+          diagnostics_color = {
+            error = 'StatusLine',
+            warn = 'StatusLine',
+            hint = 'StatusLine',
+            info = 'StatusLine'
+          },
+          on_click = function ()
+            require 'trouble'.toggle()
+          end
+        }
       },
       lualine_c = {
         metals_status

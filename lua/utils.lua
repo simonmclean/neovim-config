@@ -33,6 +33,10 @@ function M.eval(fn)
   return fn()
 end
 
+function M.with_highlight_group(group_name, str)
+  return '%#' .. group_name .. '#' .. str
+end
+
 function M.get_highlight_values(highlight_name)
   local highlight_map = vim.api.nvim_get_hl_by_name(highlight_name, true)
   for key, value in pairs(highlight_map) do
