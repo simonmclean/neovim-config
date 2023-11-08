@@ -132,7 +132,7 @@ local plugins = {
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = require 'plugin-configs/trouble'
+    config = require 'plugin-configs/trouble-config'
   },
   { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" } },
   {
