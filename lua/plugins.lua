@@ -129,7 +129,11 @@ local plugins = {
     config = require 'plugin-configs/null-ls'
   },
   'neovim/nvim-lspconfig',
-  'folke/trouble.nvim',
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = require 'plugin-configs/trouble'
+  },
   { 'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" } },
   {
     'nvim-treesitter/nvim-treesitter',
