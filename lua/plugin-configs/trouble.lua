@@ -5,6 +5,7 @@ return function()
 
   return require("trouble").setup({
     auto_fold = true,
-    auto_preview = false
+    auto_preview = false,
+    use_diagnostic_signs = true
   })
 end

@@ -59,7 +59,7 @@ return function()
 
   local diagnostics = {
     'diagnostics',
-    icons_enabled = false,
+    icons_enabled = true,
     color = winbar_color,
   }
 
