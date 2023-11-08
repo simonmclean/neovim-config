@@ -5,5 +5,6 @@ return function()
 
   return require("trouble").setup({
     auto_fold = true,
+    auto_previous = false
   })
 end
