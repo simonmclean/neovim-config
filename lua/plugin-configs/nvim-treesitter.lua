@@ -9,4 +9,6 @@ return function()
     },
     auto_install = true
   }
+
+  vim.treesitter.language.register('terraform', 'terraform-vars')
 end
