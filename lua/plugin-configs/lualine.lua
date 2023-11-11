@@ -58,36 +58,52 @@ return function()
     color = winbar_color,
   }
 
-  local gstatus = { ahead = 0, behind = 0 }
-
-  local function update_gstatus()
-    local Job = require("plenary.job")
-    Job:new({
-      command = "git",
-      args = { "rev-list", "--left-right", "--count", "HEAD...@{upstream}" },
-      on_exit = function(job, _)
-        local res = job:result()[1]
-        if type(res) ~= "string" then
-          gstatus = { ahead = 0, behind = 0 }
-          return
-        end
-        local ok, ahead, behind = pcall(string.match, res, "(%d+)%s*(%d+)")
-        if not ok then
-          ahead, behind = 0, 0
-        end
-        gstatus = { ahead = ahead, behind = behind }
-      end,
-    }):start()
-  end
-
-  vim.loop.new_timer():start(0, 30 * 1000, vim.schedule_wrap(update_gstatus))
-
   local function gstatus_component()
+    local noop = function()
+      return ""
+    end
+
+    local is_git_installed = type(vim.trim(vim.fn.system("command -v git"))) == "string"
+
+    if not is_git_installed then
+      return noop
+    end
+
+    local is_git_repo = vim.trim(vim.fn.system("git rev-parse --is-inside-work-tree")) == "true"
+
+    if not is_git_repo then
+      return noop
+    end
+
+    local gstatus = { ahead = 0, behind = 0 }
+
+    local function update_gstatus()
+      local Job = require("plenary.job")
+      Job:new({
+        command = "git",
+        args = { "rev-list", "--left-right", "--count", "HEAD...@{upstream}" },
+        on_exit = function(job, _)
+          local res = job:result()[1]
+          if type(res) ~= "string" then
+            gstatus = { ahead = 0, behind = 0 }
+            return
+          end
+          local ok, ahead, behind = pcall(string.match, res, "(%d+)%s*(%d+)")
+          if not ok then
+            ahead, behind = 0, 0
+          end
+          gstatus = { ahead = ahead, behind = behind }
+        end,
+      }):start()
+    end
+
+    vim.loop.new_timer():start(0, 30 * 1000, vim.schedule_wrap(update_gstatus))
+
     return {
       function()
         return " " .. gstatus.ahead .. "  " .. gstatus.behind
       end,
-      color = 'StatusLine'
+      color = "StatusLine",
     }
   end
 
