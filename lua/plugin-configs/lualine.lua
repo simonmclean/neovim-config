@@ -58,6 +58,7 @@ return function()
     color = winbar_color,
   }
 
+  -- TODO: Maybe hijack `Git Commit`, `Git Push` etc and update the component from those as well? Instead of just on a timer
   local function gstatus_component()
     local noop = function()
       return ""
