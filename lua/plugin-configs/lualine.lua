@@ -111,11 +111,21 @@ return function()
   local spacer = { "%=", color = winbar_color }
 
   local winbar = {
-    lualine_a = {
-      spacer,
-    },
     lualine_b = {
       spacer,
+      {
+        function()
+          local lines_count = vim.api.nvim_buf_line_count(0)
+          local cursor_pos = vim.api.nvim_win_get_cursor(0)
+          local padding_char_count = string.len(lines_count) + string.len(cursor_pos[1]) + string.len(cursor_pos[2]) + 2
+          local str = " "
+          for _ = 1, padding_char_count, 1 do
+            str = str .. " "
+          end
+          return str
+        end,
+        color = "winbar_color",
+      },
       filetype_icon,
       filename,
       win_diagnostics,
