@@ -5,6 +5,7 @@ local plugins = {
   },
   {
     'tpope/vim-fugitive',
+    config = require 'plugin-configs.fugitive-config'
   },
   {
     'sindrets/diffview.nvim',
