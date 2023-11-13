@@ -1,5 +1,5 @@
 return function()
-  require 'nvim-web-devicons'.setup {
+  require('nvim-web-devicons').setup {
     override = {
       TelescopePrompt = {
         icon = ' ',
@@ -8,7 +8,7 @@ return function()
         icon = '',
         -- TODO: Colors aren't working
         color = '#f14e32',
-      }
-    }
+      },
+    },
   }
 end

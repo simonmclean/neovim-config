@@ -7,16 +7,16 @@ local api = vim.api
 -- Bootstrap plugin manager
 --------------------------------------------------------------------------
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     lazypath,
-  })
+  }
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -35,12 +35,12 @@ vim.o.showmode = false -- the mode is already displayed in the statusline
 vim.o.hidden = true
 vim.o.undofile = true
 vim.o.scrolloff = 1
-vim.opt_global.shortmess:append('s')
+vim.opt_global.shortmess:append 's'
 
 -- Global for personal config stuff
 vim.g.personal_globals = {
   checking_git_status = false,
-  git_status = { ahead = 0, behind = 0 }
+  git_status = { ahead = 0, behind = 0 },
 }
 
 -- Window options
@@ -49,7 +49,7 @@ vim.wo.cursorline = true
 vim.wo.number = true
 vim.wo.relativenumber = false
 vim.wo.wrap = false
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
 --------------------------------------------------------------------------
 -- Custom commands
@@ -59,12 +59,8 @@ local create_cmd = api.nvim_create_user_command
 
 -- Checkout up-to-date master or main branch
 create_cmd('Main', function()
-  local main_branch = _.remove_linebreaks(
-    vim.fn.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
-  )
-  local current_branch_name = _.remove_linebreaks(
-    vim.fn.system('git rev-parse --abbrev-ref HEAD')
-  )
+  local main_branch = _.remove_linebreaks(vim.fn.system "git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
+  local current_branch_name = _.remove_linebreaks(vim.fn.system 'git rev-parse --abbrev-ref HEAD')
   local pull_command = 'Git pull'
 
   if current_branch_name == main_branch then
@@ -81,13 +77,13 @@ end, {})
 
 -- Push new branch
 create_cmd('PushNew', function()
-  vim.cmd('Git fetch')
-  local current_branch_name = _.remove_linebreaks(vim.fn.system('git rev-parse --abbrev-ref HEAD'))
+  vim.cmd 'Git fetch'
+  local current_branch_name = _.remove_linebreaks(vim.fn.system 'git rev-parse --abbrev-ref HEAD')
   local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
   if string.find(upstream_status, 'fatal: no upstream') then
     vim.cmd('Git push -u origin ' .. current_branch_name)
   else
-    vim.notify("Remote branch already exists", vim.log.levels.WARN)
+    vim.notify('Remote branch already exists', vim.log.levels.WARN)
   end
 end, {})
 
@@ -108,57 +104,64 @@ end, {})
 
 -- TODO: completion doesn't seem to work
 -- TODO: handle errors
-create_cmd('FindAndReplace',
-  function()
-    vim.ui.input({ prompt = 'Find: ' }, function(find)
-      if (find and find ~= "") then
-        vim.ui.input({ prompt = 'Replace with: ' }, function(replace_with)
-          if (replace_with and replace_with ~= "") then
-            vim.ui.input({ prompt = 'In (e.g. **/*.scala): ', completion = 'dir' }, function(location)
-              if (location and location ~= "") then
-                vim.ui.input({ prompt = 'Replace "' .. find .. '" with "' .. replace_with .. '" in ' .. location .. '? (enter to confirm, esc to cancel)' },
-                  function(answer)
-                    if (answer) then
-                      -- see :h :s_flags for flag ecplanations
-                      vim.cmd('vimgrep /' .. find .. '/gj ' .. location)
-                      vim.cmd('cfdo %s/' .. find .. '/' .. replace_with .. '/ge | update')
-                    end
-                  end)
-              end
-            end)
-          end
-        end)
-      end
-    end)
-  end,
-  {}
-)
+create_cmd('FindAndReplace', function()
+  vim.ui.input({ prompt = 'Find: ' }, function(find)
+    if find and find ~= '' then
+      vim.ui.input({ prompt = 'Replace with: ' }, function(replace_with)
+        if replace_with and replace_with ~= '' then
+          vim.ui.input({ prompt = 'In (e.g. **/*.scala): ', completion = 'dir' }, function(location)
+            if location and location ~= '' then
+              vim.ui.input(
+                {
+                  prompt = 'Replace "'
+                    .. find
+                    .. '" with "'
+                    .. replace_with
+                    .. '" in '
+                    .. location
+                    .. '? (enter to confirm, esc to cancel)',
+                },
+                function(answer)
+                  if answer then
+                    -- see :h :s_flags for flag ecplanations
+                    vim.cmd('vimgrep /' .. find .. '/gj ' .. location)
+                    vim.cmd('cfdo %s/' .. find .. '/' .. replace_with .. '/ge | update')
+                  end
+                end
+              )
+            end
+          end)
+        end
+      end)
+    end
+  end)
+end, {})
 
 -- Exclude block navigation from the jumplist
-vim.cmd('nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>')
-vim.cmd('nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>')
+vim.cmd 'nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>'
+vim.cmd 'nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>'
 
 --------------------------------------------------------------------------
 -- Autocommands
 --------------------------------------------------------------------------
 
-local my_augroup = api.nvim_create_augroup("SimonMcLeanBootstrap", { clear = true })
+local my_augroup = api.nvim_create_augroup('SimonMcLeanBootstrap', { clear = true })
 
 local create_autocmd = api.nvim_create_autocmd
 
 -- Remove trailing whitespace on save
 create_autocmd('BufWritePre', {
   callback = function()
-    vim_exec([[%s/\s\+$//e]])
+    vim_exec [[%s/\s\+$//e]]
   end,
-  group = my_augroup
+  group = my_augroup,
 })
 
 -- Disable cursorline in quickfix
 create_autocmd('FileType', {
   pattern = 'qf',
   command = 'setlocal nocursorline',
-  group = my_augroup
+  group = my_augroup,
 })
 
 -- Auto install treesitter parsers
@@ -167,12 +170,12 @@ create_autocmd('FileType', {
   callback = function()
     local parsers = require 'nvim-treesitter.parsers'
     local lang = parsers.get_buf_lang()
-    if (parsers.get_parser_configs()[lang] and not parsers.has_parser(lang)) then
+    if parsers.get_parser_configs()[lang] and not parsers.has_parser(lang) then
       vim.schedule_wrap(function()
         vim.cmd('TSInstall ' .. lang)
       end)
     end
-  end
+  end,
 })
 
 --------------------------------------------------------------------------

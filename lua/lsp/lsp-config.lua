@@ -15,16 +15,16 @@ local servers = {
 }
 -- nvim-lsp-installer must be setup before nvim-lspconfig
 -- See https://github.com/williamboman/nvim-lsp-installer#setup
-require("mason").setup {
+require('mason').setup {
   ui = {
-    border = 'single'
-  }
+    border = 'single',
+  },
 }
-require("mason-lspconfig").setup {
+require('mason-lspconfig').setup {
   ensure_installed = servers,
   automatic_installation = true,
 }
-require("lspconfig.ui.windows").default_options.border = 'single'
+require('lspconfig.ui.windows').default_options.border = 'single'
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
@@ -64,17 +64,17 @@ end
 local config_overrides = {
   eslint = require 'lsp/eslint',
   tsserver = require 'lsp/tsserver',
-  lua_ls = require 'lsp/lua'
+  lua_ls = require 'lsp/lua',
 }
 for _, language_server in pairs(servers) do
   local default_config = {
     on_attach = on_attach,
     capabilities = capabilities_with_cmp,
   }
-  local lsp_config = require 'lspconfig'[language_server]
-  if (config_overrides[language_server]) then
+  local lsp_config = require('lspconfig')[language_server]
+  if config_overrides[language_server] then
     local custom_config = tbl_deep_extend('keep', config_overrides[language_server], default_config)
-    if (custom_config.on_attach_extend) then
+    if custom_config.on_attach_extend then
       custom_config.on_attach = function(client, bufnr)
         on_attach(client, bufnr)
         custom_config.on_attach_extend(client, bufnr)
@@ -86,7 +86,7 @@ for _, language_server in pairs(servers) do
   end
 end
 -- Metals is initialized separately, because it's a special snowflake
-require("lsp/metals")(on_attach, capabilities_with_cmp)
+require 'lsp/metals'(on_attach, capabilities_with_cmp)
 
 -- Add border to all LSP popups
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -97,8 +97,8 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 -- Diagnostic signs
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
+  local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end

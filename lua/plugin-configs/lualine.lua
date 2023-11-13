@@ -1,15 +1,15 @@
 return function()
-  local utils = require("utils")
-  local scala_icon, scala_icon_highlight = require("nvim-web-devicons").get_icon_by_filetype("scala")
+  local utils = require 'utils'
+  local scala_icon, scala_icon_highlight = require('nvim-web-devicons').get_icon_by_filetype 'scala'
 
   local function metals_status()
     local status = vim.g.metals_status
-    if type(status) == "string" and utils.trim_string(status) ~= "" then
+    if type(status) == 'string' and utils.trim_string(status) ~= '' then
       local highlighted_icon = utils.with_highlight_group(scala_icon_highlight, scala_icon) -- TODO: Background should match StatusLine
-      local highlight_text = utils.with_highlight_group("StatusLine", status)
-      return highlighted_icon .. " " .. highlight_text
+      local highlight_text = utils.with_highlight_group('StatusLine', status)
+      return highlighted_icon .. ' ' .. highlight_text
     else
-      return ""
+      return ''
     end
   end
 
@@ -24,36 +24,36 @@ return function()
 
     return {
       component,
-      icon = "  ",
-      color = "StatusLine",
+      icon = '  ',
+      color = 'StatusLine',
     }
   end
 
   local function date_component()
     return {
       function()
-        return vim.fn.strftime("%a %d %b %H:%M")
+        return vim.fn.strftime '%a %d %b %H:%M'
       end,
-      color = "StatusLine",
+      color = 'StatusLine',
     }
   end
 
-  local winbar_color = "Normal"
+  local winbar_color = 'Normal'
 
   local filetype_icon = {
-    "filetype",
+    'filetype',
     icon_only = true,
     color = winbar_color,
   }
 
   local filename = {
-    "filename",
+    'filename',
     path = 0,
     color = winbar_color,
   }
 
   local win_diagnostics = {
-    "diagnostics",
+    'diagnostics',
     icons_enabled = true,
     color = winbar_color,
   }
@@ -61,7 +61,7 @@ return function()
   local function gstatus_component()
     if not utils.is_git_repo() then
       return function()
-        return ""
+        return ''
       end
     end
 
@@ -71,13 +71,13 @@ return function()
 
     return {
       function()
-        return " " .. status.ahead .. "  " .. status.behind
+        return ' ' .. status.ahead .. '  ' .. status.behind
       end,
-      color = "StatusLine",
+      color = 'StatusLine',
     }
   end
 
-  local spacer = { "%=", color = winbar_color }
+  local spacer = { '%=', color = winbar_color }
 
   local winbar = {
     lualine_b = {
@@ -87,13 +87,13 @@ return function()
           local lines_count = vim.api.nvim_buf_line_count(0)
           local cursor_pos = vim.api.nvim_win_get_cursor(0)
           local padding_char_count = string.len(lines_count) + string.len(cursor_pos[1]) + string.len(cursor_pos[2]) + 2
-          local str = " "
+          local str = ' '
           for _ = 1, padding_char_count, 1 do
-            str = str .. " "
+            str = str .. ' '
           end
           return str
         end,
-        color = "winbar_color",
+        color = 'winbar_color',
       },
       filetype_icon,
       filename,
@@ -102,25 +102,25 @@ return function()
     },
     lualine_c = {
       {
-        "location",
+        'location',
         color = winbar_color,
         fmt = function(str)
-          local rows_and_cols = utils.split_string(str, ":")
+          local rows_and_cols = utils.split_string(str, ':')
           local total_lines_count = vim.api.nvim_buf_line_count(0)
-          return rows_and_cols[1] .. "/" .. total_lines_count .. ":" .. rows_and_cols[2]
+          return rows_and_cols[1] .. '/' .. total_lines_count .. ':' .. rows_and_cols[2]
         end,
       },
     },
   }
 
-  require("lualine").setup({
+  require('lualine').setup {
     options = {
       icons_enabled = true,
-      theme = "tokyonight",
+      theme = 'tokyonight',
       component_separators = { left = nil, right = nil },
       section_separators = { left = nil, right = nil },
       disabled_filetypes = {
-        winbar = { "fugitive" },
+        winbar = { 'fugitive' },
       },
       always_divide_middle = true,
       globalstatus = true,
@@ -128,29 +128,29 @@ return function()
     winbar = winbar,
     inactive_winbar = winbar,
     sections = {
-      lualine_a = { "mode" },
+      lualine_a = { 'mode' },
       lualine_b = {
         project_directory_component(true),
         {
-          "branch",
-          icon = "󰊢",
-          color = "StatusLine",
+          'branch',
+          icon = '󰊢',
+          color = 'StatusLine',
           on_click = function()
-            require("telescope.builtin").git_branches()
+            require('telescope.builtin').git_branches()
           end,
         },
         gstatus_component(),
         {
-          "diagnostics",
-          sources = { "nvim_workspace_diagnostic" },
+          'diagnostics',
+          sources = { 'nvim_workspace_diagnostic' },
           diagnostics_color = {
-            error = "StatusLine",
-            warn = "StatusLine",
-            hint = "StatusLine",
-            info = "StatusLine",
+            error = 'StatusLine',
+            warn = 'StatusLine',
+            hint = 'StatusLine',
+            info = 'StatusLine',
           },
           on_click = function()
-            require("trouble").toggle()
+            require('trouble').toggle()
           end,
         },
       },
@@ -166,5 +166,5 @@ return function()
     refresh = {
       winbar = 500,
     },
-  })
+  }
 end

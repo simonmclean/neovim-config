@@ -6,9 +6,9 @@ return function()
   map('n', '<leader>s', ':Telescope lsp_document_symbols<cr>', {})
   map('n', '<leader>t', ':Telescope<cr>', {})
 
-  require 'telescope'.setup {
+  require('telescope').setup {
     defaults = {
-      path_display = { truncate = 2 }
-    }
+      path_display = { truncate = 2 },
+    },
   }
 end

@@ -2,11 +2,11 @@ return {
   settings = {
     Lua = {
       diagnostics = {
-        globals = { 'vim' }
+        globals = { 'vim' },
       },
       format = {
         enable = false,
       },
-    }
-  }
+    },
+  },
 }

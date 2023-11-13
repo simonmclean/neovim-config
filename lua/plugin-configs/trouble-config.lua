@@ -1,11 +1,11 @@
 return function()
-  vim.keymap.set("n", "<leader>T", function()
-    require("trouble").toggle()
+  vim.keymap.set('n', '<leader>T', function()
+    require('trouble').toggle()
   end)
 
-  return require("trouble").setup({
+  return require('trouble').setup {
     auto_fold = true,
     auto_preview = false,
-    use_diagnostic_signs = true
-  })
+    use_diagnostic_signs = true,
+  }
 end

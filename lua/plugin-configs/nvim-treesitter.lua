@@ -1,5 +1,5 @@
 return function()
-  require 'nvim-treesitter.configs'.setup {
+  require('nvim-treesitter.configs').setup {
     highlight = {
       enable = true,
       custom_captures = {
@@ -7,7 +7,7 @@ return function()
         -- ["foo.bar"] = "Identifier",
       },
     },
-    auto_install = true
+    auto_install = true,
   }
 
   vim.treesitter.language.register('terraform', 'terraform-vars')

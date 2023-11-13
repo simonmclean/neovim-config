@@ -1,4 +1,4 @@
-return function ()
+return function()
   local dap = require 'dap'
   local map = vim.keymap.set
   map('n', '<leader>db', dap.toggle_breakpoint)
