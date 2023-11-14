@@ -37,12 +37,6 @@ vim.o.undofile = true
 vim.o.scrolloff = 1
 vim.opt_global.shortmess:append 's'
 
--- Global for personal config stuff
-vim.g.personal_globals = {
-  checking_git_status = false,
-  git_status = { ahead = 0, behind = 0 },
-}
-
 -- Window options
 vim.wo.signcolumn = 'yes'
 vim.wo.cursorline = true
@@ -50,6 +44,15 @@ vim.wo.number = true
 vim.wo.relativenumber = false
 vim.wo.wrap = false
 vim.g.mapleader = ' '
+
+--------------------------------------------------------------------------
+-- Non-vim Globals
+--------------------------------------------------------------------------
+
+UserState = {
+  checking_git_status = false,
+  git_status = { ahead = 0, behind = 0 },
+}
 
 --------------------------------------------------------------------------
 -- Custom commands

@@ -67,11 +67,9 @@ return function()
 
     vim.loop.new_timer():start(0, 30 * 1000, vim.schedule_wrap(utils.update_git_status))
 
-    local status = vim.g.personal_globals.git_status
-
     return {
       function()
-        return ' ' .. status.ahead .. '  ' .. status.behind
+        return ' ' .. UserState.git_status.ahead .. '  ' .. UserState.git_status.behind
       end,
       color = 'StatusLine',
     }

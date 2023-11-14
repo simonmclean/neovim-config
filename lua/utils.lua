@@ -119,27 +119,27 @@ end
 
 --- Checks how many commit ahead and behind my local branch is, then updates the relevant global
 function M.update_git_status()
-  if vim.g.personal_globals.checking_git_status then
+  if UserState.checking_git_status then
     return
   end
 
-  vim.g.personal_globals.checking_git_status = true
+  UserState.checking_git_status = true
   local Job = require 'plenary.job'
   Job:new({
     command = 'git',
     args = { 'rev-list', '--left-right', '--count', 'HEAD...@{upstream}' },
     on_exit = function(job, _)
       local res = job:result()[1]
-      vim.g.personal_globals.checking_git_status = false
+      UserState.checking_git_status = false
       if type(res) ~= 'string' then
-        vim.g.personal_globals.git_status = { ahead = 0, behind = 0 }
+        UserState.git_status = { ahead = 0, behind = 0 }
         return
       end
       local ok, ahead, behind = pcall(string.match, res, '(%d+)%s*(%d+)')
       if not ok then
         ahead, behind = 0, 0
       end
-      vim.g.personal_globals.git_status = { ahead = ahead, behind = behind }
+      UserState.git_status = { ahead = ahead, behind = behind }
     end,
   }):start()
 end
