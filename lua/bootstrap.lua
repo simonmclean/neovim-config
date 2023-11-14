@@ -105,41 +105,6 @@ create_cmd('TabWidth', function()
   end)
 end, {})
 
--- TODO: completion doesn't seem to work
--- TODO: handle errors
-create_cmd('FindAndReplace', function()
-  vim.ui.input({ prompt = 'Find: ' }, function(find)
-    if find and find ~= '' then
-      vim.ui.input({ prompt = 'Replace with: ' }, function(replace_with)
-        if replace_with and replace_with ~= '' then
-          vim.ui.input({ prompt = 'In (e.g. **/*.scala): ', completion = 'dir' }, function(location)
-            if location and location ~= '' then
-              vim.ui.input(
-                {
-                  prompt = 'Replace "'
-                    .. find
-                    .. '" with "'
-                    .. replace_with
-                    .. '" in '
-                    .. location
-                    .. '? (enter to confirm, esc to cancel)',
-                },
-                function(answer)
-                  if answer then
-                    -- see :h :s_flags for flag ecplanations
-                    vim.cmd('vimgrep /' .. find .. '/gj ' .. location)
-                    vim.cmd('cfdo %s/' .. find .. '/' .. replace_with .. '/ge | update')
-                  end
-                end
-              )
-            end
-          end)
-        end
-      end)
-    end
-  end)
-end, {})
-
 -- Exclude block navigation from the jumplist
 vim.cmd 'nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>'
 vim.cmd 'nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>'
