@@ -43,6 +43,10 @@ local plugins = {
     event = 'VeryLazy',
   },
   {
+    'kevinhwang91/nvim-bqf',
+    event = 'VeryLazy'
+  },
+  {
     'folke/flash.nvim',
     config = require 'plugin-configs/flash',
     event = 'VeryLazy',
