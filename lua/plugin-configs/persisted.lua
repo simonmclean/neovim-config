@@ -1,4 +1,6 @@
 return function()
+  local utils = require 'utils'
+
   local allowed_dirs = {
     '~/code',
     '~/.config/nvim',
@@ -15,5 +17,19 @@ return function()
     branch_separator = '_',
   }
 
-  require('telescope').load_extension 'persisted'
+  local autocmd_group = vim.api.nvim_create_augroup('PersistedHooks', {})
+
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'PersistedSavePre',
+    group = autocmd_group,
+    callback = function()
+      local filetypes = { 'fugitive', 'Trouble', 'qf' }
+      for _, bufid in ipairs(vim.api.nvim_list_bufs()) do
+        local filetype = vim.api.nvim_buf_get_option(bufid, 'filetype')
+        if utils.list_contains(filetypes, filetype) then
+          vim.api.nvim_buf_delete(bufid, {})
+        end
+      end
+    end,
+  })
 end

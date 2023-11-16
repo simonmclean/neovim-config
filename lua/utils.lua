@@ -109,6 +109,20 @@ function M.list_join(tbl, sep)
   return result
 end
 
+function M.list_find(tbl, fn)
+  for _, element in ipairs(tbl) do
+    if fn(element) then
+      return true
+    end
+  end
+end
+
+function M.list_contains(tbl, value)
+  return M.list_find(tbl, function (el)
+    return el == value
+  end)
+end
+
 function M.is_git_repo()
   local is_git_installed = type(vim.trim(vim.fn.system 'command -v git')) == 'string'
   if not is_git_installed then
