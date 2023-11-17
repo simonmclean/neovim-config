@@ -118,7 +118,7 @@ function M.list_find(tbl, fn)
 end
 
 function M.list_contains(tbl, value)
-  return M.list_find(tbl, function (el)
+  return M.list_find(tbl, function(el)
     return el == value
   end)
 end
@@ -139,21 +139,28 @@ function M.update_git_status()
 
   UserState.checking_git_status = true
   local Job = require 'plenary.job'
+
   Job:new({
     command = 'git',
-    args = { 'rev-list', '--left-right', '--count', 'HEAD...@{upstream}' },
-    on_exit = function(job, _)
-      local res = job:result()[1]
-      UserState.checking_git_status = false
-      if type(res) ~= 'string' then
-        UserState.git_status = { ahead = 0, behind = 0 }
-        return
-      end
-      local ok, ahead, behind = pcall(string.match, res, '(%d+)%s*(%d+)')
-      if not ok then
-        ahead, behind = 0, 0
-      end
-      UserState.git_status = { ahead = ahead, behind = behind }
+    args = { 'fetch' },
+    on_exit = function()
+      Job:new({
+        command = 'git',
+        args = { 'rev-list', '--left-right', '--count', 'HEAD...@{upstream}' },
+        on_exit = function(job, _)
+          UserState.checking_git_status = false
+          local res = job:result()[1]
+          if type(res) ~= 'string' then
+            UserState.git_status = { ahead = 0, behind = 0 }
+            return
+          end
+          local ok, ahead, behind = pcall(string.match, res, '(%d+)%s*(%d+)')
+          if not ok then
+            ahead, behind = 0, 0
+          end
+          UserState.git_status = { ahead = ahead, behind = behind }
+        end,
+      }):start()
     end,
   }):start()
 end
