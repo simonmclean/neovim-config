@@ -3,7 +3,7 @@ return function()
 
   local allowed_dirs = {
     '~/code',
-    '~/.config/nvim',
+    '~/.config',
   }
 
   local ignored_dirs = {
