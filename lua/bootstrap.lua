@@ -25,6 +25,7 @@ vim.opt.rtp:prepend(lazypath)
 --------------------------------------------------------------------------
 
 -- General options
+vim.g.mapleader = ' '
 vim.o.termguicolors = true
 vim.o.laststatus = 3
 vim.o.clipboard = 'unnamed'
@@ -36,6 +37,13 @@ vim.o.hidden = true
 vim.o.undofile = true
 vim.o.scrolloff = 1
 vim.opt_global.shortmess:append 's'
+vim.g.foldtext = function()
+  local line = vim.fn.getline(vim.v.foldstart)
+  local folded_line_count = vim.v.foldend - vim.v.foldstart + 1
+  return '--[' .. folded_line_count .. ' lines] ' .. line
+end
+vim.opt.fillchars = { fold = ' ', foldopen = '', foldclose = '' }
+vim.o.foldcolumn = 'auto'
 
 -- Window options
 vim.wo.signcolumn = 'yes'
@@ -43,7 +51,6 @@ vim.wo.cursorline = true
 vim.wo.number = true
 vim.wo.relativenumber = false
 vim.wo.wrap = false
-vim.g.mapleader = ' '
 
 --------------------------------------------------------------------------
 -- Non-vim Globals
