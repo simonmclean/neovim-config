@@ -59,17 +59,9 @@ return function()
   }
 
   local function gstatus_component()
-    if not utils.is_git_repo() then
-      return function()
-        return ''
-      end
-    end
-
-    vim.loop.new_timer():start(0, 30 * 1000, vim.schedule_wrap(utils.update_git_status))
-
     return {
       function()
-        return ' ' .. UserState.git_status.ahead .. '  ' .. UserState.git_status.behind
+        return vim.g.statusline_commits or ''
       end,
       color = 'StatusLine',
     }

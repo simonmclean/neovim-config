@@ -7,8 +7,8 @@ return function()
     pattern = { 'FugitiveObject', 'FugitiveIndex' },
     group = autocmd_group,
     callback = function()
-      if u.is_git_repo() then
-        u.update_git_status()
+      if vim.g.statusline_commits_update then
+        vim.g.statusline_commits_update()
       end
     end,
   })

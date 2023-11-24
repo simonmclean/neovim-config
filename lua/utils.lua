@@ -123,46 +123,4 @@ function M.list_contains(tbl, value)
   end)
 end
 
-function M.is_git_repo()
-  local is_git_installed = type(vim.trim(vim.fn.system 'command -v git')) == 'string'
-  if not is_git_installed then
-    return false
-  end
-  return vim.trim(vim.fn.system 'git rev-parse --is-inside-work-tree') == 'true'
-end
-
---- Checks how many commit ahead and behind my local branch is, then updates the relevant global
-function M.update_git_status()
-  if UserState.checking_git_status then
-    return
-  end
-
-  UserState.checking_git_status = true
-  local Job = require 'plenary.job'
-
-  Job:new({
-    command = 'git',
-    args = { 'fetch' },
-    on_exit = function()
-      Job:new({
-        command = 'git',
-        args = { 'rev-list', '--left-right', '--count', 'HEAD...@{upstream}' },
-        on_exit = function(job, _)
-          UserState.checking_git_status = false
-          local res = job:result()[1]
-          if type(res) ~= 'string' then
-            UserState.git_status = { ahead = 0, behind = 0 }
-            return
-          end
-          local ok, ahead, behind = pcall(string.match, res, '(%d+)%s*(%d+)')
-          if not ok then
-            ahead, behind = 0, 0
-          end
-          UserState.git_status = { ahead = ahead, behind = behind }
-        end,
-      }):start()
-    end,
-  }):start()
-end
-
 return M
