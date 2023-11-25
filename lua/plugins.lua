@@ -108,7 +108,6 @@ local plugins = {
     event = 'VeryLazy',
   },
   -- Indentation lines
-  -- TODO: This has stopped working
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
