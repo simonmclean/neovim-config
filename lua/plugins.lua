@@ -57,7 +57,7 @@ local plugins = {
   -- Filter the quickfix list
   {
     'kevinhwang91/nvim-bqf',
-    event = 'VeryLazy'
+    event = 'VeryLazy',
   },
   -- TODO: Am I using this?
   {
@@ -111,6 +111,7 @@ local plugins = {
   -- TODO: This has stopped working
   {
     'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
     config = require 'plugin-configs/indent-blankline',
   },
   -- Versitile UI for searching things

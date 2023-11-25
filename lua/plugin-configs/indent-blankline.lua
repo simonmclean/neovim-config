@@ -1,3 +1,10 @@
 return function()
-  vim.g.indentLine_char = '▏'
+  require('ibl').setup {
+    scope = {
+      enabled = false,
+    },
+    indent = {
+      char = '▏',
+    },
+  }
 end
