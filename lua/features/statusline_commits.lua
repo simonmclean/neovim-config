@@ -34,7 +34,6 @@ local function git_check_commits_diff(callback)
         }
       else
         callback { ahead = 0, behind = 0 }
-        error('Unexpected response type in function check_ahead_behind: ' .. tostring(response))
       end
     end,
   }):start()
