@@ -254,7 +254,8 @@ local plugins = {
   {
     'folke/tokyonight.nvim',
     config = require 'plugin-configs/tokyonight',
-    lazy = true,
+    lazy = false,
+    priority = 1000,
   },
   {
     'catppuccin/nvim',
