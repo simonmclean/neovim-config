@@ -110,7 +110,7 @@ return function()
       component_separators = { left = nil, right = nil },
       section_separators = { left = nil, right = nil },
       disabled_filetypes = {
-        winbar = { 'fugitive' },
+        winbar = { 'fugitive', 'qf', 'Trouble', 'DiffviewFiles', 'DiffviewFileHistory' },
       },
       always_divide_middle = true,
       globalstatus = true,
