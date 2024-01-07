@@ -1,4 +1,16 @@
 local plugins = {
+  -- Directory browser
+  {
+    'simonmclean/triptych.nvim',
+    event = 'VeryLazy',
+    dir = '~/code/triptych',
+    dev = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- required
+      'nvim-tree/nvim-web-devicons', -- optional
+    },
+    config = require 'plugin-configs.triptych-config',
+  },
   -- Signcolumn icons for git
   -- Manage hunks (stage, unstage, undo, preview etc)
   {
@@ -88,18 +100,6 @@ local plugins = {
       'hrsh7th/cmp-cmdline',
     },
     config = require 'plugin-configs/nvim-cmp',
-  },
-  -- Directory browser
-  {
-    'simonmclean/tryptic',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
-    dev = true,
-    config = function()
-      require('tryptic').setup()
-    end,
   },
   -- Floating UI that shows keybindings
   {
