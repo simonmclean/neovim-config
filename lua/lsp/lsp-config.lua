@@ -11,7 +11,7 @@ local servers = {
   'lua_ls',
   'tsserver',
   'terraformls',
-  'vimls',
+  'tailwindcss',
 }
 -- nvim-lsp-installer must be setup before nvim-lspconfig
 -- See https://github.com/williamboman/nvim-lsp-installer#setup
