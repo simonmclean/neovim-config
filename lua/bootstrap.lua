@@ -37,6 +37,9 @@ vim.o.hidden = true
 vim.o.undofile = true
 vim.o.scrolloff = 1
 vim.opt_global.shortmess:append 's'
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
 vim.g.foldtext = function()
   local line = vim.fn.getline(vim.v.foldstart)
   local folded_line_count = vim.v.foldend - vim.v.foldstart + 1

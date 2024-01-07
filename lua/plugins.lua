@@ -51,7 +51,7 @@ local plugins = {
   {
     'windwp/nvim-autopairs',
     config = require 'plugin-configs/nvim-autopairs',
-    event = 'VeryLazy',
+    event = 'InsertEnter',
   },
   -- Floating preview window for the quickfix list
   -- Filter the quickfix list
@@ -177,6 +177,7 @@ local plugins = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = require 'plugin-configs/nvim-treesitter',
+    dependencies = { 'windwp/nvim-ts-autotag' },
   },
   -- Debug Adapter Protocol (DAP)
   {
@@ -204,12 +205,6 @@ local plugins = {
   -- Vim sugar for common UNIX commands (Rename, Delete etc)
   {
     'tpope/vim-eunuch',
-    event = 'VeryLazy',
-  },
-  -- Heuristically detect the shiftwidth and expandtab for a file
-  -- TODO: Is this still helping?
-  {
-    'tpope/vim-sleuth',
     event = 'VeryLazy',
   },
   -- Automatic session save and restore
