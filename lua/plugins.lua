@@ -207,12 +207,6 @@ local plugins = {
     'tpope/vim-eunuch',
     event = 'VeryLazy',
   },
-  -- Heuristically detect the shiftwidth and expandtab for a file
-  -- TODO: Is this still helping?
-  {
-    'tpope/vim-sleuth',
-    event = 'VeryLazy',
-  },
   -- Automatic session save and restore
   {
     'olimorris/persisted.nvim',
