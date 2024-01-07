@@ -1,5 +1,11 @@
 return function()
   require('nvim-treesitter.configs').setup {
+    indent = {
+      enable = true, -- without this JSX auto-indentation doesn't work as expected
+    },
+    autotag = { -- This requires the 'windwp/nvim-ts-autotag' plugin
+      enable = true,
+    },
     highlight = {
       enable = true,
       custom_captures = {
