@@ -1,18 +1,12 @@
 local tbl_deep_extend = vim.tbl_deep_extend
 local capabilities_with_cmp = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = {
-  'bashls',
-  'clojure_lsp',
-  'dockerls',
-  'graphql',
-  'html',
-  'jsonls',
-  'lua_ls',
-  'tsserver',
-  'terraformls',
-  'tailwindcss',
-}
+local is_mason_lspconfig_installed, mason_lsp_config = pcall(require, 'mason-lspconfig')
+local servers = {}
+if is_mason_lspconfig_installed then
+  servers = mason_lsp_config.get_installed_servers()
+end
+
 -- nvim-lsp-installer must be setup before nvim-lspconfig
 -- See https://github.com/williamboman/nvim-lsp-installer#setup
 require('mason').setup {
@@ -20,7 +14,7 @@ require('mason').setup {
     border = 'single',
   },
 }
-require('mason-lspconfig').setup {
+mason_lsp_config.setup {
   ensure_installed = servers,
   automatic_installation = true,
 }
