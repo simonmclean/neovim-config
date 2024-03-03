@@ -12,7 +12,8 @@ return function()
   map('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
   -- map('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
   -- map('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-  map('n', '<leader>sb', builtin.current_buffer_fuzzy_find, { desc = '[Search] current [B]uffer' })
+  map('n', '<leader>sb', builtin.current_buffer_fuzzy_find, { desc = '[S]earch current [B]uffer' })
+  map('n', '<leader>swd', builtin.diagnostics, { desc = '[S]earch [W]orkspace [D]iagnostics' })
 
   require('telescope').setup {
     defaults = {
