@@ -80,12 +80,12 @@ create_cmd('Main', function()
   if current_branch_name == main_branch then
     -- If already on main, just fetch and pull latest
     local update_command = 'Git fetch --prune'
-    vim.cmd(update_command .. ' | ' .. pull_command, true)
+    vim.cmd(update_command .. ' | ' .. pull_command)
   else
     -- If not on main, first update main branch, then checkout
     local update_command = 'Git fetch --prune origin ' .. main_branch .. ':' .. main_branch
     local checkout_command = 'Git checkout ' .. main_branch
-    vim.cmd(update_command .. ' | ' .. checkout_command, true)
+    vim.cmd(update_command .. ' | ' .. checkout_command)
   end
 end, {})
 
