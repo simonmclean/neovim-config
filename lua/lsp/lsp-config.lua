@@ -110,12 +110,14 @@ end
 -- Metals is initialized separately, because it's a special snowflake
 require 'lsp/metals'(on_attach, capabilities_with_cmp)
 
--- Add border to all LSP popups
+-- Customise all LSP floating windows
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
   opts.border = 'single'
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+  local bufnr, winnr = orig_util_open_floating_preview(contents, syntax, opts, ...)
+  vim.api.nvim_win_set_option(winnr, 'winblend', 10)
+  return bufnr, winnr
 end
 
 -- Diagnostic signs
