@@ -156,6 +156,16 @@ create_autocmd('FileType', {
   end,
 })
 
+-- Highlight when yanking (copying) text
+-- See `:help vim.highlight.on_yank()`
+create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
 --------------------------------------------------------------------------
 -- Mappings
 --------------------------------------------------------------------------
