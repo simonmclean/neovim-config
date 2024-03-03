@@ -1,3 +1,5 @@
+-- TODO: My whole LSP config is a vile mess and should be re-organised
+
 local tbl_deep_extend = vim.tbl_deep_extend
 local capabilities_with_cmp = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
