@@ -4,5 +4,5 @@ require 'bootstrap'
 vim.cmd 'source ~/.config/nvim/vimscript/functions.vim'
 
 require 'plugins'
-require 'lsp/lsp-config'
+require 'lsp/lsp'
 require 'features.statusline_commits'.new()

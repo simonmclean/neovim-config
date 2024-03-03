@@ -1,36 +1,10 @@
--- TODO: My whole LSP config is a vile mess and should be re-organised
-
-local tbl_deep_extend = vim.tbl_deep_extend
 local capabilities_with_cmp = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local is_mason_lspconfig_installed, mason_lsp_config = pcall(require, 'mason-lspconfig')
-local servers = {}
-if is_mason_lspconfig_installed then
-  servers = mason_lsp_config.get_installed_servers()
-end
-
--- nvim-lsp-installer must be setup before nvim-lspconfig
--- See https://github.com/williamboman/nvim-lsp-installer#setup
-require('mason').setup {
-  ui = {
-    border = 'single',
-  },
-}
-mason_lsp_config.setup {
-  ensure_installed = servers,
-  automatic_installation = true,
-}
 require('lspconfig.ui.windows').default_options.border = 'single'
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-
-vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -57,11 +31,11 @@ local on_attach = function(client, bufnr)
 
   -- Fuzzy find all the symbols in your current document.
   --  Symbols are things like variables, functions, types, etc.
-  map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  map('<leader>sd', require('telescope.builtin').lsp_document_symbols, '[S]earch [D]ocument Symbols')
 
   -- Fuzzy find all the symbols in your current workspace
   --  Similar to document symbols, except searches over your whole project.
-  map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  map('<leader>sw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[S]earch [W]orkspace Symbols')
 
   -- Rename the variable under your cursor
   --  Most Language Servers support renaming across files, etc.
@@ -82,37 +56,12 @@ local on_attach = function(client, bufnr)
   map('<space>f', '<cmd>lua vim.lsp.buf.format { async = true} <CR>', '[F]ormat')
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
--- These will be merged with a default config in the loop below
-local config_overrides = {
-  eslint = require 'lsp/eslint',
-  tsserver = require 'lsp/tsserver',
-  lua_ls = require 'lsp/lua',
-}
-for _, language_server in pairs(servers) do
-  local default_config = {
-    on_attach = on_attach,
-    capabilities = capabilities_with_cmp,
-  }
-  local lsp_config = require('lspconfig')[language_server]
-  if config_overrides[language_server] then
-    local custom_config = tbl_deep_extend('keep', config_overrides[language_server], default_config)
-    if custom_config.on_attach_extend then
-      custom_config.on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-        custom_config.on_attach_extend(client, bufnr)
-      end
-    end
-    lsp_config.setup(custom_config)
-  else
-    lsp_config.setup(default_config)
-  end
-end
--- Metals is initialized separately, because it's a special snowflake
-require 'lsp/metals'(on_attach, capabilities_with_cmp)
+require 'lsp.mason-config'(on_attach, capabilities_with_cmp)
 
--- Customise all LSP floating windows
+-- Metals is initialized separately, because it's a special snowflake
+require 'lsp.language-servers.metals'(on_attach, capabilities_with_cmp)
+
+-- Customise all LSP floating windows - add border and transparency
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}

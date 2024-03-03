@@ -173,6 +173,8 @@ map('n', '[q', ':cprevious<cr>')
 map('n', ']q', ':cnext<cr>')
 map('n', '[b', ':bprevious<cr>')
 map('n', ']b', ':bnext<cr>')
+map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 
 -- Toggle between 2 buffers
 map('n', '<leader><leader>', '<c-^>', { silent = true, desc = 'Previous buffer' })
