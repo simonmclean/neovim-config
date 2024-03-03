@@ -11,6 +11,12 @@ local plugins = {
     },
     config = require 'plugin-configs.triptych-config',
   },
+  -- Ecosystem of small plugins
+  {
+    'echasnovski/mini.nvim',
+    event = 'VeryLazy',
+    config = require 'plugin-configs.mini-config',
+  },
   -- Signcolumn icons for git
   -- Manage hunks (stage, unstage, undo, preview etc)
   {
