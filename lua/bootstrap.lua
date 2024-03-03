@@ -35,7 +35,7 @@ vim.o.showcmd = true
 vim.o.showmode = false -- the mode is already displayed in the statusline
 vim.o.hidden = true
 vim.o.undofile = true
-vim.o.scrolloff = 1
+vim.o.scrolloff = 10
 vim.opt_global.shortmess:append 's'
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
