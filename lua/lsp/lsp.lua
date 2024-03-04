@@ -43,7 +43,7 @@ local on_attach = function(_, bufnr)
 
   -- Execute a code action, usually your cursor needs to be on top of an error
   -- or a suggestion from your LSP for this to activate.
-  map('<leader>ca', '<cmd>lua vim.cmd("CodeActionMenu")<CR>', '[C]ode [A]ction')
+  map('<leader>ca', require('actions-preview').code_actions, '[C]ode [A]ction')
 
   -- Opens a popup that displays documentation about the word under your cursor
   --  See `:help K` for why this keymap

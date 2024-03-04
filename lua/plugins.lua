@@ -126,11 +126,11 @@ local plugins = {
     dependencies = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
     config = require 'plugin-configs/telescope',
   },
-  -- Dropdown-style menu for LSP actions
+  -- Use telescope for code action menu with preview
   {
-    'weilbith/nvim-code-action-menu',
-    cmd = 'CodeActionMenu',
-    config = require 'plugin-configs/nvim-code-action-menu',
+    'aznhe21/actions-preview.nvim',
+    event = 'VeryLazy',
+    config = require 'plugin-configs.actions-preview-config'
   },
   -- Improve aesthetics for the tabline
   {
