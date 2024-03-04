@@ -31,7 +31,7 @@ local on_attach = function(_, bufnr)
 
   -- Fuzzy find all the symbols in your current document.
   --  Symbols are things like variables, functions, types, etc.
-  map('<leader>sd', require('telescope.builtin').lsp_document_symbols, '[S]earch [D]ocument Symbols')
+  map('<leader>ss', require('telescope.builtin').lsp_document_symbols, '[S]earch [D]ocument Symbols')
 
   -- Fuzzy find all the symbols in your current workspace
   --  Similar to document symbols, except searches over your whole project.
@@ -43,7 +43,7 @@ local on_attach = function(_, bufnr)
 
   -- Execute a code action, usually your cursor needs to be on top of an error
   -- or a suggestion from your LSP for this to activate.
-  map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  map('<leader>ca', '<cmd>lua vim.cmd("CodeActionMenu")<CR>', '[C]ode [A]ction')
 
   -- Opens a popup that displays documentation about the word under your cursor
   --  See `:help K` for why this keymap
