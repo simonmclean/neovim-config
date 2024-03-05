@@ -124,13 +124,14 @@ local plugins = {
     'nvim-telescope/telescope.nvim',
     event = 'VeryLazy',
     dependencies = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
-    config = require 'plugin-configs/telescope',
+    config = require('plugin-configs.telescope').config,
   },
   -- Use telescope for code action menu with preview
   {
     'aznhe21/actions-preview.nvim',
     event = 'VeryLazy',
-    config = require 'plugin-configs.actions-preview-config'
+    config = require 'plugin-configs.actions-preview-config',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
   },
   -- Improve aesthetics for the tabline
   {

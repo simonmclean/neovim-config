@@ -1,4 +1,10 @@
-return function()
+local M = {}
+
+M.layout_config = {
+  width = { 0.5, max = 70, min = 123 },
+}
+
+M.config = function()
   local map = vim.keymap.set
   local builtin = require 'telescope.builtin'
 
@@ -18,9 +24,9 @@ return function()
     defaults = {
       layout_strategy = 'vertical',
       path_display = { truncate = 2 },
-      layout_config = {
-        width = { 0.5, max = 70, min = 123 },
-      },
+      layout_config = M.layout_config,
     },
   }
 end
+
+return M
