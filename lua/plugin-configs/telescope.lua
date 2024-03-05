@@ -18,6 +18,9 @@ return function()
     defaults = {
       layout_strategy = 'vertical',
       path_display = { truncate = 2 },
+      layout_config = {
+        width = { 0.5, max = 70, min = 123 },
+      },
     },
   }
 end
