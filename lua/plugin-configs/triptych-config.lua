@@ -1,7 +1,7 @@
 return function()
   require('triptych').setup {
     extension_mappings = {
-      ['<c-f>'] = {
+      ['<leader>sg'] = {
         mode = 'n',
         fn = function(target)
           require('telescope.builtin').live_grep {
