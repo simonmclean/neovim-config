@@ -116,10 +116,6 @@ create_cmd('TabWidth', function()
   end)
 end, {})
 
-create_cmd('GoToTest', function ()
-  require 'features.goto_test'()
-end, {})
-
 -- Exclude block navigation from the jumplist
 vim.cmd 'nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>'
 vim.cmd 'nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>'
@@ -195,3 +191,7 @@ map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
 
 -- Unwrap something. e.g. if the cursor is in `Foo`, `Foo(Bar)` will become `Bar`
 map('n', '<leader>u', 'diwmz%x`zx', { desc = 'Unwrap' })
+
+map('n', '<leader>gt', function ()
+  require 'features.goto_test'()
+end)
