@@ -194,7 +194,10 @@ local plugins = {
   -- Fancy UI for DAP
   {
     'rcarriga/nvim-dap-ui',
-    dependencies = 'mfussenegger/nvim-dap',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      'nvim-neotest/nvim-nio'
+    },
     config = require 'plugin-configs.dap-ui-config',
   },
   -- Virtual text for DAP
