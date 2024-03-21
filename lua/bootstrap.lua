@@ -116,6 +116,10 @@ create_cmd('TabWidth', function()
   end)
 end, {})
 
+create_cmd('GoToTest', function ()
+  require 'features.goto_test'()
+end, {})
+
 -- Exclude block navigation from the jumplist
 vim.cmd 'nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>'
 vim.cmd 'nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>'
