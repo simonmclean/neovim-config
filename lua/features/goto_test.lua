@@ -143,12 +143,13 @@ end
 
 -- These will be searched with case insensitivity
 local TEST_POSTFIXES = {
-  'spec',
-  'test',
   '_spec',
   '_test',
   '.spec',
   '.test',
+  -- These two need to come last because of the matching logic
+  'spec',
+  'test',
 }
 
 ---@param matches string[]
