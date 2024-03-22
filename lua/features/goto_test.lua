@@ -1,21 +1,32 @@
+---Convert gitignore globs into lua patterns (which are like very simplified regex)
 local function glob_to_lua_pattern(glob)
   return glob:gsub('%.', '%%.'):gsub('%*', '.*'):gsub('%?', '.') .. '$'
 end
 
----Determines whether a file or directory should be ignored based on the given ignore patterns
+---Determines whether a file or directory should be ignored based on the given patterns
 ---@param name string
 ---@param ignore_patterns string[]
 ---@return boolean
-local function should_ignore(name, ignore_patterns)
+local function should_ignore(name, is_dir, ignore_patterns)
+  -- .git isn't usually included in the gitignore, so we're hard-coding here
+  if is_dir and name == '.git' then
+    return true
+  end
+
   for _, pattern in ipairs(ignore_patterns) do
     if name:match(pattern) then
       return true
     end
+    -- Directories can be with or without trailing slash, so we check this as well
+    if is_dir and (name .. '/'):match(pattern) then
+      return true
+    end
   end
+
   return false
 end
 
---- Reads the .gitignore file of a given directory (if it exists) and returns the ignore patterns
+---Reads the .gitignore file of a given directory (if it exists) and returns the ignore patterns
 ---@param dir string path
 ---@return string[]
 local function read_gitignore(dir)
@@ -33,7 +44,7 @@ local function read_gitignore(dir)
   return ignore_patterns
 end
 
---- Deep search in current working directory for files (case insensitive)
+---Deep search in current working directory for files (case insensitive)
 ---@param filenames { string: boolean }
 ---@param callback fun(matches: string[]): nil function that takes a list of paths
 local function find_files_async(filenames, callback)
@@ -63,7 +74,6 @@ local function find_files_async(filenames, callback)
     for _, pattern in ipairs(directory_ignore_patterns) do
       table.insert(ignore_patterns, pattern)
     end
-    vim.print(vim.inspect { ignore = ignore_patterns })
 
     vim.loop.fs_opendir(dir, function(err, handle)
       if err then
@@ -78,11 +88,11 @@ local function find_files_async(filenames, callback)
 
           if entries then
             for _, entry in ipairs(entries) do
-              if not should_ignore(entry.name, ignore_patterns) then
+              if not should_ignore(entry.name, entry.type == 'directory', ignore_patterns) then
                 local entry_path = dir .. '/' .. entry.name
                 if entry.type == 'directory' then
                   search_dir(entry_path, ignore_patterns)
-                elseif entry.type == 'file' and filenames[entry.name] then
+                elseif entry.type == 'file' and filenames[string.lower(entry.name)] then
                   table.insert(matches, entry_path)
                 end
               end
@@ -111,41 +121,21 @@ local function absolute_to_relative_path(absolute_path)
   return absolute_path:sub(#cwd + 2)
 end
 
---- Key is the path of a test file, relative to the project root.
---- Value is buffer number of the corresponding application file.
----@type { string: string }
-local test_to_app_files = {}
-
 --- Display list of possible test files in telescope
 ---@param matches string[]
-local function show_results_in_telescope(matches)
-  local current_buf = vim.api.nvim_win_get_buf(0)
-
+local function show_options_in_telescope(matches)
   local pickers = require 'telescope.pickers'
   local finders = require 'telescope.finders'
   local sorters = require 'telescope.sorters'
-  local actions_state = require 'telescope.actions.state'
-  local actions = require 'telescope.actions'
-
-  local cache_selection = function(prompt_bufnr)
-    local selected_test_file = actions_state.get_selected_entry()
-    test_to_app_files[selected_test_file] = current_buf
-    actions.close(prompt_bufnr)
-  end
 
   local opts = {
     finder = finders.new_table(matches),
     sorter = sorters.get_generic_fuzzy_sorter {},
-    attach_mappings = function(_, map)
-      map('n', '<cr>', cache_selection)
-      map('i', '<cr>', cache_selection)
-      return true
-    end,
   }
 
   pickers
     .new(opts, {
-      prompt_title = 'Test files',
+      prompt_title = 'Matches',
       previewer = require('telescope.config').values.file_previewer {},
     })
     :find()
@@ -161,36 +151,56 @@ local TEST_POSTFIXES = {
   '.test',
 }
 
+---@param matches string[]
+local function handle_search_results(matches)
+  if #matches == 0 then
+    vim.notify('No test/source match found', vim.log.levels.WARN, {})
+  elseif #matches == 1 then
+    vim.cmd.edit(matches[1])
+  else
+    -- If there's more than 1 match, show options in telescope
+    local matches_relative = {}
+    for _, match in ipairs(matches) do
+      table.insert(matches_relative, absolute_to_relative_path(match))
+    end
+    show_options_in_telescope(matches_relative)
+  end
+end
+
+---Find the test file that corresponds to the current buffer, assuming the current buffer is a source file
 local function find_test()
-  local filename_without_extension = vim.fn.expand '%:t:r'
-  local file_extension = vim.fn.expand '%:e'
-  local filenames = {}
+  local current_filename_without_extension = vim.fn.expand '%:t:r'
+  local current_file_extension = vim.fn.expand '%:e'
+  local filenames_to_search_for = {}
   for _, postfix in ipairs(TEST_POSTFIXES) do
-    local test_filename = filename_without_extension .. postfix .. '.' .. file_extension
-    filenames[test_filename] = true
+    local test_filename = current_filename_without_extension .. postfix .. '.' .. current_file_extension
+    filenames_to_search_for[string.lower(test_filename)] = true
   end
-  find_files_async(
-    filenames,
-    vim.schedule_wrap(function(matches)
-      if #matches == 0 then
-        return vim.notify('No test suite found', vim.log.levels.WARN, {})
-      end
-      local matches_relative = {}
-      for _, match in ipairs(matches) do
-        table.insert(matches_relative, absolute_to_relative_path(match))
-      end
-      show_results_in_telescope(matches_relative)
-    end)
-  )
+  find_files_async(filenames_to_search_for, vim.schedule_wrap(handle_search_results))
 end
 
----Performs the inverse of find_test(), expect it only works if you've done find_test() first
-local function find_application_file()
-  local current_file_path = vim.fn.expand '%'
-  local source_file_buf = test_to_app_files[current_file_path]
-  if source_file_buf and vim.api.nvim_buf_is_valid(source_file_buf) then
-    vim.api.nvim_win_set_buf(source_file_buf)
-  end
+---Find the source file that corresponds to current buffer, assuming the current buffer is a test file
+---@param filename string
+local function find_source(filename)
+  local filename_lower = string.lower(filename)
+  find_files_async({ [filename_lower] = true }, vim.schedule_wrap(handle_search_results))
 end
 
-return find_test
+---Figures out whether we're in a test or source file, then finds the other one in the pair
+local function find_sister_file()
+  local current_filename_without_extension = vim.fn.expand '%:t:r'
+  for _, postfix in ipairs(TEST_POSTFIXES) do
+    local postfix_escaped = postfix:gsub('%.', '%%.')
+    local match = string.lower(current_filename_without_extension):match(postfix_escaped .. '$')
+    if match then
+      local current_file_extension = vim.fn.expand '%:e'
+      local current_filename_without_test_postfix =
+        current_filename_without_extension:sub(1, #current_filename_without_extension - #match)
+      local source_file_name = current_filename_without_test_postfix .. '.' .. current_file_extension
+      return find_source(source_file_name)
+    end
+  end
+  find_test()
+end
+
+return find_sister_file
