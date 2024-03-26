@@ -233,58 +233,33 @@ local plugins = {
 }
 
 local themes = {
-  {
-    'mhartington/oceanic-next',
-    lazy = true,
-  },
+  'mhartington/oceanic-next',
   {
     'npxbr/gruvbox.nvim',
     dependencies = { 'rktjmp/lush.nvim' },
-    lazy = true,
   },
-  {
-    'kyazdani42/blue-moon',
-    lazy = true,
-  },
-  {
-    'bluz71/vim-nightfly-guicolors',
-    lazy = true,
-  },
-  {
-    'sainnhe/sonokai',
-    lazy = true,
-  },
-  {
-    'shaunsingh/moonlight.nvim',
-    lazy = true,
-  },
-  {
-    'tjdevries/colorbuddy.vim',
-    lazy = true,
-  },
-  {
-    'bkegley/gloombuddy',
-    lazy = true,
-  },
+  'kyazdani42/blue-moon',
+  'bluz71/vim-nightfly-guicolors',
+  'sainnhe/sonokai',
+  'shaunsingh/moonlight.nvim',
+  'tjdevries/colorbuddy.vim',
+  'bkegley/gloombuddy',
   {
     'folke/tokyonight.nvim',
     config = require 'plugin-configs/tokyonight',
-    lazy = false,
-    priority = 1000,
   },
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    lazy = true,
   },
 }
 
 local CURRENT_THEME_PLUGIN = 'folke/tokyonight.nvim'
 
--- Only add the current theme to plugins
+-- Add the desired theme to plugins table
 for _, theme in ipairs(themes) do
   if theme[1] == CURRENT_THEME_PLUGIN then
-    table.insert(plugins, theme)
+    table.insert(plugins, 1, theme)
   end
 end
 
