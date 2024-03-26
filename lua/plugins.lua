@@ -22,6 +22,7 @@ local plugins = {
   {
     'lewis6991/gitsigns.nvim',
     config = require 'plugin-configs/gitsigns',
+    event = 'VeryLazy',
   },
   -- Git wrapper and lightweight UI
   {
@@ -118,6 +119,7 @@ local plugins = {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     config = require 'plugin-configs/indent-blankline',
+    event = 'VeryLazy',
   },
   -- Versitile UI for searching things
   {
@@ -161,13 +163,18 @@ local plugins = {
   {
     'williamboman/mason.nvim',
     build = ':MasonUpdate',
+    event = 'VeryLazy',
   },
   -- Bridge between Mason and lsp-config
-  'williamboman/mason-lspconfig.nvim',
+  {
+    'williamboman/mason-lspconfig.nvim',
+    event = 'VeryLazy',
+  },
   -- Formatting and linting (eslint, prettier etc) that works separately from LSP
   {
     'jose-elias-alvarez/null-ls.nvim',
     config = require 'plugin-configs/null-ls',
+    event = 'VeryLazy',
   },
   -- Out-of-the-box configs for language servers
   'neovim/nvim-lspconfig',
@@ -176,9 +183,14 @@ local plugins = {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = require 'plugin-configs/trouble-config',
+    event = 'VeryLazy',
   },
   -- Metals
-  { 'scalameta/nvim-metals', dependencies = { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' } },
+  {
+    'scalameta/nvim-metals',
+    dependencies = { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' },
+    event = 'VeryLazy',
+  },
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
@@ -190,15 +202,17 @@ local plugins = {
   {
     'mfussenegger/nvim-dap',
     config = require 'plugin-configs/dap-config',
+    event = 'VeryLazy',
   },
   -- Fancy UI for DAP
   {
     'rcarriga/nvim-dap-ui',
     dependencies = {
       'mfussenegger/nvim-dap',
-      'nvim-neotest/nvim-nio'
+      'nvim-neotest/nvim-nio',
     },
     config = require 'plugin-configs.dap-ui-config',
+    event = 'VeryLazy',
   },
   -- Virtual text for DAP
   {
@@ -206,6 +220,7 @@ local plugins = {
     config = function()
       require('nvim-dap-virtual-text').setup()
     end,
+    event = 'VeryLazy',
   },
   -- JSDoc
   {
