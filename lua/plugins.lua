@@ -178,13 +178,6 @@ local plugins = {
   },
   -- Out-of-the-box configs for language servers
   'neovim/nvim-lspconfig',
-  -- UI for navigating LSP workspace diagnostics
-  {
-    'folke/trouble.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = require 'plugin-configs/trouble-config',
-    event = 'VeryLazy',
-  },
   -- Metals
   {
     'scalameta/nvim-metals',
