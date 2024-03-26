@@ -230,7 +230,9 @@ local plugins = {
     'olimorris/persisted.nvim',
     config = require 'plugin-configs/persisted',
   },
-  -- Themes
+}
+
+local themes = {
   {
     'mhartington/oceanic-next',
     lazy = true,
@@ -276,5 +278,14 @@ local plugins = {
     lazy = true,
   },
 }
+
+local CURRENT_THEME_PLUGIN = 'folke/tokyonight.nvim'
+
+-- Only add the current theme to plugins
+for _, theme in ipairs(themes) do
+  if theme[1] == CURRENT_THEME_PLUGIN then
+    table.insert(plugins, theme)
+  end
+end
 
 require 'plugin-configs/lazy'(plugins)
