@@ -48,6 +48,7 @@ end
 vim.opt.fillchars = { fold = ' ', foldopen = '', foldclose = '' }
 vim.o.foldcolumn = 'auto'
 vim.o.inccommand = 'split'
+vim.o.confirm = true
 
 -- Window options
 vim.wo.signcolumn = 'yes'
