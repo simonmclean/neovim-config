@@ -1,5 +1,17 @@
 local M = {}
 
+---@param value nil | string | table
+---@return boolean
+function M.is_defined(value)
+  if type(value) == 'table' then
+    return next(value) ~= nil
+  end
+  if value == nil or value == '' then
+    return false
+  end
+  return true
+end
+
 function M.split_string(str, delimiter)
   local result = {}
   for match in (str .. delimiter):gmatch('(.-)' .. delimiter) do
@@ -10,6 +22,10 @@ end
 
 function M.trim_string(s)
   return (s:gsub('^%s*(.-)%s*$', '%1'))
+end
+
+function M.pad_string(s)
+  return ' ' .. s .. ' '
 end
 
 function M.last(list)

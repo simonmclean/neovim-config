@@ -88,6 +88,7 @@ local plugins = {
   {
     'nvim-lualine/lualine.nvim',
     config = require 'plugin-configs/lualine',
+    enabled = false
   },
   -- Fancy icons
   {
