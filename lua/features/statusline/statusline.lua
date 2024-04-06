@@ -26,8 +26,6 @@ local icons = {
 
 local components = {}
 
-components.space = '  '
-
 components.push_right = '%='
 
 components.filetype = '%y'
@@ -39,7 +37,7 @@ components.readonly_status = '%r'
 components.cursor_position = function()
   local lines_count = vim.api.nvim_buf_line_count(0)
   local pos = vim.api.nvim_win_get_cursor(0)
-  return pos[1] .. '/' .. lines_count .. ' '
+  return pos[1] .. '/' .. lines_count
 end
 
 components.win_title = function()
@@ -63,6 +61,8 @@ components.win_title = function()
   end)
 end
 
+local diagnostic_signs = { error = '', warn = '', hint = '', info = '' }
+
 components.diagnostics = function(buffer_local)
   local diagnostics = vim.diagnostic.get(u.eval(function ()
     if buffer_local then
@@ -85,18 +85,18 @@ components.diagnostics = function(buffer_local)
 
   local str = ''
   if counts.errors > 0 then
-    str = str .. 'E:' .. counts.errors
+    str = str .. string.format(' %s %d', diagnostic_signs.error, counts.errors)
   end
   if counts.warnings > 0 then
-    str = str .. 'W:' .. counts.warnings
+    str = str .. string.format(' %s %d', diagnostic_signs.warn, counts.warnings)
   end
   if counts.hints > 0 then
-    str = str .. 'H:' .. counts.hints
+    str = str .. string.format(' %s %d', diagnostic_signs.hint, counts.hints)
   end
   if counts.info > 0 then
-    str = str .. 'I:' .. counts.info
+    str = str .. string.format(' %s %d', diagnostic_signs.info, counts.info)
   end
-  return str
+  return u.trim_string(str)
 end
 
 components.cwd = function()
@@ -122,12 +122,12 @@ end
 components.git_ahead_behind = function()
   local state = vim.g.statusline_commits
   if state then
-    return u.list_join({
+    return u.trim_string(u.list_join({
       icons.up_arrow,
       state.ahead,
       icons.down_arrow,
       state.behind
-    }, ' ')
+    }, ' '))
   else
     return icons.up_arrow .. ' - ' .. icons.down_arrow .. ' -'
   end
@@ -152,19 +152,15 @@ end
 --------------------------------------------------------------------------
 
 function StatusLine()
-  return u.list_join {
+  return u.list_join({
     components.mode(),
-    components.space,
     components.cwd(),
-    components.space,
     components.branch(),
-    components.space,
     components.git_ahead_behind(),
-    components.space,
     components.diagnostics(false),
     components.push_right,
     components.datetime(),
-  }
+  }, '  ')
 end
 
 vim.o.statusline = '%!v:lua.StatusLine()'
@@ -174,16 +170,15 @@ vim.o.statusline = '%!v:lua.StatusLine()'
 --------------------------------------------------------------------------
 
 function Winbar()
-  return u.list_join {
+  return u.list_join({
     components.push_right,
     components.win_title(),
-    components.space,
-    components.diagnostics(true),
     components.cursor_position(),
+    components.diagnostics(true),
     components.readonly_status,
     components.modification_status,
     components.push_right,
-  }
+  }, '  ')
 end
 
 vim.o.winbar = '%{%v:lua.Winbar()%}'

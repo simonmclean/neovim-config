@@ -91,8 +91,8 @@ function M.list_map(tbl, fn)
 end
 
 function M.list_foreach(tbl, fn)
-  for _, value in pairs(tbl) do
-    fn(value)
+  for index, value in pairs(tbl) do
+    fn(value, index)
   end
 end
 
@@ -119,8 +119,11 @@ end
 function M.list_join(tbl, sep)
   sep = sep or ''
   local result = ''
-  M.list_foreach(tbl, function(el)
-    result = result .. el .. sep
+  M.list_foreach(tbl, function(el, index)
+    result = result .. el
+    if index ~= #tbl then
+      result = result .. sep
+    end
   end)
   return result
 end
