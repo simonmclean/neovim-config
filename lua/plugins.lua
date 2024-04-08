@@ -153,10 +153,10 @@ local plugins = {
     event = 'VeryLazy',
     dependencies = {
       'MunifTanjim/nui.nvim',
-      {
-        'rcarriga/nvim-notify',
-        config = require 'plugin-configs/nvim-notify',
-      },
+      -- {
+      --   'rcarriga/nvim-notify',
+      --   config = require 'plugin-configs/nvim-notify',
+      -- },
     },
     config = require 'plugin-configs/noice',
   },
