@@ -1,5 +1,3 @@
-local u = require 'utils'
-
 return function()
   local autocmd_group = vim.api.nvim_create_augroup('FugitiveHooks', {})
 
