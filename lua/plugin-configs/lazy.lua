@@ -8,7 +8,7 @@ return function(plugins)
       path = '~/code',
     },
     install = {
-      missing = false
+      missing = true
     }
   }
 
