@@ -14,7 +14,7 @@ return function(on_attach, capabilities)
     -- excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
   }
 
-  metals_config.init_options.statusBarProvider = 'on'
+  metals_config.init_options.statusBarProvider = 'off'
 
   local dap = require 'dap'
 
