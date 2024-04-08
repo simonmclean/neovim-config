@@ -93,7 +93,7 @@ local plugins = {
   -- Fancy icons
   {
     'nvim-tree/nvim-web-devicons',
-    config = require 'plugin-configs/nvim-web-devicons',
+    config = require 'plugin-configs/nvim-web-devicons-config',
   },
   -- Dropdown completion UI and engine
   {
