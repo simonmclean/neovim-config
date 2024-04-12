@@ -1,3 +1,5 @@
+local u = require 'utils'
+
 local plugins = {
   -- Directory browser
   {
@@ -259,8 +261,15 @@ local CURRENT_THEME_PLUGIN = 'folke/tokyonight.nvim'
 
 -- Add the desired theme to plugins table
 for _, theme in ipairs(themes) do
-  if theme[1] == CURRENT_THEME_PLUGIN then
-    table.insert(plugins, 1, theme)
+  local tbl = u.eval(function()
+    if type(theme) == 'table' then
+      return theme
+    end
+    return { theme }
+  end)
+  tbl.priority = 1000
+  if tbl[1] == CURRENT_THEME_PLUGIN then
+    table.insert(plugins, 1, tbl)
   end
 end
 
