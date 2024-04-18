@@ -1,52 +1,5 @@
 return function()
   require('noice').setup {
-    routes = {
-      { -- Skip file written messages
-        filter = {
-          event = 'msg_show',
-          kind = '',
-          find = 'written',
-        },
-        opts = { skip = true },
-      },
-      { -- Divert hunk navigation messages to mini
-        filter = {
-          event = 'msg_show',
-          find = '^Hunk',
-        },
-        view = 'mini',
-      },
-      -- Divert undo/redo messages to mini
-      -- TODO: Find a way to do these in one
-      {
-        filter = {
-          event = 'msg_show',
-          find = '^(%d+)%s+line less;',
-        },
-        view = 'mini',
-      },
-      {
-        filter = {
-          event = 'msg_show',
-          find = '^(%d+)%s+fewer lines;',
-        },
-        view = 'mini',
-      },
-      {
-        filter = {
-          event = 'msg_show',
-          find = '^(%d+)%s+more lines?;',
-        },
-        view = 'mini',
-      },
-      {
-        filter = {
-          event = 'msg_show',
-          find = '^(%d+)%s+changes?;',
-        },
-        view = 'mini',
-      },
-    },
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
@@ -55,8 +8,20 @@ return function()
         ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
       },
       hover = {
-        silent = true
+        silent = true,
+      },
+      progress = {
+        enabled = false
+      },
+      message = {
+        enabled = false
       }
+    },
+    messages = {
+      enabled = false
+    },
+    notify = {
+      enabled = false
     },
     -- you can enable a preset for easier configuration
     presets = {

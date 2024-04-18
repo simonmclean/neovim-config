@@ -1,15 +1,18 @@
 local M = {}
 
 M.layout_config = {
-  width = { 0.5, max = 70, min = 123 },
+  flex = {
+    flip_columns = 2000, -- When there are more than n columns, switch to horizontal
+    flip_lines = 40, -- When there are more than n lines, switch to vertical
+  },
 }
 
 local function grep_in_current_buffer()
-  require 'telescope.builtin'.live_grep {
+  require('telescope.builtin').live_grep {
     prompt_title = 'Grep in Current Buffer',
     path_display = 'hidden',
-    search_dirs = { vim.fn.expand('%:h') },
-    glob_pattern = vim.fn.expand('%:t')
+    search_dirs = { vim.fn.expand '%:h' },
+    glob_pattern = vim.fn.expand '%:t',
   }
 end
 
@@ -31,7 +34,7 @@ M.config = function()
 
   require('telescope').setup {
     defaults = {
-      layout_strategy = 'vertical',
+      layout_strategy = 'flex',
       path_display = { truncate = 2 },
       layout_config = M.layout_config,
     },

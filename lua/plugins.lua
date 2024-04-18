@@ -155,12 +155,12 @@ local plugins = {
     event = 'VeryLazy',
     dependencies = {
       'MunifTanjim/nui.nvim',
-      {
-        'rcarriga/nvim-notify',
-        config = require 'plugin-configs/nvim-notify-config',
-      },
     },
     config = require 'plugin-configs/noice',
+  },
+  {
+    'j-hui/fidget.nvim',
+    config = require 'plugin-configs.fidget-config'
   },
   -- UI and framework for managing language servers, formatters, linters etc
   {
