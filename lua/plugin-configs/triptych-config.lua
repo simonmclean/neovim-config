@@ -1,15 +1,6 @@
 return function()
   require('triptych').setup {
     extension_mappings = {
-      ['<C-t>'] = {
-        mode = 'n',
-        fn = function(target)
-          vim.cmd.Triptych()
-          vim.schedule(function()
-            vim.cmd.tabedit(target.path)
-          end)
-        end,
-      },
       ['<leader>sg'] = {
         mode = 'n',
         fn = function(target)
