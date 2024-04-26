@@ -1,7 +1,7 @@
 vim.g.statusline_branch_name = ''
 
 -- TODO: Add throttling
-local function update_current_branch_async()
+vim.g.update_current_branch_async = function()
   local stdout = vim.loop.new_pipe(false)
   local stderr = vim.loop.new_pipe(false)
 
@@ -42,6 +42,6 @@ end
 vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
   pattern = '*',
   callback = function()
-    update_current_branch_async()
+    vim.g.update_current_branch_async()
   end,
 })

@@ -5,7 +5,11 @@ local u = require 'utils'
 -- vim.g.statusline_commits - Text for the statusline showing how many commits ahead and behind the current local branch is from its remote
 -- vim.g.statusline_commits_update - Function to trigger an update of the above statusline variable
 
----@type { ahead: number, behind: number } | nil
+---@class GitCommitsStatus
+---@field ahead integer
+---@field behind integer
+
+---@type GitCommitsStatus | nil
 vim.g.statusline_commits = nil
 
 local UPDATE_FREQUENCY_SECONDS = 60
@@ -19,6 +23,7 @@ local function git_fetch(callback)
   }):start()
 end
 
+---@param callback fun(status: GitCommitsStatus): nil
 local function git_check_commits_diff(callback)
   Job:new({
     command = 'git',
@@ -32,8 +37,8 @@ local function git_check_commits_diff(callback)
           error('Unable to parse response in function check_ahead_behind: ' .. tostring(response))
         end
         callback {
-          ahead = tonumber(ahead),
-          behind = tonumber(behind),
+          ahead = tonumber(ahead) or 0,
+          behind = tonumber(behind) or 0,
         }
       else
         callback { ahead = 0, behind = 0 }
