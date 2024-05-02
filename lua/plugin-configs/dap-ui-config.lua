@@ -12,18 +12,5 @@ return function()
   dap.listeners.before.event_exited.dapui_config = function()
     dapui.close()
   end
-  dapui.setup {
-    layouts = {
-      {
-        elements = {
-          {
-            id = 'scopes',
-            size = 1,
-          },
-        },
-        position = 'bottom',
-        size = 10,
-      },
-    },
-  }
+  dapui.setup {}
 end
