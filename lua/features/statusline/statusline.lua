@@ -18,6 +18,10 @@ local icons = {
   dir = '',
   up_arrow = '',
   down_arrow = '',
+  error = '',
+  warn = '',
+  hint = '',
+  info = '',
 }
 
 --------------------------------------------------------------------------
@@ -30,9 +34,17 @@ components.push_right = '%='
 
 components.filetype = '%y'
 
-components.modification_status = '%m'
+components.modification_status = function()
+  if vim.bo.modified then
+    return '[+]'
+  end
+end
 
-components.readonly_status = '%r'
+components.readonly_status = function()
+  if vim.bo.readonly then
+    return '[RO]'
+  end
+end
 
 components.cursor_position = function()
   local lines_count = vim.api.nvim_buf_line_count(0)
@@ -61,14 +73,17 @@ components.win_title = function()
   end)
 end
 
-local diagnostic_signs = { error = '', warn = '', hint = '', info = '' }
-
 components.diagnostics = function(buffer_local)
-  local diagnostics = vim.diagnostic.get(u.eval(function ()
+  local diagnostics = vim.diagnostic.get(u.eval(function()
     if buffer_local then
       return 0
     end
   end))
+
+  if not u.is_defined(diagnostics) then
+    return
+  end
+
   local counts = { errors = 0, warnings = 0, hints = 0, info = 0 }
 
   for _, diag in ipairs(diagnostics) do
@@ -85,16 +100,16 @@ components.diagnostics = function(buffer_local)
 
   local str = ''
   if counts.errors > 0 then
-    str = str .. string.format(' %s %d', diagnostic_signs.error, counts.errors)
+    str = str .. string.format(' %s %d', icons.error, counts.errors)
   end
   if counts.warnings > 0 then
-    str = str .. string.format(' %s %d', diagnostic_signs.warn, counts.warnings)
+    str = str .. string.format(' %s %d', icons.warn, counts.warnings)
   end
   if counts.hints > 0 then
-    str = str .. string.format(' %s %d', diagnostic_signs.hint, counts.hints)
+    str = str .. string.format(' %s %d', icons.hint, counts.hints)
   end
   if counts.info > 0 then
-    str = str .. string.format(' %s %d', diagnostic_signs.info, counts.info)
+    str = str .. string.format(' %s %d', icons.info, counts.info)
   end
   return u.trim_string(str)
 end
@@ -126,7 +141,7 @@ components.git_ahead_behind = function()
       icons.up_arrow,
       state.ahead,
       icons.down_arrow,
-      state.behind
+      state.behind,
     }, ' '))
   else
     return icons.up_arrow .. ' - ' .. icons.down_arrow .. ' -'
@@ -175,8 +190,8 @@ function Winbar()
     components.win_title(),
     components.cursor_position(),
     components.diagnostics(true),
-    components.readonly_status,
-    components.modification_status,
+    components.readonly_status(),
+    components.modification_status(),
     components.push_right,
   }, '  ')
 end
