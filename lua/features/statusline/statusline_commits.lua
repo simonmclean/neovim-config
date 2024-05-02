@@ -71,6 +71,14 @@ StatuslineCommits.new = function()
   return instance
 end
 
+---@param prev GitCommitsStatus
+---@param current GitCommitsStatus
+local function warn_if_behind(prev, current)
+  if current.behind > prev.behind then
+    vim.notify('Local branch is ' .. current.behind .. ' commits behind the remote', vim.log.levels.WARN)
+  end
+end
+
 function StatuslineCommits:update()
   if not IS_CWD_GIT_REPO or self.is_updating then
     return
@@ -89,6 +97,7 @@ function StatuslineCommits:update()
     git_check_commits_diff(function(result)
       self.is_updating = false
       self.last_updated_epoch_seconds = os.time()
+      warn_if_behind(vim.g.statusline_commits, result)
       vim.g.statusline_commits = result
     end)
   end)
