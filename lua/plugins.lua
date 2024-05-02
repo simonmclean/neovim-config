@@ -1,6 +1,10 @@
-local u = require 'utils'
+local theme = require 'theme'
+
+local theme_plugin = theme.get_lazy_config(theme.SELECTED_THEME.plugin, theme.SELECTED_THEME.colorscheme)
 
 local plugins = {
+  -- Load the theme first
+  theme_plugin,
   -- Directory browser
   {
     'simonmclean/triptych.nvim',
@@ -90,7 +94,7 @@ local plugins = {
   {
     'nvim-lualine/lualine.nvim',
     config = require 'plugin-configs/lualine',
-    enabled = false
+    enabled = false,
   },
   -- Fancy icons
   {
@@ -160,7 +164,7 @@ local plugins = {
   },
   {
     'j-hui/fidget.nvim',
-    config = require 'plugin-configs.fidget-config'
+    config = require 'plugin-configs.fidget-config',
   },
   -- UI and framework for managing language servers, formatters, linters etc
   {
@@ -234,43 +238,5 @@ local plugins = {
     config = require 'plugin-configs/persisted',
   },
 }
-
-local themes = {
-  'mhartington/oceanic-next',
-  {
-    'npxbr/gruvbox.nvim',
-    dependencies = { 'rktjmp/lush.nvim' },
-  },
-  'kyazdani42/blue-moon',
-  'bluz71/vim-nightfly-guicolors',
-  'sainnhe/sonokai',
-  'shaunsingh/moonlight.nvim',
-  'tjdevries/colorbuddy.vim',
-  'bkegley/gloombuddy',
-  {
-    'folke/tokyonight.nvim',
-    config = require 'plugin-configs/tokyonight',
-  },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-  },
-}
-
-local CURRENT_THEME_PLUGIN = 'folke/tokyonight.nvim'
-
--- Add the desired theme to plugins table
-for _, theme in ipairs(themes) do
-  local tbl = u.eval(function()
-    if type(theme) == 'table' then
-      return theme
-    end
-    return { theme }
-  end)
-  tbl.priority = 1000
-  if tbl[1] == CURRENT_THEME_PLUGIN then
-    table.insert(plugins, 1, tbl)
-  end
-end
 
 require 'plugin-configs/lazy'(plugins)
