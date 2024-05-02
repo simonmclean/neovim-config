@@ -97,7 +97,9 @@ function StatuslineCommits:update()
     git_check_commits_diff(function(result)
       self.is_updating = false
       self.last_updated_epoch_seconds = os.time()
-      warn_if_behind(vim.g.statusline_commits, result)
+      if vim.g.statusline_commits then
+        warn_if_behind(vim.g.statusline_commits, result)
+      end
       vim.g.statusline_commits = result
     end)
   end)
