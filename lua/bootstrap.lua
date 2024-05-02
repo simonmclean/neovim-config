@@ -1,6 +1,6 @@
-local _ = require 'utils'
+local u = require 'utils'
 
-local vim_exec = _.vim_exec
+local vim_exec = u.vim_exec
 local api = vim.api
 
 --------------------------------------------------------------------------
@@ -58,6 +58,18 @@ vim.wo.relativenumber = false
 vim.wo.wrap = false
 
 --------------------------------------------------------------------------
+-- Globals
+--------------------------------------------------------------------------
+
+IS_CWD_GIT_REPO = u.eval(function()
+  local is_git_installed = type(vim.trim(vim.fn.system 'command -v git')) == 'string'
+  if not is_git_installed then
+    return false
+  end
+  return vim.trim(vim.fn.system 'git rev-parse --is-inside-work-tree') == 'true'
+end)
+
+--------------------------------------------------------------------------
 -- Custom commands
 --------------------------------------------------------------------------
 
@@ -65,8 +77,8 @@ local create_cmd = api.nvim_create_user_command
 
 -- Checkout up-to-date master or main branch
 create_cmd('Main', function()
-  local main_branch = _.remove_linebreaks(vim.fn.system "git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
-  local current_branch_name = _.remove_linebreaks(vim.fn.system 'git rev-parse --abbrev-ref HEAD')
+  local main_branch = u.remove_linebreaks(vim.fn.system "git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
+  local current_branch_name = u.remove_linebreaks(vim.fn.system 'git rev-parse --abbrev-ref HEAD')
   local pull_command = 'Git pull'
 
   if current_branch_name == main_branch then
@@ -84,7 +96,7 @@ end, {})
 -- Push new branch
 create_cmd('PushNew', function()
   vim.cmd 'Git fetch'
-  local current_branch_name = _.remove_linebreaks(vim.fn.system 'git rev-parse --abbrev-ref HEAD')
+  local current_branch_name = u.remove_linebreaks(vim.fn.system 'git rev-parse --abbrev-ref HEAD')
   local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
   if string.find(upstream_status, 'fatal: no upstream') then
     vim.cmd('Git push -u origin ' .. current_branch_name)
@@ -184,6 +196,6 @@ map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
 -- Unwrap something. e.g. if the cursor is in `Foo`, `Foo(Bar)` will become `Bar`
 map('n', '<leader>u', 'diwmz%x`zx', { desc = 'Unwrap' })
 
-map('n', '<leader>gt', function ()
+map('n', '<leader>gt', function()
   require 'features.goto_test'()
 end)

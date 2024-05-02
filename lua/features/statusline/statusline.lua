@@ -25,6 +25,23 @@ local icons = {
 }
 
 --------------------------------------------------------------------------
+-- Utils
+--------------------------------------------------------------------------
+
+local function conditional_component(pred, component)
+  local condition_met = u.eval(function()
+    if type(pred) == 'function' then
+      return pred()
+    end
+    return pred
+  end)
+  if condition_met then
+    return component
+  end
+  return function() end
+end
+
+--------------------------------------------------------------------------
 -- Components
 --------------------------------------------------------------------------
 
@@ -127,14 +144,14 @@ components.mode = function()
   return highlight(hi_group_name, u.pad_string(display_name))
 end
 
-components.branch = function()
+components.branch = conditional_component(IS_CWD_GIT_REPO, function()
   local name = vim.g.statusline_branch_name
   if name then
     return icons.git .. ' ' .. vim.g.statusline_branch_name
   end
-end
+end)
 
-components.git_ahead_behind = function()
+components.git_ahead_behind = conditional_component(IS_CWD_GIT_REPO, function()
   local state = vim.g.statusline_commits
   if state then
     return u.trim_string(u.list_join({
@@ -146,7 +163,7 @@ components.git_ahead_behind = function()
   else
     return icons.up_arrow .. ' - ' .. icons.down_arrow .. ' -'
   end
-end
+end)
 
 components.datetime = function()
   return vim.fn.strftime '%a %d %b %H:%M '

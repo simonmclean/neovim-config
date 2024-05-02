@@ -1,5 +1,4 @@
 local Job = require 'plenary.job'
-local u = require 'utils'
 
 -- Module that creates 2 global variables:
 -- vim.g.statusline_commits - Text for the statusline showing how many commits ahead and behind the current local branch is from its remote
@@ -54,15 +53,8 @@ StatuslineCommits.new = function()
   setmetatable(instance, { __index = StatuslineCommits })
   instance.last_updated_epoch_seconds = nil
   instance.is_updating = false
-  instance.is_git_repo = u.eval(function()
-    local is_git_installed = type(vim.trim(vim.fn.system 'command -v git')) == 'string'
-    if not is_git_installed then
-      return false
-    end
-    return vim.trim(vim.fn.system 'git rev-parse --is-inside-work-tree') == 'true'
-  end)
 
-  if instance.is_git_repo then
+  if IS_CWD_GIT_REPO then
     vim.loop.new_timer():start(
       0,
       UPDATE_FREQUENCY_SECONDS * 1000,
@@ -80,7 +72,7 @@ StatuslineCommits.new = function()
 end
 
 function StatuslineCommits:update()
-  if not self.is_git_repo or self.is_updating then
+  if not IS_CWD_GIT_REPO or self.is_updating then
     return
   end
 

@@ -2,6 +2,10 @@ vim.g.statusline_branch_name = ''
 
 -- TODO: Add throttling
 vim.g.update_current_branch_async = function()
+  if not IS_CWD_GIT_REPO then
+    return
+  end
+
   local stdout = vim.loop.new_pipe(false)
   local stderr = vim.loop.new_pipe(false)
 
