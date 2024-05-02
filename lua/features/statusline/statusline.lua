@@ -28,6 +28,10 @@ local icons = {
 -- Utils
 --------------------------------------------------------------------------
 
+---If the condition is not met, return a no-op component
+---@param pred any predicate function or value
+---@param component function component function (should return a string or nil)
+---@return function
 local function conditional_component(pred, component)
   local condition_met = u.eval(function()
     if type(pred) == 'function' then
