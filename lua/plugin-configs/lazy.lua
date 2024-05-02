@@ -1,3 +1,5 @@
+local theme = require 'theme'
+
 return function(plugins)
   local options = {
     ui = {
@@ -8,8 +10,9 @@ return function(plugins)
       path = '~/code',
     },
     install = {
-      missing = true
-    }
+      missing = true,
+      colorscheme = { theme.SELECTED_THEME.colorscheme },
+    },
   }
 
   vim.keymap.set('n', '<leader>l', ':Lazy<CR>', { silent = true })
