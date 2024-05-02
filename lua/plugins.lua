@@ -222,7 +222,7 @@ local plugins = {
     end,
     event = 'VeryLazy',
   },
-  -- Configures the Lua LS to get type information for nvim apis, and plugins
+  -- Configures the Lua LS to get type information for nvim APIs, and plugins
   {
     'folke/neodev.nvim',
     event = 'VeryLazy',
