@@ -7,10 +7,6 @@ return {
       format = {
         enable = false,
       },
-      workspace = {
-        checkThirdParty = false,
-        library = { vim.env.VIMRUNTIME },
-      },
     },
   },
 }

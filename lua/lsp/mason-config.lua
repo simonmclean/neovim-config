@@ -1,4 +1,7 @@
 return function(on_attach, capabilities)
+  -- neodev needs to be setup before everything else
+  require('neodev').setup {}
+
   -- nvim-lsp-installer must be setup before nvim-lspconfig
   -- See https://github.com/williamboman/nvim-lsp-installer#setup
   require('mason').setup {

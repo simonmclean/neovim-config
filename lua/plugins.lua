@@ -218,8 +218,13 @@ local plugins = {
   {
     'theHamsta/nvim-dap-virtual-text',
     config = function()
-      require('nvim-dap-virtual-text').setup()
+      require('nvim-dap-virtual-text').setup {}
     end,
+    event = 'VeryLazy',
+  },
+  -- Configures the Lua LS to get type information for nvim apis, and plugins
+  {
+    'folke/neodev.nvim',
     event = 'VeryLazy',
   },
   -- JSDoc
