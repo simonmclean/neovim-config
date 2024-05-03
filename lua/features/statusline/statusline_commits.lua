@@ -74,8 +74,10 @@ end
 ---@param prev GitCommitsStatus
 ---@param current GitCommitsStatus
 local function warn_if_behind(prev, current)
-  if current.behind > prev.behind then
-    vim.notify('Local branch is ' .. current.behind .. ' commits behind the remote', vim.log.levels.WARN)
+  if (not prev and current.behind > 0) or (prev and current.behind > prev.behind) then
+    vim.schedule(function()
+      vim.notify('Local branch is ' .. current.behind .. ' commits behind remote', vim.log.levels.WARN)
+    end)
   end
 end
 
@@ -97,9 +99,7 @@ function StatuslineCommits:update()
     git_check_commits_diff(function(result)
       self.is_updating = false
       self.last_updated_epoch_seconds = os.time()
-      if vim.g.statusline_commits then
-        warn_if_behind(vim.g.statusline_commits, result)
-      end
+      warn_if_behind(vim.g.statusline_commits, result)
       vim.g.statusline_commits = result
     end)
   end)
