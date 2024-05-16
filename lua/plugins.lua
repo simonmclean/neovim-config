@@ -57,11 +57,6 @@ local plugins = {
     'tpope/vim-abolish',
     event = 'VeryLazy',
   },
-  -- Comment and un-comment things
-  {
-    'tpope/vim-commentary',
-    event = 'VeryLazy',
-  },
   -- Makes more things dot repeatable
   {
     'tpope/vim-repeat',
