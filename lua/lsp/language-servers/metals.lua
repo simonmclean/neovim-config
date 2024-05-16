@@ -9,7 +9,7 @@ return function(on_attach, capabilities)
     showImplicitArguments = true,
     showImplicitConversionsAndClasses = true,
     showInferredType = true,
-    fallbackScalaVersion = '2.13.5',
+    fallbackScalaVersion = '2.13.13',
     testUserInterface = 'Test Explorer',
     -- excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
   }
