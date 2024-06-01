@@ -22,16 +22,26 @@ return function(on_attach, capabilities)
     {
       type = 'scala',
       request = 'launch',
-      name = 'RunOrTest',
+      name = 'State loader',
       metals = {
-        runType = 'runOrTestFile',
-        --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+        runType = 'run',
+        port = 5005,
+        host = 'localhost',
+        jvmOptions = { '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005' },
       },
     },
     {
       type = 'scala',
       request = 'launch',
-      name = 'Test Target',
+      name = 'Run tests in file',
+      metals = {
+        runType = 'testFile',
+      },
+    },
+    {
+      type = 'scala',
+      request = 'launch',
+      name = 'Run tests in current build project',
       metals = {
         runType = 'testTarget',
       },

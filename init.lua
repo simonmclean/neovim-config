@@ -1,8 +1,13 @@
-require 'bootstrap'
+local u = require 'utils'
 
--- TODO: Move all this to Lua
-vim.cmd 'source ~/.config/nvim/vimscript/functions.vim'
+vim.g.mapleader = ' '
+
+IS_CWD_GIT_REPO = u.eval(function()
+  local is_git_installed = type(vim.trim(vim.fn.system 'command -v git')) == 'string'
+  if not is_git_installed then
+    return false
+  end
+  return vim.trim(vim.fn.system 'git rev-parse --is-inside-work-tree') == 'true'
+end)
 
 require 'plugins'
-require 'lsp/lsp'
-require 'features.statusline.statusline'

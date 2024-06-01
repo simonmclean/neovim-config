@@ -1,0 +1,13 @@
+-- return function ()
+--   local lua_runner = require 'lua-nvim-test-runner'.setup()
+--   -- local scala_runner = require 'scala-nvim-test-runner'.setup()
+--
+--   require 'test-runner'.setup {
+--     runners = {
+--       lua_runner,
+--       -- scala_runner
+--     }
+--   }
+-- end
+--
+return {}

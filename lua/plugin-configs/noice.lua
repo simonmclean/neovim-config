@@ -1,5 +1,10 @@
-return function()
-  require('noice').setup {
+return {
+  'folke/noice.nvim',
+  event = 'VeryLazy',
+  dependencies = {
+    'MunifTanjim/nui.nvim',
+  },
+  opts = {
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
@@ -11,17 +16,17 @@ return function()
         silent = true,
       },
       progress = {
-        enabled = false
+        enabled = false,
       },
       message = {
-        enabled = false
-      }
+        enabled = false,
+      },
     },
     messages = {
-      enabled = false
+      enabled = false,
     },
     notify = {
-      enabled = false
+      enabled = false,
     },
     -- you can enable a preset for easier configuration
     presets = {
@@ -31,5 +36,5 @@ return function()
       inc_rename = false, -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = true, -- add a border to hover docs and signature help
     },
-  }
-end
+  },
+}

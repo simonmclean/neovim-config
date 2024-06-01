@@ -1,9 +1,10 @@
-return function()
-  require('fidget').setup {
+return {
+  'j-hui/fidget.nvim',
+  opts = {
     progress = {
       display = {
         render_limit = 8,
       },
     },
-  }
-end
+  },
+}

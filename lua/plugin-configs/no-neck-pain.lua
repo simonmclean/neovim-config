@@ -1,5 +1,7 @@
-return function()
-  require('no-neck-pain').setup {
+return {
+  event = 'VeryLazy',
+  'shortcuts/no-neck-pain.nvim',
+  opts = {
     width = 150,
-  }
-end
+  },
+}
