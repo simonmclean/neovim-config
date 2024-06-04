@@ -97,6 +97,9 @@ local lazy_opts = {
     missing = true,
     colorscheme = { 'tokyonight' },
   },
+  change_detection = {
+    notify = false,
+  },
 }
 
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>', { silent = true })
