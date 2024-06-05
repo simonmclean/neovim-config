@@ -16,7 +16,7 @@ return {
     vim.g.vsnip_snippet_dir = '~/.config/nvim/vsnip'
 
     cmp.setup {
-      preselect = false,
+      preselect = 'None',
       snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
