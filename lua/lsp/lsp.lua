@@ -1,46 +1,12 @@
 local capabilities_with_cmp = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local something = function(on_attach, capabilities)
-  local mason_lsp_config = require 'mason-lspconfig'
-
-  local servers = mason_lsp_config.get_installed_servers()
-
-  -- Use a loop to conveniently call 'setup' on multiple servers and
-  -- map buffer local keybindings when the language server attaches
-  -- These will be merged with a default config in the loop below
-  local config_overrides = {
-    eslint = require 'lsp.language-servers.eslint',
-    tsserver = require 'lsp.language-servers.tsserver',
-    lua_ls = require 'lsp.language-servers.lua',
-  }
-  for _, language_server in pairs(servers) do
-    local default_config = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    }
-    local lsp_config = require('lspconfig')[language_server]
-    if config_overrides[language_server] then
-      local custom_config = vim.tbl_deep_extend('keep', config_overrides[language_server], default_config)
-      if custom_config.on_attach_extend then
-        custom_config.on_attach = function(client, bufnr)
-          on_attach(client, bufnr)
-          custom_config.on_attach_extend(client, bufnr)
-        end
-      end
-      lsp_config.setup(custom_config)
-    else
-      lsp_config.setup(default_config)
-    end
-  end
-end
-
--- require('lspconfig.ui.windows').default_options.border = 'single'
+require('lspconfig.ui.windows').default_options.border = 'single'
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
 
   local map = function(keys, func, desc)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
@@ -79,10 +45,6 @@ local on_attach = function(_, bufnr)
   -- or a suggestion from your LSP for this to activate.
   map('<leader>ca', require('actions-preview').code_actions, '[C]ode [A]ction')
 
-  -- Opens a popup that displays documentation about the word under your cursor
-  --  See `:help K` for why this keymap
-  map('K', vim.lsp.buf.hover, 'Hover Documentation')
-
   -- WARN: This is not Goto Definition, this is Goto Declaration.
   --  For example, in C this would take you to the header
   map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -90,39 +52,45 @@ local on_attach = function(_, bufnr)
   map('<space>f', '<cmd>lua vim.lsp.buf.format { async = true} <CR>', '[F]ormat')
 end
 
-something(on_attach, capabilities_with_cmp)
+local mason_lsp_config = require 'mason-lspconfig'
+
+local servers = mason_lsp_config.get_installed_servers()
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+-- These will be merged with a default config in the loop below
+local config_overrides = {
+  eslint = require 'lsp.language-servers.eslint',
+  tsserver = require 'lsp.language-servers.tsserver',
+  lua_ls = require 'lsp.language-servers.lua',
+}
+
+for _, language_server in pairs(servers) do
+  local default_config = {
+    on_attach = on_attach,
+    capabilities = capabilities_with_cmp,
+  }
+  local lsp_config = require('lspconfig')[language_server]
+  if config_overrides[language_server] then
+    local custom_config = vim.tbl_deep_extend('keep', config_overrides[language_server], default_config)
+    if custom_config.on_attach_extend then
+      custom_config.on_attach = function(client, bufnr)
+        on_attach(client, bufnr)
+        custom_config.on_attach_extend(client, bufnr)
+      end
+    end
+    lsp_config.setup(custom_config)
+  else
+    lsp_config.setup(default_config)
+  end
+end
 
 -- Metals is initialized separately, because it's a special snowflake
 require 'lsp.language-servers.metals'(on_attach, capabilities_with_cmp)
-
--- Customise all LSP floating windows - add border and transparency
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = 'single'
-  local bufnr, winnr = orig_util_open_floating_preview(contents, syntax, opts, ...)
-  vim.api.nvim_win_set_option(winnr, 'winblend', 10)
-  return bufnr, winnr
-end
 
 -- Diagnostic signs
 local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 for type, icon in pairs(signs) do
   local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
--- Custom handler for hover. This acts like the default handler, except it won't print "No information available" when there's no hover info
-vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
-  config = config or {}
-  config.focus_id = ctx.method
-  if not (result and result.contents) then
-    return
-  end
-  local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-  markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
-  if vim.tbl_isempty(markdown_lines) then
-    return
-  end
-  return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
 end
