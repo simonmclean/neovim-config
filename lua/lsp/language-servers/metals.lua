@@ -21,13 +21,15 @@ return function(on_attach, capabilities)
   dap.configurations.scala = {
     {
       type = 'scala',
-      request = 'launch',
-      name = 'State loader',
-      metals = {
-        runType = 'run',
-        port = 5005,
-        host = 'localhost',
-        jvmOptions = { '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005' },
+      request = 'attach',
+      name = 'Attach to Remote JVM',
+      hostName = 'localhost',
+      port = 5005,
+      jvmArgs = {
+        '-agentlib:jdwp=transport=dt_socket',
+        'server=y',
+        'suspend=n',
+        'address=*:5005',
       },
     },
     {
