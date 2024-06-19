@@ -53,16 +53,6 @@ function M.with_highlight_group(group_name, str)
   return '%#' .. group_name .. '#' .. str
 end
 
-function M.get_highlight_values(highlight_name)
-  local highlight_map = vim.api.nvim_get_hl_by_name(highlight_name, true)
-  for key, value in pairs(highlight_map) do
-    if key == 'foreground' or key == 'background' then
-      highlight_map[key] = M.dec_to_hex(value)
-    end
-  end
-  return highlight_map
-end
-
 --- Wrapper around vim.api.nvim_exec where the 2nd arg defaults to false
 function M.vim_exec(cmds, capture_return)
   local result = vim.api.nvim_exec(cmds, true)
