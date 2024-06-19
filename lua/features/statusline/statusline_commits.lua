@@ -7,6 +7,7 @@ local Job = require 'plenary.job'
 ---@class GitCommitsStatus
 ---@field ahead integer
 ---@field behind integer
+---@field remote_exists boolean
 
 ---@type GitCommitsStatus | nil
 vim.g.statusline_commits = nil
@@ -38,9 +39,10 @@ local function git_check_commits_diff(callback)
         callback {
           ahead = tonumber(ahead) or 0,
           behind = tonumber(behind) or 0,
+          remote_exists = true
         }
       else
-        callback { ahead = 0, behind = 0 }
+        callback { ahead = 0, behind = 0, remote_exists = false }
       end
     end,
   }):start()
