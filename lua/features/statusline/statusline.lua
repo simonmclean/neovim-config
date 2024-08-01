@@ -73,19 +73,19 @@ components.cursor_position = function()
   return pos[1] .. '/' .. lines_count
 end
 
-components.win_title = function()
-  local filename = vim.fn.expand '%:t'
+components.win_title = function(full_title)
   local filetype = vim.bo.filetype
+  local title = u.eval(function()
+    local maybe_title = full_title and vim.fn.expand '%:.' or vim.fn.expand '%:p'
+    if u.is_defined(maybe_title) then
+      return maybe_title
+    end
+    return filetype
+  end)
   local icon, icon_hi
   if filetype then
     icon, icon_hi = dev_icons.get_icon_by_filetype(filetype)
   end
-  local title = u.eval(function()
-    if u.is_defined(filename) then
-      return filename
-    end
-    return filetype
-  end)
   return u.eval(function()
     if icon then
       return highlight(icon_hi, icon) .. ' ' .. title
@@ -212,7 +212,7 @@ vim.o.statusline = '%!v:lua.StatusLine()'
 function Winbar()
   return u.list_join({
     components.push_right,
-    components.win_title(),
+    components.win_title(true),
     components.cursor_position(),
     components.diagnostics(true),
     components.readonly_status(),
