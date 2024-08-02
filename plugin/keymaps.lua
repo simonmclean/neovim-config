@@ -5,6 +5,9 @@ local silent = { silent = true }
 map('n', '|', ':vertical split<cr>', silent)
 map('n', '-', ':split<cr>', silent)
 
+map('n', '<C-k>', '3<C-y>', { desc = 'scroll up' })
+map('n', '<C-j>', '3<C-e>', { desc = 'scroll down' })
+
 -- Lazy exec mode
 map('n', ';', ':')
 map('v', ';', ':')
