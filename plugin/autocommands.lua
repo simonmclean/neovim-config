@@ -5,7 +5,7 @@ local create_autocmd = vim.api.nvim_create_autocmd
 -- Remove trailing whitespace on save
 create_autocmd('BufWritePre', {
   callback = function()
-    vim.api.nvim_exec([[%s/\s\+$//e]], true)
+    vim.api.nvim_exec2([[%s/\s\+$//e]], {})
   end,
   group = my_augroup,
 })
