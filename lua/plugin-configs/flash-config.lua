@@ -4,10 +4,7 @@ return {
   ---@type Flash.Config
   opts = {
     label = {
-      min_pattern_length = 2,
-      rainbow = {
-        enabled = true
-      }
+      min_pattern_length = 2
     },
   },
   keys = {
