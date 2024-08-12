@@ -42,12 +42,6 @@ local plugins = {
     'tpope/vim-abolish',
     event = 'VeryLazy',
   },
-  -- Floating preview window for the quickfix list
-  -- Filter the quickfix list
-  {
-    'kevinhwang91/nvim-bqf',
-    event = 'VeryLazy',
-  },
   -- Formatting and linting (eslint, prettier etc) that works separately from LSP
   {
     'jose-elias-alvarez/null-ls.nvim',
