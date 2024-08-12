@@ -17,6 +17,13 @@ map('n', '<C-h>', 'gT', { desc = 'tab left' })
 map('n', ';', ':')
 map('v', ';', ':')
 
+-- Remap $ so that it doesn't include newline chars
+map('n', '$', 'g_', silent)
+map('v', '$', 'g_', silent)
+
+-- Terminal
+map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Normal mode from terminal' })
+
 -- Jumps
 map('n', '[q', ':cprevious<cr>')
 map('n', ']q', ':cnext<cr>')
