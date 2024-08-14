@@ -39,11 +39,9 @@ return {
 
     local function restore_session()
       local persisted = require 'persisted'
-      if persisted.session_exists() then
-        vim.schedule(function()
-          persisted.load()
-        end)
-      end
+      vim.schedule(function()
+        persisted.load()
+      end)
     end
 
     -- On startup check if lazy is auto-install mising plugins
