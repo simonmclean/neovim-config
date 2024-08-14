@@ -25,6 +25,7 @@ vim.opt.fillchars = { fold = ' ', foldopen = '', foldclose = '' }
 vim.o.foldcolumn = 'auto'
 vim.o.inccommand = 'split'
 vim.o.confirm = true
+vim.o.linebreak = true
 
 --------------------------------------------------------------------------
 -- Window options
