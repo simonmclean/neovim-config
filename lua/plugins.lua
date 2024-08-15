@@ -89,7 +89,7 @@ local lazy_opts = {
   },
   install = {
     missing = true,
-    colorscheme = { 'tokyonight' },
+    colorscheme = { 'nightfox' },
   },
   change_detection = {
     notify = false,
