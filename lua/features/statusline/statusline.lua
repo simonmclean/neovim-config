@@ -74,8 +74,15 @@ components.cursor_position = function()
 end
 
 components.win_title = function(full_title)
+  local filetype_title_overrides = {
+    fugitive = 'Git',
+    qf = 'Quickfix'
+  }
   local filetype = vim.bo.filetype
   local title = u.eval(function()
+    if filetype and filetype_title_overrides[filetype] then
+      return filetype_title_overrides[filetype]
+    end
     local maybe_title = full_title and vim.fn.expand '%:.' or vim.fn.expand '%:p'
     if u.is_defined(maybe_title) then
       return maybe_title
