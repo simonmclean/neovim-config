@@ -1,9 +1,9 @@
--- Directory browser
+local map = require 'utils'.keymap_set
 
 return {
   'simonmclean/triptych.nvim',
   event = 'VeryLazy',
-  dir = '~/code/triptych',
+  -- dir = '~/code/triptych',
   dev = false,
   dependencies = {
     'nvim-lua/plenary.nvim', -- required
@@ -23,6 +23,6 @@ return {
       },
     }
 
-    vim.keymap.set('n', '<leader>-', ':Triptych<CR>', { silent = true })
+    map('n', '<leader>-', ':Triptych<CR>')
   end,
 }

@@ -1,9 +1,10 @@
+local map = require('utils').keymap_set
+
 return {
   'mfussenegger/nvim-dap',
   event = 'VeryLazy',
   config = function()
     local dap = require 'dap'
-    local map = vim.keymap.set
 
     vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'Error', linehl = 'DiagnosticVirtualTextError' })
     vim.fn.sign_define('DapStopped', { text = '⏸︎', texthl = 'WarningMsg', linehl = 'DiagnosticVirtualTextWarn' })

@@ -1,3 +1,5 @@
+local keymap_set = require 'utils'.keymap_set
+
 -- Signcolumn icons for git
 -- Manage hunks (stage, unstage, undo, preview etc)
 
@@ -12,7 +14,7 @@ return {
         local function map(mode, l, r, opts)
           opts = opts or {}
           opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
+          keymap_set(mode, l, r, opts)
         end
 
         -- Navigation

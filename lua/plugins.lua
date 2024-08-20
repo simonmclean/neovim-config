@@ -1,4 +1,5 @@
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local map = require 'utils'.keymap_set
 
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -96,6 +97,6 @@ local lazy_opts = {
   },
 }
 
-vim.keymap.set('n', '<leader>l', ':Lazy<CR>', { silent = true })
+map('n', '<leader>l', ':Lazy<CR>')
 
 require('lazy').setup({ plugins, { import = 'plugin-configs' } }, lazy_opts)

@@ -1,3 +1,5 @@
+local map = require 'utils'.keymap_set
+
 local layout_config = {
   flex = {
     flip_columns = 2000, -- When there are more than n columns, switch to horizontal
@@ -19,7 +21,6 @@ return {
   event = 'VeryLazy',
   dependencies = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
   config = function()
-    local map = vim.keymap.set
     local builtin = require 'telescope.builtin'
 
     map('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })

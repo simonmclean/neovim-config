@@ -1,5 +1,14 @@
 local M = {}
 
+function M.keymap_set(mode, input, action, opts)
+  opts = opts or {}
+  -- Default to silent = true
+  if opts.silent == nil then
+    opts.silent = true
+  end
+  vim.keymap.set(mode, input, action, opts)
+end
+
 ---@param value nil | string | table
 ---@return boolean
 function M.is_defined(value)

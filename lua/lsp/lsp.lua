@@ -1,4 +1,5 @@
 local capabilities_with_cmp = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local keymap_set = require('utils').keymap_set
 
 require('lspconfig.ui.windows').default_options.border = 'single'
 
@@ -9,7 +10,7 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
 
   local map = function(keys, func, desc)
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
+    keymap_set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
   end
 
   -- Jump to the definition of the word under your cursor.

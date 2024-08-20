@@ -1,9 +1,8 @@
-local map = vim.keymap.set
-local silent = { silent = true }
+local map = require 'utils'.keymap_set
 
 -- Window control
-map('n', '|', ':vertical split<cr>', silent)
-map('n', '-', ':split<cr>', silent)
+map('n', '|', ':vertical split<cr>')
+map('n', '-', ':split<cr>')
 
 -- Scroll
 map('n', '<C-k>', '5<C-y>', { desc = 'scroll up' })
@@ -14,12 +13,13 @@ map('n', '<C-l>', 'gt', { desc = 'tab right' })
 map('n', '<C-h>', 'gT', { desc = 'tab left' })
 
 -- Lazy exec mode
-map('n', ';', ':')
-map('v', ';', ':')
+-- These can't silent, otherwise the fancy pop-up command line won't appear
+map('n', ';', ':', { silent = false })
+map('v', ';', ':', { silent = false })
 
 -- Remap $ so that it doesn't include newline chars
-map('n', '$', 'g_', silent)
-map('v', '$', 'g_', silent)
+map('n', '$', 'g_')
+map('v', '$', 'g_')
 
 -- Terminal
 map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Normal mode from terminal' })
@@ -33,14 +33,14 @@ map('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "single" 
 map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "single" } })<CR>')
 
 -- Toggle between 2 buffers
-map('n', '<leader><leader>', '<c-^>', { silent = true, desc = 'Previous buffer' })
+map('n', '<leader><leader>', '<c-^>', { desc = 'Previous buffer' })
 
 -- Add empty line above or below cursor
-map('n', '<leader>k', ':call append(line(".")-1, "")<cr>', { silent = true, desc = 'Empty line below' })
-map('n', '<leader>j', ':call append(line("."), "")<cr>', { silent = true, desc = 'Empty line above' })
+map('n', '<leader>k', ':call append(line(".")-1, "")<cr>', { desc = 'Empty line below' })
+map('n', '<leader>j', ':call append(line("."), "")<cr>', { desc = 'Empty line above' })
 
 -- Replace motion
-map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', { silent = true, desc = 'Replace motion' })
+map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', { desc = 'Replace motion' })
 
 map('n', '<leader>/', 'yiw:%S/<C-r>"/', { desc = 'Substitue word or selection' }) -- Capital S uses abolish.vim
 map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
