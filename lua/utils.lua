@@ -135,6 +135,14 @@ function M.list_find(tbl, fn)
   end
 end
 
+function M.theme_config(theme_name, plugin_config)
+  if vim.g.active_colorscheme == theme_name then
+    return plugin_config
+  else
+    return {}
+  end
+end
+
 function M.list_contains(tbl, value)
   return M.list_find(tbl, function(el)
     return el == value

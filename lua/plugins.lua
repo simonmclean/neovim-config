@@ -1,6 +1,8 @@
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-local map = require 'utils'.keymap_set
+local map = require('utils').keymap_set
 
+vim.g.active_colorscheme = 'nord'
+
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
     'git',
@@ -90,7 +92,7 @@ local lazy_opts = {
   },
   install = {
     missing = true,
-    colorscheme = { 'nightfox' },
+    colorscheme = { vim.g.active_colorscheme or 'default' },
   },
   change_detection = {
     notify = false,
@@ -99,4 +101,4 @@ local lazy_opts = {
 
 map('n', '<leader>l', ':Lazy<CR>')
 
-require('lazy').setup({ plugins, { import = 'plugin-configs' } }, lazy_opts)
+require('lazy').setup({ plugins, { import = 'plugin-configs' }, { import = 'theme-configs' } }, lazy_opts)
