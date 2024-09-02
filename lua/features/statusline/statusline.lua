@@ -78,10 +78,17 @@ components.win_title = function(full_title)
     fugitive = 'Git',
     qf = 'Quickfix'
   }
+  local buftype_title_overrides = {
+    terminal = 'Terminal',
+  }
   local filetype = vim.bo.filetype
+  local buftype = vim.bo.buftype
   local title = u.eval(function()
     if filetype and filetype_title_overrides[filetype] then
       return filetype_title_overrides[filetype]
+    end
+    if buftype and buftype_title_overrides[buftype] then
+      return buftype_title_overrides[buftype]
     end
     local maybe_title = full_title and vim.fn.expand '%:.' or vim.fn.expand '%:p'
     if u.is_defined(maybe_title) then
