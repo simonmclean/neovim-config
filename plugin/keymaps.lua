@@ -52,6 +52,10 @@ map('n', '<leader>gt', function()
   require 'features.goto_test'()
 end)
 
+-- When pasting over a visual selection, send the replaced text into the black hole register
+map('x', 'p', '"_dp', { noremap = true, silent = true })
+map('x', 'P', '"_dP', { noremap = true, silent = true })
+
 -- Exclude block navigation from the jumplist
 vim.cmd 'nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>'
 vim.cmd 'nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>'
