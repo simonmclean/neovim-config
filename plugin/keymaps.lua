@@ -59,3 +59,7 @@ map('x', 'P', '"_dP', { noremap = true, silent = true })
 -- Exclude block navigation from the jumplist
 vim.cmd 'nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>'
 vim.cmd 'nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>'
+
+map('n', '<leader>w', function()
+  vim.wo.wrap = not vim.wo.wrap
+end, { desc = 'Toggle wrap' })
