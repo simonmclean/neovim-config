@@ -14,4 +14,4 @@ This is my Neovim config. There are many like it, but this one is mine 🫡
 
 ### Prerequisites for first-time setup
 
-- Install a patched (Nerd Font)[https://www.nerdfonts.com/font-downloads]. Currently using Hack Nerd Font, specifically `HackNerdFont-Regular.ttf`
+- Install a patched [Nerd Font](https://www.nerdfonts.com/font-downloads). Currently using Hack Nerd Font, specifically `HackNerdFont-Regular.ttf`
