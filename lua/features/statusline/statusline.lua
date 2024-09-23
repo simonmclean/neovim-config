@@ -22,6 +22,8 @@ local icons = {
   warn = '',
   hint = '',
   info = '',
+  copilot_enabled = '',
+  copilot_disabled = '',
 }
 
 --------------------------------------------------------------------------
@@ -76,7 +78,7 @@ end
 components.win_title = function(full_title)
   local filetype_title_overrides = {
     fugitive = 'Git',
-    qf = 'Quickfix'
+    qf = 'Quickfix',
   }
   local buftype_title_overrides = {
     terminal = 'Terminal',
@@ -162,14 +164,14 @@ components.mode = function()
   return highlight(hi_group_name, u.pad_string(display_name))
 end
 
-components.branch = conditional_component(IS_CWD_GIT_REPO, function()
+components.branch = conditional_component(IsCwdAGitRepo, function()
   local name = vim.g.statusline_branch_name
   if name then
     return icons.git .. ' ' .. vim.g.statusline_branch_name
   end
 end)
 
-components.git_ahead_behind = conditional_component(IS_CWD_GIT_REPO, function()
+components.git_ahead_behind = conditional_component(IsCwdAGitRepo, function()
   local state = vim.g.statusline_commits
   if state then
     if state.remote_exists then
@@ -201,6 +203,10 @@ components.metals_status = function()
   end
 end
 
+components.copilot = function()
+  return CopilotEnabled and icons.copilot_enabled
+end
+
 --------------------------------------------------------------------------
 -- Statusline
 --------------------------------------------------------------------------
@@ -213,6 +219,7 @@ function StatusLine()
     components.git_ahead_behind(),
     components.diagnostics(false),
     components.push_right,
+    components.copilot(),
     components.datetime(),
   }, '  ')
 end

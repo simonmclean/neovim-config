@@ -56,7 +56,7 @@ StatuslineCommits.new = function()
   instance.last_updated_epoch_seconds = nil
   instance.is_updating = false
 
-  if IS_CWD_GIT_REPO then
+  if IsCwdAGitRepo then
     vim.loop.new_timer():start(
       0,
       UPDATE_FREQUENCY_SECONDS * 1000,
@@ -84,7 +84,7 @@ local function warn_if_behind(prev, current)
 end
 
 function StatuslineCommits:update()
-  if not IS_CWD_GIT_REPO or self.is_updating then
+  if not IsCwdAGitRepo or self.is_updating then
     return
   end
 
