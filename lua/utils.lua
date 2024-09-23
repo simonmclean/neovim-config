@@ -150,3 +150,5 @@ function M.list_contains(tbl, value)
     return el == value
   end)
 end
+
+return M
