@@ -62,7 +62,6 @@ local servers = mason_lsp_config.get_installed_servers()
 -- These will be merged with a default config in the loop below
 local config_overrides = {
   eslint = require 'lsp.language-servers.eslint',
-  tsserver = require 'lsp.language-servers.tsserver',
   lua_ls = require 'lsp.language-servers.lua',
 }
 
