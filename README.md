@@ -12,6 +12,6 @@ This is my Neovim config. There are many like it, but this one is mine 🫡
 - `vimscript/` - Legacy stuff I haven't yet ported to lua
 - `vnip/` - Snippets used by the [hrsh7th/vim-vsnip](https://github.com/hrsh7th/vim-vsnip) plugin. Also legacy, and should be ported to lua
 
-### Prerequisites for first-time setup
+### Prerequisites for first time setup
 
 - Install a patched [Nerd Font](https://www.nerdfonts.com/font-downloads). Currently using Hack Nerd Font, specifically `HackNerdFont-Regular.ttf`
