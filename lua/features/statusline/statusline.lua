@@ -177,9 +177,9 @@ components.git_ahead_behind = conditional_component(IsCwdAGitRepo, function()
     if state.remote_exists then
       return u.trim_string(u.list_join({
         icons.up_arrow,
-        state.ahead,
+        tostring(state.ahead),
         icons.down_arrow,
-        state.behind,
+        tostring(state.behind),
       }, ' '))
     else
       return '(no remote)'
@@ -204,7 +204,7 @@ components.metals_status = function()
 end
 
 components.copilot = function()
-  return CopilotEnabled and icons.copilot_enabled
+  return CopilotEnabled and icons.copilot_enabled or ''
 end
 
 --------------------------------------------------------------------------
