@@ -10,7 +10,7 @@ This is my Neovim config. There are many like it, but this one is mine 🫡
 - `plugin/` - Neovim automatically sources these files on startup, after `lua/`
 - `lua/` - Loads before the files in `plugin/`
 - `vimscript/` - Legacy stuff I haven't yet ported to lua
-- `vnip/` - Snippets used by the [hrsh7th/vim-vsnip](https://github.com/hrsh7th/vim-vsnip) plugin. Also legacy, and should be ported to lua
+- `vsnip/` - Snippets used by the [hrsh7th/vim-vsnip](https://github.com/hrsh7th/vim-vsnip) plugin
 
 ### Prerequisites for first time setup
 
