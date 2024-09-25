@@ -17,10 +17,6 @@ map('n', '<C-h>', 'gT', { desc = 'tab left' })
 map('n', ';', ':', { silent = false })
 map('v', ';', ':', { silent = false })
 
--- Remap $ so that it doesn't include newline chars
-map('n', '$', 'g_')
-map('v', '$', 'g_')
-
 -- Terminal
 map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Normal mode from terminal' })
 
