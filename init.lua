@@ -13,7 +13,11 @@ local cwd = vim.fn.getcwd()
 
 local copilot_enabled_dirs = u.list_map(vim.g.copilot_enabled_dirs or {}, vim.fs.normalize)
 
+---@type boolean
 CopilotEnabled = u.list_contains(copilot_enabled_dirs, cwd)
+
+-- It's important that this is actually a boolean, and not just falsy
+assert(type(CopilotEnabled) == 'boolean', 'Expected CopilotEnabled to be a boolean, found: ' .. type(CopilotEnabled))
 
 IsCwdAGitRepo = u.eval(function()
   local is_git_installed = type(vim.trim(vim.fn.system 'command -v git')) == 'string'
