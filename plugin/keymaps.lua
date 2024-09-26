@@ -63,3 +63,7 @@ vim.cmd 'nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<C
 map('n', '<leader>w', function()
   vim.wo.wrap = not vim.wo.wrap
 end, { desc = 'Toggle wrap' })
+
+-- Makes cursor navigation more intuitive in wrapped text
+map('n', 'j', 'gj', { silent = true, desc = 'cursor down' })
+map('n', 'k', 'gk', { silent = true, desc = 'cursor up' })
