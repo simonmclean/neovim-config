@@ -13,7 +13,7 @@ local Job = require 'plenary.job'
 vim.g.statusline_commits = nil
 
 local UPDATE_FREQUENCY_SECONDS = 60
-local UPDATE_THROTTLE_SECONDS = 10
+local UPDATE_THROTTLE_SECONDS = 2
 
 local function git_fetch(callback)
   Job:new({
