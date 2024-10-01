@@ -41,3 +41,14 @@ create_cmd('TabWidth', function()
   end)
 end, {})
 
+vim.api.nvim_create_user_command('Diff', function(opts)
+  vim.cmd.tabnew()
+  vim.api.nvim_set_option_value('filetype', opts.args, { buf = 0 })
+  vim.cmd.vnew()
+  vim.api.nvim_set_option_value('filetype', opts.args, { buf = 0 })
+  vim.cmd 'windo diffthis'
+end, {
+  nargs = 1,
+  complete = 'filetype',
+  desc = 'Diff <filetype> - open a tab with 2 splits of given filetype and start a diffthis',
+})
