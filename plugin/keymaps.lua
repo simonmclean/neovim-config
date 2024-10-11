@@ -41,6 +41,8 @@ map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', { desc = 'Replace
 map('n', '<leader>/', 'yiw:%S/<C-r>"/', { desc = 'Substitue word or selection' }) -- Capital S uses abolish.vim
 map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
 
+map('n', '<C-/>', ':nohlsearch<CR>', { desc = 'Clear search highlight' })
+
 -- Unwrap something. e.g. if the cursor is in `Foo`, `Foo(Bar)` will become `Bar`
 map('n', '<leader>u', 'diwmz%x`zx', { desc = 'Unwrap' })
 
