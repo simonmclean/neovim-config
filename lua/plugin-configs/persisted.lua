@@ -27,7 +27,7 @@ return {
       pattern = 'PersistedSavePre',
       group = autocmd_group,
       callback = function()
-        local filetypes = { 'fugitive', 'Trouble', 'qf', 'copilot-chat' }
+        local filetypes = { 'fugitive', 'Trouble', 'qf', 'copilot-chat', 'gitcommit' }
         for _, bufid in ipairs(vim.api.nvim_list_bufs()) do
           local filetype = vim.api.nvim_buf_get_option(bufid, 'filetype')
           if utils.list_contains(filetypes, filetype) then
