@@ -62,3 +62,10 @@ end, { desc = 'Toggle wrap' })
 -- Makes cursor navigation more intuitive in wrapped text
 map('n', 'j', 'gj', { silent = true, desc = 'cursor down' })
 map('n', 'k', 'gk', { silent = true, desc = 'cursor up' })
+
+-- Git/Fugitive
+map('n', '<leader>gs', ':tab G<CR>', { desc = 'Git status' })
+map('n', '<leader>gC', ':tab Git commit<CR>', { desc = 'Git commit' })
+map('n', '<leader>gc', ':Telescope git_branches<CR>', { desc = 'Git checkout (with Telescope)' })
+map('n', '<leader>gf', ':Git fetch<CR>', { desc = 'Git fetch' })
+map('n', '<leader>gb', ':GBrowse<CR>', { desc = 'Open repo in browser' })
