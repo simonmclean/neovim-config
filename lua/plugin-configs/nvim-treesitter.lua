@@ -1,14 +1,11 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
-  dependencies = { 'windwp/nvim-ts-autotag' },
+  dependencies = {},
   config = function()
     require('nvim-treesitter.configs').setup {
       indent = {
         enable = true, -- without this JSX auto-indentation doesn't work as expected
-      },
-      autotag = { -- This requires the 'windwp/nvim-ts-autotag' plugin
-        enable = true,
       },
       highlight = {
         enable = true,
