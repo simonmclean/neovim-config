@@ -207,4 +207,78 @@ function M.list_contains(tbl, value)
   end)
 end
 
+---Wrapper around fidget. Falls back to vim.notify()
+---@param msg string
+---@param level? ('warn' | 'info') Error level excluded deliberately. Use error() instead
+---@param group? string
+---@param group_title? string
+function M.notify(msg, level, group, group_title)
+  local has_fidget, fidget = pcall(require, 'fidget.notification')
+  local l = level == 'warn' and vim.log.levels.WARN or vim.log.levels.INFO
+  if has_fidget then
+    fidget.notify(msg, l, { group = group, annote = group_title })
+  else
+    vim.notify(msg)
+  end
+end
+
+---Run a lua function asynchronously. For external system commands, use M.system
+---@param fn function
+---@param callback? fun(data: any): nil
+function M.async(fn, callback)
+  local co = coroutine.create(function()
+    local result = fn()
+    if callback then
+      callback(result)
+    end
+  end)
+
+  local handle = vim.loop.new_idle()
+  vim.loop.idle_start(handle, function()
+    if coroutine.status(co) == 'dead' then
+      vim.loop.idle_stop(handle)
+    else
+      coroutine.resume(co)
+    end
+  end)
+end
+
+---Run external system command asynchronously
+---@param cmd string
+---@param callback? fun(result: any)
+function M.system(cmd, callback)
+  local stdout = vim.loop.new_pipe(false)
+  local stderr = vim.loop.new_pipe(false)
+  local output = ''
+  local handle
+
+  handle = vim.loop.spawn('/bin/sh', {
+    args = { '-c', cmd },
+    stdio = { nil, stdout, stderr },
+  }, function()
+    stdout:close()
+    stderr:close()
+    if handle then
+      handle:close()
+    end
+    if callback then
+      vim.schedule(function()
+        callback(output)
+      end)
+    end
+  end)
+
+  stderr:read_start(function(_, data)
+    if data then
+      output = output .. M.remove_linebreaks(data)
+    end
+  end)
+
+  stdout:read_start(function(_, data)
+    if data then
+      output = output .. M.remove_linebreaks(data)
+    end
+  end)
+end
+
 return M

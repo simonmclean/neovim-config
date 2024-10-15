@@ -12,7 +12,7 @@ vim.g.update_current_branch_async = function()
   local function onread(err, data)
     if err then
       -- Handle error, for example:
-      vim.notify('Error reading git branch: ' .. err, vim.log.levels.ERROR)
+      error(err)
     end
     if data then
       -- Assuming data is not nil, update the global variable. Remove trailing newline.
@@ -24,7 +24,7 @@ vim.g.update_current_branch_async = function()
     stdout:close()
     stderr:close()
     if code ~= 0 then
-      vim.notify('Failed to get git branch with exit code: ' .. code, vim.log.levels.ERROR)
+      error('Failed to get git branch with exit code: ' .. code)
     end
   end
 

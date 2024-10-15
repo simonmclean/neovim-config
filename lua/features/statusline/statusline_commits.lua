@@ -1,3 +1,4 @@
+local u = require 'utils'
 local Job = require 'plenary.job'
 
 -- Module that creates 2 global variables:
@@ -39,7 +40,7 @@ local function git_check_commits_diff(callback)
         callback {
           ahead = tonumber(ahead) or 0,
           behind = tonumber(behind) or 0,
-          remote_exists = true
+          remote_exists = true,
         }
       else
         callback { ahead = 0, behind = 0, remote_exists = false }
@@ -78,7 +79,7 @@ end
 local function warn_if_behind(prev, current)
   if (not prev and current.behind > 0) or (prev and current.behind > prev.behind) then
     vim.schedule(function()
-      vim.notify('Local branch is ' .. current.behind .. ' commits behind remote', vim.log.levels.WARN)
+      u.notify('Local branch is ' .. current.behind .. ' commits behind remote')
     end)
   end
 end

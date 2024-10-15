@@ -2,35 +2,98 @@ local u = require 'utils'
 
 local create_cmd = vim.api.nvim_create_user_command
 
--- Checkout up-to-date master or main branch
 create_cmd('Main', function()
-  local main_branch = u.remove_linebreaks(vim.fn.system "git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
-  local current_branch_name = u.remove_linebreaks(vim.fn.system 'git rev-parse --abbrev-ref HEAD')
-  local pull_command = 'Git pull'
+  local handle = require('fidget.progress').handle.create {
+    title = 'Switching to latest main',
+    message = 'Getting main branch',
+    lsp_client = { name = 'Git' },
+    percentage = 0,
+  }
 
-  if current_branch_name == main_branch then
-    -- If already on main, just fetch and pull latest
-    local update_command = 'Git fetch --prune'
-    vim.cmd(update_command .. ' | ' .. pull_command)
-  else
-    -- If not on main, first update main branch, then checkout
-    local update_command = 'Git fetch --prune origin ' .. main_branch .. ':' .. main_branch
-    local checkout_command = 'Git checkout ' .. main_branch
-    vim.cmd(update_command .. ' | ' .. checkout_command)
-  end
-end, {})
+  u.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5", function(main_branch)
+    u.system('git rev-parse --abbrev-ref HEAD', function(current_branch)
+      local pull_command = 'git pull'
+
+      if current_branch == main_branch then
+        local update_command = 'git fetch --prune'
+        handle:report {
+          message = 'Running ' .. update_command,
+          percentage = 50,
+        }
+        u.system(update_command, function()
+          handle:report {
+            message = 'Running ' .. pull_command,
+            percentage = 75,
+          }
+          u.system(pull_command, function()
+            handle.message = 'Done'
+            handle:finish()
+          end)
+        end)
+      else
+        -- If not on main, first update main branch, then checkout
+        local update_command = 'git fetch --prune origin ' .. main_branch .. ':' .. main_branch
+        handle:report {
+          message = 'Running ' .. update_command,
+          percentage = 50,
+        }
+        u.system(update_command, function()
+          local checkout_command = 'git checkout ' .. main_branch
+          handle:report {
+            message = 'Running ' .. update_command,
+            percentage = 75,
+          }
+          u.system(checkout_command, function()
+            handle.message = 'Done'
+            handle:finish()
+          end)
+        end)
+      end
+    end)
+  end)
+end, { desc = 'Switch to the main branch and pull the latest changes' })
 
 -- Push new branch
 create_cmd('PushNew', function()
-  vim.cmd 'Git fetch'
-  local current_branch_name = u.remove_linebreaks(vim.fn.system 'git rev-parse --abbrev-ref HEAD')
-  local upstream_status = vim.fn.system('git rev-parse --abbrev-ref ' .. current_branch_name .. '@{u}')
-  if string.find(upstream_status, 'fatal: no upstream') then
-    vim.cmd('Git push -u origin ' .. current_branch_name)
-  else
-    vim.notify('Remote branch already exists', vim.log.levels.WARN)
-  end
-end, {})
+  local fetch_cmd = 'Git fetch'
+
+  local handle = require('fidget.progress').handle.create {
+    title = 'Pushing new remote branch',
+    message = 'Running ' .. fetch_cmd,
+    lsp_client = { name = 'Git' },
+    percentage = 0,
+  }
+
+  u.system(fetch_cmd, function()
+    u.system('git rev-parse --abbrev-ref HEAD', function(curret_branch)
+      handle:report {
+        message = 'Checking upstream',
+        percentage = 25,
+      }
+      u.system('git rev-parse --abbrev-ref ' .. curret_branch .. '@{u}', function(upstream_status)
+        vim.print {
+          curret_branch = curret_branch,
+          upstream_status = upstream_status,
+          cmd = 'git rev-parse --abbrev-ref ' .. curret_branch .. '@{u}'
+        }
+        if string.find(upstream_status, 'fatal: no upstream') then
+          handle:report {
+            message = 'Pushing to new origin',
+            percentage = 50,
+          }
+          u.system('Git push -u origin ' .. curret_branch, function()
+            handle.message = 'Done'
+            handle:finish()
+          end)
+        else
+          handle.message = 'Remote branch already exists'
+          handle.percentage = 100
+          handle:cancel()
+        end
+      end)
+    end)
+  end)
+end, { desc = "Push to a new remote origin (if one doesn't already exist)" })
 
 create_cmd('TabWidth', function()
   vim.ui.input({ prompt = 'How many spaces? ', completion = 'command' }, function(arg)

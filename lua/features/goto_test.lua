@@ -1,3 +1,5 @@
+local u = require 'utils'
+
 ---Convert gitignore globs into lua patterns (which are like very simplified regex)
 local function glob_to_lua_pattern(glob)
   return glob:gsub('%.', '%%.'):gsub('%*', '.*'):gsub('%?', '.') .. '$'
@@ -59,7 +61,7 @@ local function find_files_async(filenames, callback)
   end
 
   local function on_error(err)
-    vim.print(err)
+    error(err)
     on_search_complete()
   end
 
@@ -155,7 +157,7 @@ local TEST_POSTFIXES = {
 ---@param matches string[]
 local function handle_search_results(matches)
   if #matches == 0 then
-    vim.notify('No test/source match found', vim.log.levels.WARN, {})
+    u.notify('No test/source match found')
   elseif #matches == 1 then
     vim.cmd.edit(matches[1])
   else

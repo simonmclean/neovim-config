@@ -1,4 +1,4 @@
-local map = require 'utils'.keymap_set
+local map = require('utils').keymap_set
 
 -- Window control
 map('n', '|', ':vertical split<cr>')
@@ -45,7 +45,7 @@ map('n', '<C-/>', ':nohlsearch<CR>', { desc = 'Clear search highlight' })
 
 map('n', '<leader>gt', function()
   require 'features.goto_test'()
-end)
+end, { desc = 'Go to test' })
 
 -- When pasting over a visual selection, send the replaced text into the black hole register
 map('x', 'p', '"_dp', { noremap = true, silent = true })
@@ -66,6 +66,8 @@ map('n', 'k', 'gk', { silent = true, desc = 'cursor up' })
 -- Git/Fugitive
 map('n', '<leader>gs', ':tab G<CR>', { desc = 'Git status' })
 map('n', '<leader>gC', ':tab Git commit<CR>', { desc = 'Git commit' })
-map('n', '<leader>gc', ':Telescope git_branches<CR>', { desc = 'Git checkout (with Telescope)' })
+map('n', '<leader>gc', ':Telescope git_branches<CR>', { desc = 'Git checkout' })
 map('n', '<leader>gf', ':Git fetch<CR>', { desc = 'Git fetch' })
-map('n', '<leader>gb', ':GBrowse<CR>', { desc = 'Open repo in browser' })
+map('n', '<leader>gb', ':GBrowse<CR>', { desc = 'Open git repo in browser' })
+map('n', '<leader>gm', ':Main<CR>', { desc = 'Switch to the main branch and pull the latest changes' })
+map('n', '<leader>gn', ':PushNew<CR>', { desc = "Push to a new remote origin (if one doesn't already exist)" })
