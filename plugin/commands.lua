@@ -1,4 +1,5 @@
 local u = require 'utils'
+local git = require 'git'
 
 local create_cmd = vim.api.nvim_create_user_command
 
@@ -9,6 +10,12 @@ create_cmd('Main', function()
     lsp_client = { name = 'Git' },
     percentage = 0,
   }
+
+  local function finish()
+    handle.message = 'Done'
+    handle:finish()
+    git.update_ahead_behind()
+  end
 
   u.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5", function(main_branch)
     u.system('git rev-parse --abbrev-ref HEAD', function(current_branch)
@@ -26,8 +33,7 @@ create_cmd('Main', function()
             percentage = 75,
           }
           u.system(pull_command, function()
-            handle.message = 'Done'
-            handle:finish()
+            finish()
           end)
         end)
       else
@@ -44,8 +50,7 @@ create_cmd('Main', function()
             percentage = 75,
           }
           u.system(checkout_command, function()
-            handle.message = 'Done'
-            handle:finish()
+            finish()
           end)
         end)
       end
@@ -71,24 +76,21 @@ create_cmd('PushNew', function()
         percentage = 25,
       }
       u.system('git rev-parse --abbrev-ref ' .. curret_branch .. '@{u}', function(upstream_status)
-        vim.print {
-          curret_branch = curret_branch,
-          upstream_status = upstream_status,
-          cmd = 'git rev-parse --abbrev-ref ' .. curret_branch .. '@{u}'
-        }
         if string.find(upstream_status, 'fatal: no upstream') then
           handle:report {
             message = 'Pushing to new origin',
             percentage = 50,
           }
-          u.system('Git push -u origin ' .. curret_branch, function()
+          u.system('git push -u origin ' .. curret_branch, function()
             handle.message = 'Done'
             handle:finish()
+            git.update_ahead_behind()
           end)
         else
           handle.message = 'Remote branch already exists'
           handle.percentage = 100
           handle:cancel()
+          git.update_ahead_behind()
         end
       end)
     end)

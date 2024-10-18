@@ -19,12 +19,4 @@ CopilotEnabled = u.list_contains(copilot_enabled_dirs, cwd)
 -- It's important that this is actually a boolean, and not just falsy
 assert(type(CopilotEnabled) == 'boolean', 'Expected CopilotEnabled to be a boolean, found: ' .. type(CopilotEnabled))
 
-IsCwdAGitRepo = u.eval(function()
-  local is_git_installed = type(vim.trim(vim.fn.system 'command -v git')) == 'string'
-  if not is_git_installed then
-    return false
-  end
-  return vim.trim(vim.fn.system 'git rev-parse --is-inside-work-tree') == 'true'
-end)
-
 require 'plugins'

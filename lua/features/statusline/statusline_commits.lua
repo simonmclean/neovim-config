@@ -1,53 +1,8 @@
 local u = require 'utils'
-local Job = require 'plenary.job'
-
--- Module that creates 2 global variables:
--- vim.g.statusline_commits - Text for the statusline showing how many commits ahead and behind the current local branch is from its remote
--- vim.g.statusline_commits_update - Function to trigger an update of the above statusline variable
-
----@class GitCommitsStatus
----@field ahead integer
----@field behind integer
----@field remote_exists boolean
-
----@type GitCommitsStatus | nil
-vim.g.statusline_commits = nil
+local git = require 'git'
 
 local UPDATE_FREQUENCY_SECONDS = 60
 local UPDATE_THROTTLE_SECONDS = 2
-
-local function git_fetch(callback)
-  Job:new({
-    command = 'git',
-    args = { 'fetch' },
-    on_exit = callback,
-  }):start()
-end
-
----@param callback fun(status: GitCommitsStatus): nil
-local function git_check_commits_diff(callback)
-  Job:new({
-    command = 'git',
-    args = { 'rev-list', '--left-right', '--count', 'HEAD...@{upstream}' },
-    on_exit = function(job, _)
-      local response = job:result()[1]
-      if type(response) == 'string' then
-        local ok, ahead, behind = pcall(string.match, response, '(%d+)%s*(%d+)')
-        if not ok then
-          ahead, behind = 0, 0
-          error('Unable to parse response in function check_ahead_behind: ' .. tostring(response))
-        end
-        callback {
-          ahead = tonumber(ahead) or 0,
-          behind = tonumber(behind) or 0,
-          remote_exists = true,
-        }
-      else
-        callback { ahead = 0, behind = 0, remote_exists = false }
-      end
-    end,
-  }):start()
-end
 
 local StatuslineCommits = {}
 
@@ -57,7 +12,7 @@ StatuslineCommits.new = function()
   instance.last_updated_epoch_seconds = nil
   instance.is_updating = false
 
-  if IsCwdAGitRepo then
+  if git.is_cwd_a_git_repo() then
     vim.loop.new_timer():start(
       0,
       UPDATE_FREQUENCY_SECONDS * 1000,
@@ -67,25 +22,21 @@ StatuslineCommits.new = function()
     )
   end
 
-  vim.g.statusline_commits_update = function()
-    instance:update()
-  end
-
   return instance
 end
 
----@param prev GitCommitsStatus
----@param current GitCommitsStatus
+---@param prev GitAheadBehindCount
+---@param current GitAheadBehindCount
 local function warn_if_behind(prev, current)
   if (not prev and current.behind > 0) or (prev and current.behind > prev.behind) then
     vim.schedule(function()
-      u.notify('Local branch is ' .. current.behind .. ' commits behind remote')
+      u.notify('Local branch is ' .. current.behind .. ' commits behind remote', 'warn')
     end)
   end
 end
 
 function StatuslineCommits:update()
-  if not IsCwdAGitRepo or self.is_updating then
+  if not git.is_cwd_a_git_repo() or self.is_updating then
     return
   end
 
@@ -98,12 +49,12 @@ function StatuslineCommits:update()
 
   self.is_updating = true
 
-  git_fetch(function()
-    git_check_commits_diff(function(result)
+  u.system('git fetch', function()
+    git.count_ahead_behind(function(result)
       self.is_updating = false
       self.last_updated_epoch_seconds = os.time()
-      warn_if_behind(vim.g.statusline_commits, result)
-      vim.g.statusline_commits = result
+      warn_if_behind(vim.g.git_ahead_behind_count, result)
+      vim.g.git_ahead_behind_count = result
     end)
   end)
 end

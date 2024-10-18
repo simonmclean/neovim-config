@@ -2,8 +2,9 @@ local u = require 'utils'
 local statusline_mode = require 'features.statusline.statusline_mode'
 local dev_icons = require 'nvim-web-devicons'
 
-require 'features.statusline.statusline_branch' -- Need to require this to kick off the functionality
 require('features.statusline.statusline_commits').new()
+
+local is_git_repo = require('git').is_cwd_a_git_repo()
 
 --------------------------------------------------------------------------
 -- Highlight utils
@@ -219,15 +220,15 @@ components.mode = function()
   return highlight(hi_group_name, u.pad_string(display_name))
 end
 
-components.branch = conditional_component(IsCwdAGitRepo, function()
-  local name = vim.g.statusline_branch_name
+components.branch = conditional_component(is_git_repo, function()
+  local name = vim.g.git_current_branch_name
   if name then
-    return icons.git .. ' ' .. vim.g.statusline_branch_name
+    return icons.git .. ' ' .. vim.g.git_current_branch_name
   end
 end)
 
-components.git_ahead_behind = conditional_component(IsCwdAGitRepo, function()
-  local state = vim.g.statusline_commits
+components.git_ahead_behind = conditional_component(is_git_repo, function()
+  local state = vim.g.git_ahead_behind_count
   if state then
     if state.remote_exists then
       return u.trim_string(u.list_join({
