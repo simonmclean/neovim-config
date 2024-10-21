@@ -30,6 +30,7 @@ function M.update_ahead_behind()
   M.count_ahead_behind(function(result)
     ---@type GitAheadBehindCount
     vim.g.git_ahead_behind_count = result
+    vim.cmd.redrawstatus()
   end)
 end
 
@@ -38,6 +39,7 @@ function M.update_current_branch()
   u.system('git rev-parse --abbrev-ref HEAD', function(branch)
     -- Remove trailing newline before assigning
     vim.g.git_current_branch_name = string.gsub(branch, '\n$', '')
+    vim.cmd.redrawstatus()
   end)
 end
 
