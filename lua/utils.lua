@@ -268,17 +268,16 @@ function M.system(cmd, callback)
     end
   end)
 
-  stderr:read_start(function(_, data)
+  ---@param _? string error
+  ---@param data? string
+  local function capture_output(_, data)
     if data then
       output = output .. M.remove_linebreaks(data)
     end
-  end)
+  end
 
-  stdout:read_start(function(_, data)
-    if data then
-      output = output .. M.remove_linebreaks(data)
-    end
-  end)
+  stderr:read_start(capture_output)
+  stdout:read_start(capture_output)
 end
 
 return M
