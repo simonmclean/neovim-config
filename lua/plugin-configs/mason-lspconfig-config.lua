@@ -1,7 +1,7 @@
 return {
   'williamboman/mason-lspconfig.nvim',
   event = 'VeryLazy',
-  dependancies = {
+  dependencies = {
     'folke/neodev.nvim',
     'williamboman/mason.nvim',
   },

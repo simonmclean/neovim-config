@@ -2,7 +2,7 @@ return {
   'williamboman/mason.nvim',
   build = ':MasonUpdate',
   event = 'VeryLazy',
-  dependancies = {
+  dependencies = {
     'folke/neodev.nvim',
   },
   opts = {
