@@ -16,72 +16,38 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+---Convenience function for lazy loading plugins with no config
+---@param plugin string
+---@param deps? string|string[]
+---@return LazyPluginSpec
+local function very_lazy(plugin, deps)
+  return { plugin, dependencies = deps, event = "VeryLazy" }
+end
+
 -- Plugins without configs are here.
 -- Plugins with custom configs are imported from lua/plugin-configs/
 local plugins = {
   -- Makes more things dot repeatable
-  {
-    'tpope/vim-repeat',
-    event = 'VeryLazy',
-  },
+  very_lazy 'tpope/vim-repeat',
   -- Edit surrounding characters (braces, quotes etc)
-  {
-    'tpope/vim-surround',
-    event = 'VeryLazy',
-  },
+  very_lazy 'tpope/vim-surround',
   -- Adds :GBrowse to open repo in the browser
-  {
-    'tpope/vim-rhubarb',
-    event = 'VeryLazy',
-  },
+  very_lazy 'tpope/vim-rhubarb',
   -- Advanced git diff UI
-  {
-    'sindrets/diffview.nvim',
-    event = 'VeryLazy',
-    dependencies = 'nvim-lua/plenary.nvim',
-  },
+  very_lazy('sindrets/diffview.nvim', 'nvim-lua/plenary.nvim'),
   -- Smart substitution that preserves casing
-  {
-    'tpope/vim-abolish',
-    event = 'VeryLazy',
-  },
-  -- Formatting and linting (eslint, prettier etc) that works separately from LSP
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    config = require 'plugin-configs/null-ls',
-    event = 'VeryLazy',
-  },
+  very_lazy 'tpope/vim-abolish',
   -- Out-of-the-box configs for language servers
   'neovim/nvim-lspconfig',
   -- Metals
-  {
-    'scalameta/nvim-metals',
-    dependencies = { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' },
-    event = 'VeryLazy',
-  },
-  -- Virtual text for DAP
-  {
-    'theHamsta/nvim-dap-virtual-text',
-    opts = {},
-    event = 'VeryLazy',
-  },
-  -- Configures the Lua LS to get type information for nvim APIs, and plugins
-  {
-    'folke/neodev.nvim',
-    opts = {},
-  },
+  very_lazy('scalameta/nvim-metals', { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' }),
   -- JSDoc
-  {
-    'heavenshell/vim-jsdoc',
-    event = 'VeryLazy',
-  },
+  very_lazy 'heavenshell/vim-jsdoc',
   -- Vim sugar for common UNIX commands (Rename, Delete etc)
-  {
-    'tpope/vim-eunuch',
-    event = 'VeryLazy',
-  },
+  very_lazy 'tpope/vim-eunuch',
 }
 
+---@type LazyConfig
 local lazy_opts = {
   ui = {
     border = 'single',
