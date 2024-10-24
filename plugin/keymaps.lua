@@ -35,8 +35,30 @@ map('n', '<leader><leader>', '<c-^>', { desc = 'Previous buffer' })
 map('n', '<leader>k', ':call append(line(".")-1, "")<cr>', { desc = 'Empty line below' })
 map('n', '<leader>j', ':call append(line("."), "")<cr>', { desc = 'Empty line above' })
 
--- Replace motion
-map('n', '<leader>p', ':set operatorfunc=ReplaceMotion<cr>g@', { desc = 'Replace motion' })
+-- Replace motion e.g. <leader>pq performs "paste in quotes"
+map('n', '<leader>p', function()
+   __Replace = function(selection_type)
+    if selection_type ~= 'char' then
+      return
+    end
+
+    local sel_save = vim.o.selection
+    vim.o.selection = 'inclusive'
+
+    -- Visually select the chars we're pasting over
+    vim.cmd 'normal! `[v`]'
+    -- Delete the visual selection, sending it to the black hole register
+    vim.cmd 'silent normal! "_d'
+    -- Paste the originally yanked text before the cursor
+    vim.cmd 'normal! P'
+
+    vim.o.selection = sel_save
+  end
+
+  vim.o.operatorfunc = 'v:lua.__Replace'
+  -- Trigger the function defined in operatorfunc
+  vim.api.nvim_feedkeys('g@', 'n', false)
+end, { desc = 'Replace motion' })
 
 map('n', '<leader>/', 'yiw:%S/<C-r>"/', { desc = 'Substitue word or selection' }) -- Capital S uses abolish.vim
 map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
