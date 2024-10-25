@@ -1,9 +1,9 @@
 return {
-  {
-    'antosha417/nvim-lsp-file-operations',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    opts = {},
+  'antosha417/nvim-lsp-file-operations',
+  event = 'VeryLazy',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'simonmclean/triptych.nvim',
   },
+  opts = {},
 }
