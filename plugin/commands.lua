@@ -81,10 +81,11 @@ create_cmd('PushNew', function()
             message = 'Pushing to new origin',
             percentage = 50,
           }
-          u.system('git push -u origin ' .. curret_branch, function()
+          u.system('git push -u origin ' .. curret_branch, function(push_result)
             handle.message = 'Done'
             handle:finish()
             git.update_ahead_behind()
+            vim.print(push_result)
           end)
         else
           handle.message = 'Remote branch already exists'
