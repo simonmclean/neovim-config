@@ -67,6 +67,13 @@ function M.remove_linebreaks(str)
   return (str:gsub('[\n\r]', ''))
 end
 
+---Remove trailing line break from a string
+---@param str string
+---@return string
+function M.remove_trailing_linebreaks(str)
+  return (str:gsub('[\n\r]*$', ''))
+end
+
 --- Convert a decimal number to a hexadecimal string.
 --- @param n number: The decimal number to convert.
 --- @param chars number|nil: The number of characters in the resulting string (default is 6).
@@ -272,7 +279,7 @@ function M.system(cmd, callback)
   ---@param data? string
   local function capture_output(_, data)
     if data then
-      output = output .. M.remove_linebreaks(data)
+      output = output .. M.remove_trailing_linebreaks(data)
     end
   end
 
