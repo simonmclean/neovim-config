@@ -275,9 +275,12 @@ function M.system(cmd, callback)
     end
   end)
 
-  ---@param _? string error
+  ---@param err? string error
   ---@param data? string
-  local function capture_output(_, data)
+  local function capture_output(err, data)
+    if err then
+      error(err)
+    end
     if data then
       output = output .. M.remove_trailing_linebreaks(data)
     end
