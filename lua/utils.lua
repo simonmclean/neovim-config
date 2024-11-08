@@ -219,7 +219,7 @@ end
 ---@param level? ('warn' | 'info') Error level excluded deliberately. Use error() instead
 ---@param group? string
 ---@param group_title? string
-function M.notify(msg, level, group, group_title)
+function M.fidget_notify(msg, level, group, group_title)
   local has_fidget, fidget = pcall(require, 'fidget.notification')
   local l = level == 'warn' and vim.log.levels.WARN or vim.log.levels.INFO
   if has_fidget then

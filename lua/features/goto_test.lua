@@ -157,7 +157,7 @@ local TEST_POSTFIXES = {
 ---@param matches string[]
 local function handle_search_results(matches)
   if #matches == 0 then
-    u.notify('No test/source match found')
+    u.fidget_notify('No test/source match found')
   elseif #matches == 1 then
     vim.cmd.edit(matches[1])
   else

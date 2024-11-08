@@ -85,7 +85,7 @@ create_cmd('PushNew', function()
             handle.message = 'Done'
             handle:finish()
             git.update_ahead_behind()
-            vim.print(push_result)
+            vim.notify(push_result)
           end)
         else
           handle.message = 'Remote branch already exists'

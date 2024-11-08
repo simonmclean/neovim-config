@@ -30,7 +30,7 @@ end
 local function warn_if_behind(prev, current)
   if (not prev and current.behind > 0) or (prev and current.behind > prev.behind) then
     vim.schedule(function()
-      u.notify('Local branch is ' .. current.behind .. ' commits behind remote', 'warn')
+      u.fidget_notify('Local branch is ' .. current.behind .. ' commits behind remote', 'warn')
     end)
   end
 end
