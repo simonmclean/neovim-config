@@ -2,7 +2,6 @@ local u = require 'utils'
 local git = require 'git'
 
 local UPDATE_FREQUENCY_SECONDS = 60
-local UPDATE_THROTTLE_SECONDS = 2
 
 local StatuslineCommits = {}
 
@@ -37,13 +36,6 @@ end
 
 function StatuslineCommits:update()
   if not git.is_cwd_a_git_repo() or self.is_updating then
-    return
-  end
-
-  local now_seconds = os.time()
-  local should_update = not self.last_updated_epoch_seconds
-    or (self.last_updated_epoch_seconds and now_seconds - self.last_updated_epoch_seconds > UPDATE_THROTTLE_SECONDS)
-  if not should_update then
     return
   end
 
