@@ -1,7 +1,5 @@
 local map = require('utils').keymap_set
 
-vim.g.active_colorscheme = 'nord'
-
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -21,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 ---@param deps? string|string[]
 ---@return LazyPluginSpec
 local function very_lazy(plugin, deps)
-  return { plugin, dependencies = deps, event = "VeryLazy" }
+  return { plugin, dependencies = deps, event = 'VeryLazy' }
 end
 
 -- Plugins without configs are here.

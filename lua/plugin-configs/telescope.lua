@@ -41,6 +41,7 @@ return {
         layout_strategy = 'flex',
         path_display = { truncate = 2 },
         layout_config = layout_config,
+        winblend = vim.g.winblend
       },
     }
   end,

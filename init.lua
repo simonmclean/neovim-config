@@ -6,8 +6,10 @@ if vim.fn.filereadable(env_config) == 1 then
   dofile(env_config)
 end
 
--- Must be mapped before loading Lazy
+-- Globals required for starting lazy.nvim
 vim.g.mapleader = ' '
+vim.g.active_colorscheme = 'nord'
+vim.g.winblend = 10
 
 local cwd = vim.fn.getcwd()
 
