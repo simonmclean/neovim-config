@@ -15,6 +15,7 @@ create_cmd('Main', function()
     handle.message = 'Done'
     handle:finish()
     git.update_ahead_behind()
+    git.update_current_branch()
   end
 
   u.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5", function(main_branch)
@@ -88,10 +89,12 @@ create_cmd('PushNew', function()
             vim.notify(push_result)
           end)
         else
-          handle.message = 'Remote branch already exists'
+          local msg = 'Remote branch already exists'
+          handle.message = msg
           handle.percentage = 100
           handle:cancel()
           git.update_ahead_behind()
+          vim.notify(msg, vim.log.levels.INFO)
         end
       end)
     end)

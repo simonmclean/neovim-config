@@ -8,7 +8,7 @@ local M = {}
 ---@param callback fun(result: GitAheadBehindCount)
 function M.count_ahead_behind(callback)
   u.system('git rev-list --left-right --count HEAD...@{upstream}', function(response)
-    if type(response) == 'string' then
+    if not string.find(response, 'fatal: no upstream') then
       local ok, ahead, behind = pcall(string.match, response, '(%d+)%s*(%d+)')
       if not ok then
         ahead, behind = 0, 0
@@ -45,6 +45,7 @@ end
 
 vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
   pattern = '*',
+  -- This callback is a local check. Doesn't do fetch or anything like that.
   callback = M.update_current_branch,
 })
 

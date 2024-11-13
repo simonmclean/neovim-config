@@ -70,7 +70,7 @@ end
 ---Remove trailing line break from a string
 ---@param str string
 ---@return string
-function M.remove_trailing_linebreaks(str)
+function M.remove_trailing_linebreak(str)
   return (str:gsub('[\n\r]*$', ''))
 end
 
@@ -251,8 +251,15 @@ function M.async(fn, callback)
 end
 
 ---Run external system command asynchronously
+---
+---A note on error handling:
+---Data being sent to the stderr stream does not necessarily constitute a failure state.
+---For example, the normal output of `git fetch` goes to stderr, as it's considered diagnostic information.
+---That's why this function only takes a single callback, with a single parameter, which is the response from either stdout or stderr.
+---What output constitutes an actual failure state depends on the command, and cannot be generalised in this function.
+---Therefore it's up to the caller to parse the response and decide how to handle it.
 ---@param cmd string
----@param callback? fun(result: any)
+---@param callback? fun(result: string)
 function M.system(cmd, callback)
   local stdout = vim.loop.new_pipe(false)
   local stderr = vim.loop.new_pipe(false)
@@ -270,7 +277,8 @@ function M.system(cmd, callback)
     end
     if callback then
       vim.schedule(function()
-        callback(output)
+        -- Trailing newline is annoying for single line responses
+        callback(M.remove_trailing_linebreak(output))
       end)
     end
   end)
@@ -282,7 +290,7 @@ function M.system(cmd, callback)
       error(err)
     end
     if data then
-      output = output .. M.remove_trailing_linebreaks(data)
+      output = output .. data
     end
   end
 
