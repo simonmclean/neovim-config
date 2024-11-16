@@ -4,9 +4,6 @@ return {
       runtime = {
         version = 'LuaJIT',
       },
-      format = {
-        enable = false,
-      },
     },
   },
 }

@@ -49,8 +49,6 @@ local on_attach = function(_, bufnr)
   -- WARN: This is not Goto Definition, this is Goto Declaration.
   --  For example, in C this would take you to the header
   map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-
-  map('<space>f', '<cmd>lua vim.lsp.buf.format { async = true} <CR>', '[F]ormat')
 end
 
 local mason_lsp_config = require 'mason-lspconfig'
