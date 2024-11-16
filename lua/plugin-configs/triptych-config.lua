@@ -8,6 +8,10 @@ return {
     'nvim-tree/nvim-web-devicons', -- optional
   },
   opts = {
+    options = {
+      backdrop = 100,
+      transparency = vim.g.winblend,
+    },
     extension_mappings = {
       ['<leader>sg'] = {
         mode = 'n',
