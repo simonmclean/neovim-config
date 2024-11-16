@@ -22,6 +22,8 @@ return {
       lua = { 'stylua' },
       javascript = js,
       typescript = js,
+      javascriptreact = js,
+      typescriptreact = js,
       scala = { 'scalafmt' },
     },
   },
