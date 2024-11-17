@@ -25,3 +25,5 @@ assert(
 )
 
 require 'plugins'
+require 'lsp/lsp'
+require 'statusline.statusline'
