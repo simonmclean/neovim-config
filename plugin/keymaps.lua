@@ -37,7 +37,7 @@ map('n', '<leader>j', ':call append(line("."), "")<cr>', { desc = 'Empty line ab
 
 -- Replace motion e.g. <leader>pq performs "paste in quotes"
 map('n', '<leader>p', function()
-   __Replace = function(selection_type)
+  __Replace = function(selection_type)
     if selection_type ~= 'char' then
       return
     end
@@ -90,4 +90,4 @@ map('n', '<leader>gc', ':Telescope git_branches<CR>', { desc = 'Git checkout' })
 map('n', '<leader>gf', ':Git fetch<CR>', { desc = 'Git fetch' })
 map('n', '<leader>gb', ':GBrowse<CR>', { desc = 'Open git repo in browser' })
 map('n', '<leader>gm', ':Main<CR>', { desc = 'Switch to the main branch and pull the latest changes' })
-map('n', '<leader>gn', ':PushNew<CR>', { desc = "Push to a new remote origin (if one doesn't already exist)" })
+map('n', '<leader>gp', ':GitSync<CR>', { desc = 'Sync the current git project, doing fetch, pull and push as needed' })
