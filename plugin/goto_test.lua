@@ -79,6 +79,7 @@ local function find_files_async(filenames, callback)
       table.insert(ignore_patterns, pattern)
     end
 
+    ---@diagnostic disable-next-line: discard-returns
     vim.loop.fs_opendir(dir, function(err, handle)
       if err then
         on_error(err)
