@@ -1,0 +1,16 @@
+return {
+  branch = require 'statusline.components.branch',
+  copilot = require 'statusline.components.copilot',
+  cursor_pos = require 'statusline.components.cursor_pos',
+  cwd = require 'statusline.components.cwd',
+  datetime = require 'statusline.components.datetime',
+  diagnostics = require 'statusline.components.diagnostics',
+  ft = require 'statusline.components.ft',
+  git_ahead_behind = require 'statusline.components.git_ahead_behind',
+  metals = require 'statusline.components.metals',
+  mode = require 'statusline.components.mode',
+  modified = require 'statusline.components.modified',
+  push_right = require 'statusline.components.push_right',
+  readonly = require 'statusline.components.readonly',
+  win_title = require 'statusline.components.win_title',
+}

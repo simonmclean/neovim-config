@@ -19,6 +19,6 @@ return {
     { '<leader>cpd', '<cmd>CopilotChatDocs<cr>', desc = 'CopilotChatDocs (adds doc comment)' },
     { '<leader>cpf', '<cmd>CopilotChatFixDiagnostic<cr>', desc = 'CopilotChatFixDiagnostic' },
   },
-  cond = CopilotEnabled
+  cond = vim.g.copilot_enabled
   -- See Commands section for default commands if you want to lazy load on them
 }

@@ -1,3 +1,6 @@
+-- Module that checks how many commits ahead and behind the local branch is
+-- compared to remote. This provides the data for statusline/components/git_ahead_behind.lua
+
 local u = require 'utils'
 local git = require 'git'
 

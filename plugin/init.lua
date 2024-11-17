@@ -1,2 +1,2 @@
 require 'lsp/lsp'
-require 'features.statusline.statusline'
+require 'statusline.statusline'

@@ -1,4 +1,5 @@
-local M = {}
+local u = require 'utils'
+local su = require 'statusline.utils'
 
 local mode_map = {
   ['n'] = 'NORMAL',
@@ -69,20 +70,25 @@ for kind, colors in pairs(kind_to_colors) do
   vim.api.nvim_set_hl(0, 'StatusLineMode_' .. kind, colors)
 end
 
-function M.get_current_mode()
+local function get_current_mode()
   local current_mode = vim.api.nvim_get_mode().mode
   return mode_map[current_mode] or current_mode
 end
 
-function M.get_mode_highlight(mode)
+local function get_mode_highlight(mode)
   local kind = mode_to_kind[mode] or 'normal'
   return 'StatusLineMode_' .. kind
 end
 
-function M.mode_display_name(mode)
+local function mode_display_name(mode)
   local head = string.sub(mode, 1, 1)
   local tail = string.sub(mode, 2)
   return string.upper(head) .. string.lower(tail)
 end
 
-return M
+return function()
+  local mode = get_current_mode()
+  local hi_group_name = get_mode_highlight(mode)
+  local display_name = mode_display_name(mode)
+  return su.highlight(hi_group_name, u.pad_string(display_name))
+end
