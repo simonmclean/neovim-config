@@ -104,7 +104,7 @@ create_cmd('GitSync', function()
             local behind = tonumber(number_of_commits_behind_upstream)
 
             local push_if_ahead = function()
-              if ahead == 0 then
+              if ahead > 0 then
                 -- Get the main branch name
                 u.system("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5", function(main_branch)
                   -- If we're on the main branch, ask for confirmation before pushing
