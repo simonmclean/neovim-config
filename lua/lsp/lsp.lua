@@ -59,7 +59,6 @@ local servers = mason_lsp_config.get_installed_servers()
 -- map buffer local keybindings when the language server attaches
 -- These will be merged with a default config in the loop below
 local config_overrides = {
-  eslint = require 'lsp.language-servers.eslint',
   lua_ls = require 'lsp.language-servers.lua',
 }
 
