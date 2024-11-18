@@ -114,7 +114,7 @@ create_cmd('GitSync', function()
                     end
 
                     return vim.fn.confirm(
-                      'This will push directly to ' .. main_branch .. '. Are you sure?',
+                      'Are you sure you want to push directly to "' .. main_branch .. '" branch?',
                       '&Yes\n&No',
                       2
                     ) == 1
