@@ -7,16 +7,19 @@ local au_group = vim.api.nvim_create_augroup('goto_existing', { clear = true })
 ---If a match is found, returns the window ID
 ---@param excluded_win number
 ---@param buf number
----@return integer?
-local function get_existing_buf_win(excluded_win, buf)
+---@return number[]
+local function get_existing_buf_wins(excluded_win, buf)
+  ---@type number[]
+  local matches = {}
   for _, tabnr in ipairs(vim.api.nvim_list_tabpages()) do
     for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
       local bufnr = vim.api.nvim_win_get_buf(winid)
       if bufnr == buf and winid ~= excluded_win then
-        return winid
+        table.insert(matches, winid)
       end
     end
   end
+  return matches
 end
 
 local prev_buf = -1
@@ -30,6 +33,9 @@ vim.api.nvim_create_autocmd('BufLeave', {
   end,
 })
 
+-- TODO: Make this a setting or toggle command
+local ask_for_confirm = false
+
 ---Flag to prevent the BufEnter logic triggering itself repeatedly
 local suspend = false
 
@@ -42,34 +48,36 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end
 
     local current_win = vim.api.nvim_get_current_win()
-    local other_win = get_existing_buf_win(current_win, data.buf)
+    local other_wins = get_existing_buf_wins(current_win, data.buf)
 
-    if other_win then
-      local filename = vim.fn.fnamemodify(data.file, ':t')
-      local jump_to_other = vim.fn.confirm(
-        '"' .. filename .. '" is already open. Jump to existing window?',
-        '&Yes\n&No',
-        2
-      ) == 1
+    if #other_wins ~= 1 then
+      return
+    end
 
-      if jump_to_other then
-        suspend = true
-        -- Wait for the jump to finish
+    local filename = vim.fn.fnamemodify(data.file, ':t')
+    local jump_to_other = not ask_for_confirm or ask_for_confirm and vim.fn.confirm(
+      '"' .. filename .. '" is already open. Jump to existing window?',
+      '&Yes\n&No',
+      2
+    ) == 1
+
+    if jump_to_other then
+      suspend = true
+      -- Wait for the jump to finish
+      vim.schedule(function()
+        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+        -- Jump to the other window
+        vim.api.nvim_set_current_win(other_wins[1])
+        vim.api.nvim_win_set_cursor(other_wins[1], { row, col })
+        -- Wait for the above jump to complete
         vim.schedule(function()
-          local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-          -- Jump to the other window
-          vim.api.nvim_set_current_win(other_win)
-          vim.api.nvim_win_set_cursor(other_win, { row, col })
-          -- Wait for the above jump to complete
+          -- Restore the other window
+          vim.api.nvim_win_set_buf(current_win, prev_buf)
           vim.schedule(function()
-            -- Restore the other window
-            vim.api.nvim_win_set_buf(current_win, prev_buf)
-            vim.schedule(function()
-              suspend = false
-            end)
+            suspend = false
           end)
         end)
-      end
+      end)
     end
   end,
 })
