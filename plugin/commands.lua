@@ -11,6 +11,15 @@ create_cmd('Main', function()
     percentage = 0,
   }
 
+  local function error_or_continue(response, callback)
+    if string.find(response, 'error:') then
+      vim.notify(response, vim.log.levels.WARN)
+      handle:cancel()
+    else
+      callback()
+    end
+  end
+
   local function finish()
     handle.message = 'Done'
     handle:finish()
@@ -33,8 +42,8 @@ create_cmd('Main', function()
             message = 'Running ' .. pull_command,
             percentage = 75,
           }
-          u.system(pull_command, function()
-            finish()
+          u.system(pull_command, function(response)
+            error_or_continue(response, finish)
           end)
         end)
       else
@@ -50,8 +59,8 @@ create_cmd('Main', function()
             message = 'Running ' .. update_command,
             percentage = 75,
           }
-          u.system(checkout_command, function()
-            finish()
+          u.system(checkout_command, function(response)
+            error_or_continue(response, finish)
           end)
         end)
       end
