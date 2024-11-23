@@ -255,9 +255,9 @@ end
 ---A note on error handling:
 ---Data being sent to the stderr stream does not necessarily constitute a failure state.
 ---For example, the normal output of `git fetch` goes to stderr, as it's considered diagnostic information.
----That's why this function only takes a single callback, with a single parameter, which is the response from either stdout or stderr.
----What output constitutes an actual failure state depends on the command, and cannot be generalised in this function.
----Therefore it's up to the caller to parse the response and decide how to handle it.
+---That's why this function only takes a single callback, with a single parameter, which is the response from either
+---stdout or stderr. What output constitutes an actual failure state depends on the command, and cannot be
+---generalised in this function. Therefore it's up to the caller to parse the response and decide how to handle it.
 ---@param cmd string
 ---@param callback? fun(result: string)
 function M.system(cmd, callback)
