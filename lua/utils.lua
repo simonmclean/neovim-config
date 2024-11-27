@@ -182,11 +182,11 @@ end
 --- Find an element in a list that satisfies a condition.
 --- @param tbl any[]: The list to search.
 --- @param fn function: The function to apply to each element.
---- @return boolean: True if an element satisfies the condition, false otherwise.
+--- @return any
 function M.list_find(tbl, fn)
   for _, element in ipairs(tbl) do
     if fn(element) then
-      return true
+      return element
     end
   end
   return false
