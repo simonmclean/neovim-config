@@ -7,6 +7,6 @@ return {
     blend = vim.g.winblend
   },
   keys = {
-    { '<leader>t', '<cmd>lua require("FTerm").toggle()<CR>', desc = 'Toggle floating terminal' },
+    { '<c-t>', '<cmd>lua require("FTerm").toggle()<CR>', desc = 'Toggle floating terminal' },
   },
 }

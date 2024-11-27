@@ -65,7 +65,7 @@ map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
 
 map('n', '<C-/>', ':nohlsearch<CR>', { desc = 'Clear search highlight' })
 
-map('n', '<leader>gt', '<cmd>GotoTest<CR>', { desc = 'Go to test' })
+-- map('n', '<leader>gt', '<cmd>GotoTest<CR>', { desc = 'Go to test' })
 
 -- When pasting over a visual selection, send the replaced text into the black hole register
 map('x', 'p', '"_dp', { noremap = true, silent = true })
@@ -82,12 +82,3 @@ end, { desc = 'Toggle wrap' })
 -- Makes cursor navigation more intuitive in wrapped text
 map('n', 'j', 'gj', { silent = true, desc = 'cursor down' })
 map('n', 'k', 'gk', { silent = true, desc = 'cursor up' })
-
--- Git/Fugitive
-map('n', '<leader>gs', ':tab G<CR>', { desc = 'Git status' })
-map('n', '<leader>gC', ':tab Git commit<CR>', { desc = 'Git commit' })
-map('n', '<leader>gc', ':Telescope git_branches<CR>', { desc = 'Git checkout' })
-map('n', '<leader>gf', ':Git fetch<CR>', { desc = 'Git fetch' })
-map('n', '<leader>gb', ':GBrowse<CR>', { desc = 'Open git repo in browser' })
-map('n', '<leader>gm', ':Main<CR>', { desc = 'Switch to the main branch and pull the latest changes' })
-map('n', '<leader>gp', ':GitSync<CR>', { desc = 'Sync the current git project, doing fetch, pull and push as needed' })
