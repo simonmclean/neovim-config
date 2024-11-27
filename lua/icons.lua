@@ -11,4 +11,5 @@ return {
   copilot_disabled = '',
   terminal = '',
   list = '',
+  test = '',
 }

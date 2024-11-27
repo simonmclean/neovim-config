@@ -1,6 +1,6 @@
 local u = require 'utils'
 local su = require 'statusline.utils'
-local icons = require 'statusline.icons'
+local icons = require 'icons'
 local git = require 'git'
 
 require 'statusline.git_commits'.new()

@@ -1,5 +1,5 @@
 local u = require 'statusline.utils'
-local icons = require 'statusline.icons'
+local icons = require 'icons'
 local git = require 'git'
 
 return u.conditional_component(git.is_cwd_a_git_repo(), function()

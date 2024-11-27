@@ -1,5 +1,5 @@
 local u = require 'utils'
-local icons = require 'statusline.icons'
+local icons = require 'icons'
 
 return function(buffer_local)
   local diagnostics = vim.diagnostic.get(u.eval(function()

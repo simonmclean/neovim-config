@@ -1,4 +1,4 @@
-local icons = require 'statusline.icons'
+local icons = require 'icons'
 
 return function()
   local path = vim.fn.getcwd()

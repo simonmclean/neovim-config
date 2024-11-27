@@ -1,7 +1,7 @@
 local dev_icons = require 'nvim-web-devicons'
 local u = require 'utils'
 local su = require 'statusline.utils'
-local icons = require 'statusline.icons'
+local icons = require 'icons'
 
 return function(full_title)
   local filetype_overrides = {
