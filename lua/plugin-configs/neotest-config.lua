@@ -8,8 +8,10 @@ return {
     'marilari88/neotest-vitest',
   },
   config = function()
+    local neotest = require 'neotest'
+
     ---@diagnostic disable-next-line: missing-fields
-    require('neotest').setup {
+    neotest.setup {
       adapters = {
         require 'neotest-vitest',
       },
