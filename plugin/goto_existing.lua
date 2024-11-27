@@ -14,7 +14,8 @@ local function get_existing_buf_wins(excluded_win, buf)
   for _, tabnr in ipairs(vim.api.nvim_list_tabpages()) do
     for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
       local bufnr = vim.api.nvim_win_get_buf(winid)
-      if bufnr == buf and winid ~= excluded_win then
+      local is_diff = vim.api.nvim_get_option_value('diff', { win = winid })
+      if bufnr == buf and winid ~= excluded_win and not is_diff then
         table.insert(matches, winid)
       end
     end
@@ -55,11 +56,9 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end
 
     local filename = vim.fn.fnamemodify(data.file, ':t')
-    local jump_to_other = not ask_for_confirm or ask_for_confirm and vim.fn.confirm(
-      '"' .. filename .. '" is already open. Jump to existing window?',
-      '&Yes\n&No',
-      2
-    ) == 1
+    local jump_to_other = not ask_for_confirm
+      or ask_for_confirm
+        and vim.fn.confirm('"' .. filename .. '" is already open. Jump to existing window?', '&Yes\n&No', 2) == 1
 
     if jump_to_other then
       suspend = true
@@ -73,6 +72,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
         vim.schedule(function()
           -- Restore the other window
           vim.api.nvim_win_set_buf(current_win, prev_buf)
+          -- Add current position to the jump list
+          vim.cmd "normal! m'"
           vim.schedule(function()
             suspend = false
           end)
