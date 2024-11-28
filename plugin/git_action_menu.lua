@@ -9,6 +9,10 @@ action_menu.create {
       on_select = 'tab G',
     },
     {
+      label = 'fetch prune',
+      on_select = 'Git fetch --prune'
+    },
+    {
       label = 'push',
       on_select = 'Git push',
     },
