@@ -28,7 +28,7 @@ action_menu.create {
     },
     {
       label = 'attach',
-      on_select = 'Neotest attch',
+      on_select = 'Neotest attach',
     },
   },
   key_binding = '<leader>t',
