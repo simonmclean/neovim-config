@@ -19,6 +19,13 @@ action_menu.create {
       end,
     },
     {
+      label = 'debug nearest',
+      on_select = function()
+        ---@diagnostic disable-next-line: missing-fields
+        require('neotest').run.run { strategy = 'dap' }
+      end,
+    },
+    {
       label = 'run file',
       on_select = 'Neotest run file',
     },
