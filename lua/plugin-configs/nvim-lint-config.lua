@@ -20,7 +20,7 @@ return {
       lua = { 'luacheck' },
     }
 
-    vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+    vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {
       callback = function()
         -- TODO: Throttle?
         lint.try_lint()
