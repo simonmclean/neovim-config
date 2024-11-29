@@ -65,7 +65,7 @@ map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
 
 map('n', '<C-/>', ':nohlsearch<CR>', { desc = 'Clear search highlight' })
 
-map('n', '<leader>gT', '<cmd>GotoTest<CR>', { desc = 'Go to test' })
+map('n', '<leader>T', '<cmd>GotoTest<CR>', { desc = 'Go to test' })
 
 -- When pasting over a visual selection, send the replaced text into the black hole register
 map('x', 'p', '"_dp', { noremap = true, silent = true })
