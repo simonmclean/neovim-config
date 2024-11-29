@@ -19,6 +19,7 @@ return {
 
     vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
       callback = function()
+        -- TODO: Throttle?
         lint.try_lint()
       end,
     })
