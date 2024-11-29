@@ -21,7 +21,10 @@ vim.g.copilot_enabled = u.list_contains(copilot_enabled_dirs, cwd)
 -- It's important that this is actually a boolean, and not just falsy
 assert(
   type(vim.g.copilot_enabled) == 'boolean',
-  'Expected CopilotEnabled to be a boolean, found: ' .. type(vim.g.copilot_enabled)
+  'Expected CopilotEnabled to be a boolean, found type: '
+    .. type(vim.g.copilot_enabled)
+    .. ', value: '
+    .. tostring(vim.g.copilot_enabled)
 )
 
 require 'plugins'
