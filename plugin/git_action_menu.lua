@@ -21,6 +21,18 @@ action_menu.create {
       on_select = 'Git pull',
     },
     {
+      label = 'create new branch',
+      on_select = function()
+        vim.api.nvim_feedkeys(':Git checkout -b', 'n', false)
+      end,
+    },
+    {
+      label = 'switch branch',
+      on_select = function()
+        vim.api.nvim_feedkeys(':Git checkout ', 'n', false)
+      end,
+    },
+    {
       label = 'checkout latest main',
       on_select = 'Main',
     },
