@@ -1,6 +1,8 @@
 return {
   'chrisgrieser/nvim-spider',
-  opts = {},
+  opts = {
+    consistentOperatorPending = true
+  },
   event = 'VeryLazy',
   keys = {
     { 'w', "<cmd>lua require('spider').motion('w')<CR>", mode = { 'n', 'o', 'x' } },
