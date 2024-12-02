@@ -211,7 +211,7 @@ end
 function M.list_contains(tbl, value)
   return M.list_find(tbl, function(el)
     return el == value
-  end)
+  end) ~= false
 end
 
 ---Wrapper around fidget. Falls back to vim.notify()
