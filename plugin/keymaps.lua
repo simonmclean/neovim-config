@@ -37,7 +37,7 @@ map('n', '<leader>j', ':call append(line("."), "")<cr>', { desc = 'Empty line ab
 
 -- Replace motion e.g. <leader>pq performs "paste in quotes"
 map('n', '<leader>p', function()
-  __Replace = function(selection_type)
+  _G.Replace = function(selection_type)
     if selection_type ~= 'char' then
       return
     end
@@ -55,7 +55,7 @@ map('n', '<leader>p', function()
     vim.o.selection = sel_save
   end
 
-  vim.o.operatorfunc = 'v:lua.__Replace'
+  vim.o.operatorfunc = 'v:lua._G.Replace'
   -- Trigger the function defined in operatorfunc
   vim.api.nvim_feedkeys('g@', 'n', false)
 end, { desc = 'Replace motion' })
