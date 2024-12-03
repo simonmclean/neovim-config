@@ -8,6 +8,7 @@ return function(full_title)
     fugitive = { 'Git', icons.git },
     qf = { 'Quickfix', icons.list },
     ['copilot-chat'] = { 'Copilot', icons.copilot_enabled },
+    Outline = { 'Outline', icons.list },
   }
   local buftype_overrides = {
     terminal = { 'Terminal', icons.terminal },
@@ -34,5 +35,3 @@ return function(full_title)
   end)
   return icon and (su.highlight_with_icon(icon_hi or 'Winbar', icon) .. ' ' .. title) or title
 end
-
-
