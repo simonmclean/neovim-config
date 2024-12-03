@@ -59,7 +59,7 @@ local lazy_opts = {
   },
   install = {
     missing = true,
-    colorscheme = { vim.g.active_colorscheme or 'default' },
+    colorscheme = { vim.g.active_colorscheme },
   },
   change_detection = {
     notify = false,

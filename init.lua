@@ -8,8 +8,15 @@ end
 
 -- Globals required for starting lazy.nvim
 vim.g.mapleader = ' '
-vim.g.active_colorscheme = 'nord'
 vim.g.winblend = 10
+vim.g.active_colorscheme = u.eval(function ()
+  local themery_installed, themery = pcall(require, 'themery')
+  if themery_installed then
+    return themery.getCurrentThemes().name
+  else
+    return 'default'
+  end
+end)
 
 local cwd = vim.fn.getcwd()
 

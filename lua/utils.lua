@@ -192,18 +192,6 @@ function M.list_find(tbl, fn)
   return false
 end
 
---- Get the configuration for a theme.
---- @param theme_name string: The name of the theme.
---- @param plugin_config table: The plugin configuration.
---- @return table: The configuration for the theme.
-function M.theme_config(theme_name, plugin_config)
-  if vim.g.active_colorscheme == theme_name then
-    return plugin_config
-  else
-    return {}
-  end
-end
-
 --- Check if a list contains a value.
 --- @param tbl any[]: The list to check.
 --- @param value any: The value to check for.
