@@ -20,7 +20,7 @@ local function icon_fetcher(kind)
   if icons[kind] then
     return icons[kind]
   end
-  return string.lower(kind:sub(1, 4))
+  return string.lower(kind)
 end
 
 return {
