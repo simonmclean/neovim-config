@@ -26,7 +26,8 @@ vim.o.foldcolumn = 'auto'
 vim.o.inccommand = 'split'
 vim.o.confirm = true
 vim.o.linebreak = true
-vim.o.sessionoptions = vim.o.sessionoptions:gsub(",?blank,?", "")
+-- Don't save empty windows or hidden or unlisted buffers in the session
+vim.o.sessionoptions = vim.o.sessionoptions:gsub(',?blank,?', ''):gsub(',?buffers,?', '')
 
 --------------------------------------------------------------------------
 -- Window options
