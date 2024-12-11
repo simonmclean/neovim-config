@@ -5,7 +5,9 @@ return {
     themes = {
       'nightfox',
       'gruvbox',
-      'tokyonight',
+      'tokyonight-storm',
+      'tokyonight-night',
+      'tokyonight-moon',
       'nord',
       'default',
     },
