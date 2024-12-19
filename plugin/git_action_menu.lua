@@ -36,8 +36,8 @@ action_menu.create {
       end,
     },
     {
-      label = 'fetch prune',
-      on_select = 'Git fetch --prune'
+      label = 'fetch & prune',
+      on_select = 'Git fetch --prune',
     },
     {
       label = 'push',
@@ -50,7 +50,7 @@ action_menu.create {
     {
       label = 'create new branch',
       on_select = function()
-        vim.api.nvim_feedkeys(':Git checkout -b', 'n', false)
+        vim.api.nvim_feedkeys(':Git checkout -b ', 'n', false)
       end,
     },
     {
