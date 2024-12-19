@@ -1,5 +1,6 @@
 return {
   'ptdewey/yankbank-nvim',
+  event = 'VeryLazy',
   config = function()
     require('yankbank').setup {
       num_behavior = 'jump',

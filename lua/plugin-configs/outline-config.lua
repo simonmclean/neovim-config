@@ -26,6 +26,7 @@ end
 return {
   'hedyhli/outline.nvim',
   cmd = { 'Outline', 'OutlineOpen' },
+  event = 'VeryLazy',
   keys = {
     -- Note: The exclamation mark means "open but don't focus"
     { '<leader>o', '<cmd>Outline!<CR>', desc = 'Toggle outline' },

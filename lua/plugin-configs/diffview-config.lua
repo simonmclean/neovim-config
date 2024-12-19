@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
 ---@type LazyPluginSpec
 return {
   'sindrets/diffview.nvim',
+  event = 'VeryLazy',
   ---@module 'diffview'
   ---@type DiffviewConfig
   opts = {
