@@ -286,4 +286,11 @@ function M.system(cmd, callback)
   stdout:read_start(capture_output)
 end
 
+---Wrapper for vim.fn.confirm
+---@param question string
+---@return boolean true if user picks yes
+function M.confirm(question)
+  return vim.fn.confirm(question, '&Yes\n&No', 2) == 1
+end
+
 return M
