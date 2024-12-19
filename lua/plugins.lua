@@ -34,8 +34,6 @@ local plugins = {
   very_lazy 'tpope/vim-surround',
   -- Adds :GBrowse to open repo in the browser
   very_lazy 'tpope/vim-rhubarb',
-  -- Advanced git diff UI
-  very_lazy('sindrets/diffview.nvim', 'nvim-lua/plenary.nvim'),
   -- Smart substitution that preserves casing
   very_lazy 'tpope/vim-abolish',
   -- Out-of-the-box configs for language servers
