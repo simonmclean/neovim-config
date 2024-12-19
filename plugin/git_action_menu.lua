@@ -1,6 +1,7 @@
 local icons = require 'icons'
 local action_menu = require 'action_menu'
 local float = require 'float'
+local git = require 'git'
 
 action_menu.create {
   prompt = icons.git .. ' Git',
@@ -41,7 +42,7 @@ action_menu.create {
     },
     {
       label = 'push',
-      on_select = 'Git push',
+      on_select = git.push,
     },
     {
       label = 'pull',
@@ -62,10 +63,6 @@ action_menu.create {
     {
       label = 'checkout latest main',
       on_select = 'Main',
-    },
-    {
-      label = 'sync',
-      on_select = 'GitSync',
     },
     {
       label = 'commit',
