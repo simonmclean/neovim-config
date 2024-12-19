@@ -8,6 +8,7 @@ return {
   ---@module 'diffview'
   ---@type DiffviewConfig
   opts = {
+    enhanced_diff_hl = true,
     file_panel = {
       win_config = {
         position = 'top',
