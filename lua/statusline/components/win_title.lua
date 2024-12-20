@@ -3,25 +3,28 @@ local u = require 'utils'
 local su = require 'statusline.utils'
 local icons = require 'icons'
 
+local FT_OVERRIDES = {
+  fugitive = { 'Git', icons.git },
+  qf = { 'Quickfix', icons.list },
+  ['copilot-chat'] = { 'Copilot', icons.copilot_enabled },
+  Outline = { 'Outline', icons.list },
+  DiffviewFiles = { 'Git', icons.git }
+}
+
+local BT_OVERRIDES = {
+  terminal = { 'Terminal', icons.terminal },
+}
+
 return function(full_title)
-  local filetype_overrides = {
-    fugitive = { 'Git', icons.git },
-    qf = { 'Quickfix', icons.list },
-    ['copilot-chat'] = { 'Copilot', icons.copilot_enabled },
-    Outline = { 'Outline', icons.list },
-  }
-  local buftype_overrides = {
-    terminal = { 'Terminal', icons.terminal },
-  }
   local ft = vim.bo.filetype
   local bt = vim.bo.buftype
   ---@type string, string?, string?
   local title, icon, icon_hi = u.eval(function()
-    local ft_override = filetype_overrides[ft]
+    local ft_override = FT_OVERRIDES[ft]
     if ft and ft_override then
       return ft_override[1], ft_override[2]
     end
-    local bt_override = buftype_overrides[bt]
+    local bt_override = BT_OVERRIDES[bt]
     if bt and bt_override then
       return bt_override[1], bt_override[2]
     end
