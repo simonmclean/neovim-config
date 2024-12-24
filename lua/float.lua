@@ -1,6 +1,6 @@
 local MAX_HEIGHT = 45
 local MAX_WIDTH = 140
-local PADDING = 8
+local PADDING = 4
 
 local M = {}
 
