@@ -31,6 +31,13 @@ function M.buf_keys(buffer, keys)
   M.keys(keys)
 end
 
+---@param opts table<string, any>
+function M.options(opts)
+  for key, value in pairs(opts) do
+    vim.opt[key] = value
+  end
+end
+
 --- Check if a value is defined (not nil or empty).
 --- @param value nil|string|table: The value to check.
 --- @return boolean: True if the value is defined, false otherwise.
