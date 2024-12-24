@@ -10,4 +10,4 @@ local function check()
 end
 
 -- Delayed to avoid the noise of startup
-vim.defer_fn(check, 10000)
+vim.defer_fn(check, 5000)
