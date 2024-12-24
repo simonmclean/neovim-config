@@ -31,6 +31,7 @@ function M.buf_keys(buffer, keys)
   M.keys(keys)
 end
 
+---Set a list of a vim.opts
 ---@param opts table<string, any>
 function M.options(opts)
   for key, value in pairs(opts) do
