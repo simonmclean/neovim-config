@@ -64,4 +64,4 @@ local lazy_opts = {
 
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>', { desc = 'Lazy', silent = true })
 
-require('lazy').setup({ plugins, { import = 'plugin-configs' }, { import = 'theme-configs' } }, lazy_opts)
+require('lazy').setup({ plugins, { import = 'plugin-configs' }, { import = 'themes' } }, lazy_opts)
