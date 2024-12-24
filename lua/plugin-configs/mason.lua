@@ -8,6 +8,7 @@ return {
   opts = {
     ui = {
       border = 'single',
+      winblend = vim.g.winblend
     },
   },
 }
