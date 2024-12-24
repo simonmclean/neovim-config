@@ -1,84 +1,107 @@
-local map = require('utils').keymap_set
+local u = require 'utils'
 
--- Window control
-map('n', '|', ':vertical split<cr>')
-map('n', '-', ':split<cr>')
+u.keys {
+  -- Window control
+  { '|', ':vertical split<cr>', 'split vertical' },
+  { '-', ':split<cr>', 'split horizontal' },
 
--- Scroll
-map('n', '<C-k>', '5<C-y>', { desc = 'scroll up' })
-map('n', '<C-j>', '5<C-e>', { desc = 'scroll down' })
+  -- Scroll
+  { '<C-k>', '5<C-y>', 'scroll up' },
+  { '<C-j>', '5<C-e>', 'scroll down' },
 
--- Tab
-map('n', '<C-l>', 'gt', { desc = 'tab right' })
-map('n', '<C-h>', 'gT', { desc = 'tab left' })
+  -- Tab
+  { '<C-l>', 'gt', 'tab right' },
+  { '<C-h>', 'gT', 'tab left' },
 
--- Lazy exec mode
--- These can't silent, otherwise the fancy pop-up command line won't appear
-map('n', ';', ':', { silent = false })
-map('v', ';', ':', { silent = false })
+  -- Lazy exec mode
+  -- These can't silent, otherwise the fancy pop-up command line won't appear
+  { ';', ':', 'exec mode', modes = { 'n', 'v' }, opts = { silent = false } },
 
--- Terminal
-map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Normal mode from terminal' })
+  -- Terminal
+  { '<Esc>', '<C-\\><C-n>', 'Normal mode from terminal', modes = 't' },
 
--- Jumps
-map('n', '[q', ':cprevious<cr>')
-map('n', ']q', ':cnext<cr>')
-map('n', '[b', ':bprevious<cr>')
-map('n', ']b', ':bnext<cr>')
-map('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "single" } })<CR>')
-map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "single" } })<CR>')
+  -- Jumps
+  { '[q', ':cprevious<cr>', 'quickfix previous' },
+  { ']q', ':cnext<cr>', 'quickfix next' },
+  { ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "single" } })<CR>', 'diagnostic next' },
+  { '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "single" } })<CR>', 'diagnostic previous' },
 
--- Toggle between 2 buffers
-map('n', '<leader><leader>', '<c-^>', { desc = 'Previous buffer' })
+  -- Toggle between 2 buffers
+  { '<leader><leader>', '<c-^>', 'Previous buffer' },
 
--- Add empty line above or below cursor
-map('n', '<leader>k', ':call append(line(".")-1, "")<cr>', { desc = 'Empty line below' })
-map('n', '<leader>j', ':call append(line("."), "")<cr>', { desc = 'Empty line above' })
+  -- Add empty line above or below cursor
+  { '<leader>k', ':call append(line(".")-1, "")<cr>', 'Empty line below' },
+  { '<leader>j', ':call append(line("."), "")<cr>', 'Empty line above' },
 
--- Replace motion e.g. <leader>pq performs "paste in quotes"
-map('n', '<leader>p', function()
-  _G.Replace = function(selection_type)
-    if selection_type ~= 'char' then
-      return
-    end
+  { '<leader>/', 'yiw:%S/<C-r>"/', 'Substitue word or selection' }, -- Capital S uses abolish.vim
+  { '<leader>/', 'y:s/<C-r>"/', 'Substitue word or selection', modes = 'v' },
 
-    local sel_save = vim.o.selection
-    vim.o.selection = 'inclusive'
+  { '<C-/>', ':nohlsearch<CR>', 'Clear search highlight' },
 
-    -- Visually select the chars we're pasting over
-    vim.cmd 'normal! `[v`]'
-    -- Delete the visual selection, sending it to the black hole register
-    vim.cmd 'silent normal! "_d'
-    -- Paste the originally yanked text before the cursor
-    vim.cmd 'normal! P'
+  { '<leader>T', '<cmd>GotoTest<CR>', 'Go to test' },
 
-    vim.o.selection = sel_save
-  end
+  -- When pasting over a visual selection, send the replaced text into the black hole register
+  { 'p', '"_dp', 'paste ahead', modes = 'x' },
+  { 'P', '"_dP', 'paste before', modes = 'x' },
 
-  vim.o.operatorfunc = 'v:lua._G.Replace'
-  -- Trigger the function defined in operatorfunc
-  vim.api.nvim_feedkeys('g@', 'n', false)
-end, { desc = 'Replace motion' })
+  -- Makes cursor navigation more intuitive in wrapped text
+  { 'j', 'gj', 'cursor down' },
+  { 'k', 'gk', 'cursor down' },
 
-map('n', '<leader>/', 'yiw:%S/<C-r>"/', { desc = 'Substitue word or selection' }) -- Capital S uses abolish.vim
-map('v', '<leader>/', 'y:s/<C-r>"/', { desc = 'Substitue word or selection' })
+  {
 
-map('n', '<C-/>', ':nohlsearch<CR>', { desc = 'Clear search highlight' })
+    '<leader>w',
+    function()
+      vim.wo.wrap = not vim.wo.wrap
+    end,
+    'Toggle wrap',
+  },
 
-map('n', '<leader>T', '<cmd>GotoTest<CR>', { desc = 'Go to test' })
+  -- Exclude block navigation from the jumplist
+  {
 
--- When pasting over a visual selection, send the replaced text into the black hole register
-map('x', 'p', '"_dp', { noremap = true, silent = true })
-map('x', 'P', '"_dP', { noremap = true, silent = true })
+    '}',
+    function()
+      vim.cmd 'execute "keepjumps norm! " .. v:count1 .. "}"'
+    end,
+    'block next',
+  },
+  {
 
--- Exclude block navigation from the jumplist
-vim.cmd 'nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>'
-vim.cmd 'nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>'
+    '{',
+    function()
+      vim.cmd 'execute "keepjumps norm! " .. v:count1 .. "{"'
+    end,
+    'block previous',
+  },
 
-map('n', '<leader>w', function()
-  vim.wo.wrap = not vim.wo.wrap
-end, { desc = 'Toggle wrap' })
+  -- Replace motion e.g. <leader>pq performs "paste in quotes"
+  {
 
--- Makes cursor navigation more intuitive in wrapped text
-map('n', 'j', 'gj', { silent = true, desc = 'cursor down' })
-map('n', 'k', 'gk', { silent = true, desc = 'cursor up' })
+    '<leader>p',
+    function()
+      _G.Replace = function(selection_type)
+        if selection_type ~= 'char' then
+          return
+        end
+
+        local sel_save = vim.o.selection
+        vim.o.selection = 'inclusive'
+
+        -- Visually select the chars we're pasting over
+        vim.cmd 'normal! `[v`]'
+        -- Delete the visual selection, sending it to the black hole register
+        vim.cmd 'silent normal! "_d'
+        -- Paste the originally yanked text before the cursor
+        vim.cmd 'normal! P'
+
+        vim.o.selection = sel_save
+      end
+
+      vim.o.operatorfunc = 'v:lua._G.Replace'
+      -- Trigger the function defined in operatorfunc
+      vim.api.nvim_feedkeys('g@', 'n', false)
+    end,
+    'Replace motion',
+  },
+}

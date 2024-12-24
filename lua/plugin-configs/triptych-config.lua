@@ -2,7 +2,7 @@ return {
   'simonmclean/triptych.nvim',
   event = 'VeryLazy',
   -- dir = '~/code/triptych',
-  -- dev = false,
+  -- dev = true,
   dependencies = {
     'nvim-lua/plenary.nvim', -- required
     'nvim-tree/nvim-web-devicons', -- optional
@@ -24,6 +24,6 @@ return {
     },
   },
   keys = {
-    { '<leader>-', ':Triptych<CR>' },
+    { '<leader>-', ':Triptych<CR>', silent = true },
   },
 }

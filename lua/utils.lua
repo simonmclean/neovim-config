@@ -1,17 +1,34 @@
 local M = {}
 
---- Set a keymap with optional settings.
---- @param mode string: The mode in which the keymap is set (e.g., 'n' for normal mode).
---- @param input string: The key sequence to map.
---- @param action string|function: The command or function to execute.
---- @param opts table|nil: Optional settings for the keymap.
-function M.keymap_set(mode, input, action, opts)
-  opts = opts or {}
-  -- Default to silent = true
-  if opts.silent == nil then
-    opts.silent = true
+---@class Keymap
+---@field [1] string keys
+---@field [2] string|function vim command or lua function
+---@field [3] string description
+---@field modes? string|string[] defaults to "n"
+---@field opts? table
+
+---set a list of keymaps with sensible default options
+---@param keys Keymap[]
+function M.keys(keys)
+  for _, keymap in ipairs(keys) do
+    local default_opts = {
+      silent = true,
+      nowait = true,
+      desc = keymap[3],
+    }
+    local opts_merged = vim.tbl_extend('force', default_opts, keymap.opts or {})
+    vim.keymap.set(keymap.modes or 'n', keymap[1], keymap[2], opts_merged)
   end
-  vim.keymap.set(mode, input, action, opts)
+end
+
+---set a list of buffer-local keymaps with sensible default options
+---@param buffer number
+---@param keys Keymap[]
+function M.buf_keys(buffer, keys)
+  for _, keymap in ipairs(keys) do
+    keymap.opts = vim.tbl_extend('force', keymap.opts or {}, { buffer = buffer })
+  end
+  M.keys(keys)
 end
 
 --- Check if a value is defined (not nil or empty).
