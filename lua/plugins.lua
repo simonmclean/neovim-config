@@ -34,10 +34,6 @@ local plugins = {
   very_lazy 'tpope/vim-rhubarb',
   -- Smart substitution that preserves casing
   very_lazy 'tpope/vim-abolish',
-  -- Out-of-the-box configs for language servers
-  'neovim/nvim-lspconfig',
-  -- Metals
-  very_lazy('scalameta/nvim-metals', { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' }),
   -- JSDoc
   very_lazy 'heavenshell/vim-jsdoc',
   -- Vim sugar for common UNIX commands (Rename, Delete etc)

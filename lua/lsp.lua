@@ -1,11 +1,17 @@
-local capabilities_with_cmp = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local u = require 'utils'
+local icons = require 'icons'
 
-require('lspconfig.ui.windows').default_options.border = 'single'
+local M = {}
+
+local signs = { Error = icons.error, Warn = icons.warn, Hint = icons.hint, Info = icons.info }
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
+M.on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
 
@@ -59,43 +65,6 @@ local on_attach = function(_, bufnr)
   }
 end
 
-local mason_lsp_config = require 'mason-lspconfig'
+M.capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = mason_lsp_config.get_installed_servers()
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
--- These will be merged with a default config in the loop below
-local config_overrides = {
-  lua_ls = require 'lsp.language-servers.lua',
-}
-
-for _, language_server in pairs(servers) do
-  local default_config = {
-    on_attach = on_attach,
-    capabilities = capabilities_with_cmp,
-  }
-  local lsp_config = require('lspconfig')[language_server]
-  if config_overrides[language_server] then
-    local custom_config = vim.tbl_deep_extend('keep', config_overrides[language_server], default_config)
-    if custom_config.on_attach_extend then
-      custom_config.on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-        custom_config.on_attach_extend(client, bufnr)
-      end
-    end
-    lsp_config.setup(custom_config)
-  else
-    lsp_config.setup(default_config)
-  end
-end
-
--- Metals is initialized separately, because it's a special snowflake
-require 'lsp.language-servers.metals'(on_attach, capabilities_with_cmp)
-
--- Diagnostic signs
-local signs = { Error = '', Warn = '', Hint = '', Info = '' }
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+return M
