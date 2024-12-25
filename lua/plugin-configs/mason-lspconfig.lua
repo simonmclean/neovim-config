@@ -5,14 +5,10 @@ return {
     'folke/neodev.nvim',
     'williamboman/mason.nvim',
   },
-  config = function()
-    local mason_lsp_config = require 'mason-lspconfig'
-
-    local servers = mason_lsp_config.get_installed_servers()
-
-    mason_lsp_config.setup {
-      ensure_installed = servers,
-      automatic_installation = true,
-    }
-  end,
+  ---@module 'mason-lspconfig'
+  ---@type MasonLspconfigSettings
+  opts = {
+    ensure_installed = { 'lua_ls', 'ts_ls' },
+    automatic_installation = true
+  }
 }
