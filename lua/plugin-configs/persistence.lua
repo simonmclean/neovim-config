@@ -4,6 +4,9 @@ return {
   config = function()
     local persistence = require 'persistence'
     persistence.setup()
-    vim.schedule(persistence.load)
+    -- don't restore session if we're starting nvim with a file arguement
+    if vim.fn.argc() == 0 then
+      vim.schedule(persistence.load)
+    end
   end,
 }
