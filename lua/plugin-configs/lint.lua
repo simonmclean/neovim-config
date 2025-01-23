@@ -3,7 +3,7 @@
 -- A note on eslint: The js variable below previously contained { eslint_d }.
 -- However it failed to parse the eslint configuration in a multi-project monorepo.
 -- As such I've switched to using eslint-lsp
-local js = {}
+local js = { 'eslint_d' }
 
 return {
   'mfussenegger/nvim-lint',
