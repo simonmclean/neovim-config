@@ -1,12 +1,49 @@
 local u = require 'utils'
 
+local function setup_javascript_dap()
+  local dap = require 'dap'
+  local mason_reg = require 'mason-registry'
+
+  if not mason_reg.is_installed 'js-debug-adapter' then
+    return
+  end
+
+  local js_debug_path = mason_reg.get_package('js-debug-adapter'):get_install_path()
+
+  local bin_path = js_debug_path .. '/js-debug/src/dapDebugServer.js'
+
+  dap.adapters['pwa-node'] = {
+    type = 'server',
+    host = 'localhost',
+    port = '${port}',
+    executable = {
+      command = 'node',
+      args = { bin_path, '${port}' },
+    },
+  }
+
+  dap.configurations.javascript = {
+    {
+      type = 'pwa-node',
+      request = 'launch',
+      name = 'Launch file',
+      program = '${file}',
+      cwd = '${workspaceFolder}',
+    },
+  }
+end
+
 return {
   'mfussenegger/nvim-dap',
+  dependencies = {
+    'williamboman/mason.nvim',
+  },
   event = 'VeryLazy',
   config = function()
     local dap = require 'dap'
 
     vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'Error', linehl = 'DiagnosticVirtualTextError' })
+
     vim.fn.sign_define('DapStopped', { text = '⏸︎', texthl = 'WarningMsg', linehl = 'DiagnosticVirtualTextWarn' })
 
     u.keys {
@@ -38,5 +75,7 @@ return {
       -- Misc
       { '<leader>dff', dap.focus_frame, '[d]ap [f]ocus [f]rame' },
     }
+
+    setup_javascript_dap()
   end,
 }
