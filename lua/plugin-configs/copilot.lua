@@ -3,7 +3,7 @@ return {
   cmd = 'Copilot',
   event = 'VeryLazy',
   opts = {
-    -- Options recommended by copilot-cmp
+    -- Options recommended for copilot-cmp
     suggestion = {
       enabled = false,
     },
