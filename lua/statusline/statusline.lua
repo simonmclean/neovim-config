@@ -9,7 +9,6 @@ _G.StatusLine = function()
     components.git_ahead_behind(),
     components.diagnostics(false),
     components.push_right,
-    components.copilot(),
     components.datetime(),
   }, '  ')
 end
