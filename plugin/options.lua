@@ -28,6 +28,8 @@ u.options {
   number = true,
   relativenumber = false,
   wrap = false,
+  switchbuf = 'usetab,uselast',
+  startofline = true
 }
 
 vim.opt_global.shortmess:append 's'
