@@ -124,7 +124,7 @@ end
 --- @param str string: The string to wrap.
 --- @return string: The wrapped string.
 function M.with_highlight_group(group_name, str)
-  return '%#' .. group_name .. '#' .. str
+  return '%#' .. group_name .. '#' .. str .. '%*'
 end
 
 --- Check if a target directory exists in a given table.
