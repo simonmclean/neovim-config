@@ -5,14 +5,6 @@ action_menu.create {
   prompt = icons.test .. ' Tests',
   actions = {
     {
-      label = 'summary',
-      on_select = 'Neotest summary',
-    },
-    {
-      label = 'output panel',
-      on_select = 'Neotest output-panel',
-    },
-    {
       label = 'run nearest',
       on_select = function()
         require('neotest').run.run()
@@ -28,6 +20,14 @@ action_menu.create {
     {
       label = 'run file',
       on_select = 'Neotest run file',
+    },
+    {
+      label = 'summary',
+      on_select = 'Neotest summary',
+    },
+    {
+      label = 'output panel',
+      on_select = 'Neotest output-panel',
     },
     {
       label = 'stop',
