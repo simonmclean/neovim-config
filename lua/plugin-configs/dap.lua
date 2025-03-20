@@ -5,6 +5,7 @@ local function setup_javascript_dap()
   local mason_reg = require 'mason-registry'
 
   if not mason_reg.is_installed 'js-debug-adapter' then
+    u.warn 'js-debug-adapter is not installed'
     return
   end
 
@@ -22,7 +23,7 @@ local function setup_javascript_dap()
     },
   }
 
-  dap.configurations.javascript = {
+  local js_config = {
     {
       type = 'pwa-node',
       request = 'launch',
@@ -31,6 +32,9 @@ local function setup_javascript_dap()
       cwd = '${workspaceFolder}',
     },
   }
+
+  dap.configurations.javascript = js_config
+  dap.configurations.typescript = js_config
 end
 
 return {
