@@ -22,8 +22,8 @@ return {
 
     vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {
       callback = function()
-        -- TODO: Throttle?
-        lint.try_lint()
+        local client = vim.lsp.get_clients({ bufnr = 0 })[1] or {}
+        lint.try_lint(nil, { cwd = client.root_dir })
       end,
     })
   end,
