@@ -41,6 +41,10 @@ return {
         path_display = { truncate = 2 },
         layout_config = layout_config,
         winblend = vim.g.winblend,
+        file_ignore_patterns = {
+          'yarn.lock',
+          'docs/ui/swagger',
+        }
       },
     }
   end,
