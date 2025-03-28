@@ -1,8 +1,5 @@
--- Linting plugin
+-- Linting
 
--- A note on eslint: The js variable below previously contained { eslint_d }.
--- However it failed to parse the eslint configuration in a multi-project monorepo.
--- As such I've switched to using eslint-lsp
 local js = { 'eslint_d' }
 
 return {
@@ -20,10 +17,29 @@ return {
       lua = { 'luacheck' },
     }
 
+    local eslint = lint.linters.eslint_d
+
+    if eslint then
+      eslint.args = {
+        '--no-warn-ignored',
+      }
+    end
+
     vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {
       callback = function()
-        local client = vim.lsp.get_clients({ bufnr = 0 })[1] or {}
-        lint.try_lint(nil, { cwd = client.root_dir })
+        local lsp_clients = vim.lsp.get_clients { bufnr = 0 }
+        ---@type vim.lsp.Client[]
+        local ts_ls = vim.tbl_filter(function(client)
+          return client.name == 'ts_ls'
+        end, lsp_clients)
+        if #ts_ls > 0 then
+          -- In the context of a typescript project, piggyback off the ts_ls root in order to run eslint from
+          -- the correct directory. Without this it doesn't work properly in a monorepo because it doesn't
+          -- resolve the eslint config correctly.
+          lint.try_lint(nil, { cwd = ts_ls[1].root_dir })
+        else
+          lint.try_lint()
+        end
       end,
     })
   end,
