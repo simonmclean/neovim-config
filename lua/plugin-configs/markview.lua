@@ -10,8 +10,10 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   opts = {
-    list_items = {
-      shift_width = 2
-    }
-  }
+    markdown = {
+      list_items = {
+        shift_width = 2,
+      },
+    },
+  },
 }
