@@ -1,4 +1,5 @@
 local u = require 'utils'
+local icons = require 'icons'
 
 -- Load env.lua if it exists
 local env_config = vim.fn.stdpath 'config' .. '/env.lua'
@@ -17,6 +18,22 @@ vim.g.active_colorscheme = u.eval(function()
     return 'default'
   end
 end)
+
+vim.lsp.enable {
+  'ts_ls',
+  'lua_ls',
+}
+
+vim.diagnostic.config {
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = icons.error,
+      [vim.diagnostic.severity.WARN] = icons.warn,
+      [vim.diagnostic.severity.INFO] = icons.info,
+      [vim.diagnostic.severity.HINT] = icons.hint,
+    },
+  },
+}
 
 require 'plugins'
 require 'statusline.statusline'

@@ -33,6 +33,24 @@ return {
       { '<leader>sr', builtin.resume, '[S]earch [R]esume' },
       { '<leader>sb', grep_in_current_buffer, '[S]earch [B]uffer' },
       { '<leader>sc', builtin.commands, '[S]earch [C]ommands' },
+      { 'gd', builtin.lsp_definitions, '[G]oto [D]efinition' },
+      { 'gr', builtin.lsp_references, '[G]oto [R]eferences' },
+      { 'gI', builtin.lsp_implementations, '[G]oto [I]mplementation' },
+      {
+        '<leader>D',
+        builtin.lsp_type_definitions,
+        'Type [D]efinition',
+      },
+      {
+        '<leader>ss',
+        builtin.lsp_document_symbols,
+        '[S]earch [D]ocument Symbols',
+      },
+      {
+        '<leader>sws',
+        builtin.lsp_dynamic_workspace_symbols,
+        '[S]earch [W]orkspace [S]ymbols',
+      },
     }
 
     require('telescope').setup {
@@ -44,7 +62,7 @@ return {
         file_ignore_patterns = {
           'yarn.lock',
           'docs/ui/swagger',
-        }
+        },
       },
     }
   end,

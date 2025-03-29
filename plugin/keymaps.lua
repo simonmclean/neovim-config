@@ -75,6 +75,9 @@ u.keys {
     'block previous',
   },
 
+  -- LSP rename
+  { '<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame' },
+
   -- Replace motion e.g. <leader>pq performs "paste in quotes"
   {
 

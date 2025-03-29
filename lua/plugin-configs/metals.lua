@@ -1,5 +1,3 @@
-local lsp = require 'lsp'
-
 return {
   'scalameta/nvim-metals',
   dependencies = {
@@ -20,11 +18,11 @@ return {
 
     metals_config.init_options.statusBarProvider = 'off'
 
-    metals_config.on_attach = function(client, bufnr)
-      lsp.on_attach(client, bufnr)
-    end
-
-    metals_config.capabilities = lsp.capabilities
+    -- metals_config.on_attach = function(client, bufnr)
+    --   lsp.on_attach(client, bufnr)
+    -- end
+    --
+    -- metals_config.capabilities = lsp.capabilities
 
     -- Autocmd that will actually be in charge of starting the whole thing
     local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
