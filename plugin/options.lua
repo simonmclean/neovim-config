@@ -29,7 +29,8 @@ u.options {
   relativenumber = false,
   wrap = false,
   switchbuf = 'usetab,uselast',
-  startofline = true
+  startofline = true,
+  winborder = 'rounded',
 }
 
 vim.opt_global.shortmess:append 's'
