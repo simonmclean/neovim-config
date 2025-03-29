@@ -11,4 +11,17 @@ return {
     'selene.yml',
     '.git',
   },
+  settings = {
+    Lua = {
+      workspace = {
+        ignoreDir = { '.luacheckrc' },
+      },
+      diagnostics = {
+        disable = { '.luacheckrc' },
+      },
+      runtime = {
+        version = 'LuaJIT',
+      },
+    },
+  },
 }
