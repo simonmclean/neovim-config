@@ -19,7 +19,7 @@ return {
     config = function()
       local cmp = require 'cmp'
 
-      -- vim.o.completeopt = 'menu,menuone,noselect'
+      vim.o.completeopt = 'menu,menuone,noselect'
       vim.g.vsnip_snippet_dir = '~/.config/nvim/vsnip'
 
       cmp.setup {
