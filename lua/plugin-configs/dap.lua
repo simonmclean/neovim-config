@@ -5,7 +5,7 @@ local function setup_javascript_dap()
   local mason_reg = require 'mason-registry'
 
   if not mason_reg.is_installed 'js-debug-adapter' then
-    u.warn 'js-debug-adapter is not installed'
+    vim.notify('js-debug-adapter is not installed', vim.log.levels.WARN)
     return
   end
 
