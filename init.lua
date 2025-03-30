@@ -25,6 +25,7 @@ vim.lsp.enable {
 }
 
 vim.diagnostic.config {
+  virtual_text = { enabled = true, virtual_lines = true },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = icons.error,
