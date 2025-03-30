@@ -21,8 +21,6 @@ u.keys {
   { '<Esc>', '<C-\\><C-n>', 'Normal mode from terminal', modes = 't' },
 
   -- Jumps
-  { '[q', ':cprevious<cr>', 'quickfix previous' },
-  { ']q', ':cnext<cr>', 'quickfix next' },
   { ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "single" } })<CR>', 'diagnostic next' },
   { '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "single" } })<CR>', 'diagnostic previous' },
 
