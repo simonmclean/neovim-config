@@ -46,15 +46,6 @@ u.keys {
   { 'j', 'gj', 'cursor down' },
   { 'k', 'gk', 'cursor down' },
 
-  {
-
-    '<leader>w',
-    function()
-      vim.wo.wrap = not vim.wo.wrap
-    end,
-    'Toggle wrap',
-  },
-
   -- Exclude block navigation from the jumplist
   {
 

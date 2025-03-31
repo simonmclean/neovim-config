@@ -14,6 +14,14 @@ local function toggle_opt(name)
   end
 end
 
+local function toggle_win_opt(name)
+  return function()
+    local new_val = not vim.wo[name]
+    vim.o[name] = new_val
+    notify(name, new_val)
+  end
+end
+
 action_menu.create {
   prompt = icons.toggle .. ' Toggle',
   actions = {
@@ -34,6 +42,10 @@ action_menu.create {
     {
       label = 'spell check',
       on_select = toggle_opt 'spell',
+    },
+    {
+      label = 'word wrap',
+      on_select = toggle_win_opt 'wrap',
     },
   },
   key_binding = '<leader>o',
