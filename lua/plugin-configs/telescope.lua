@@ -19,8 +19,16 @@ end
 return {
   'nvim-telescope/telescope.nvim',
   event = 'VeryLazy',
-  dependencies = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
+  dependencies = {
+    'nvim-lua/popup.nvim',
+    'nvim-lua/plenary.nvim',
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'make',
+    },
+  },
   config = function()
+    local telescope = require 'telescope'
     local builtin = require 'telescope.builtin'
 
     u.keys {
@@ -53,7 +61,7 @@ return {
       },
     }
 
-    require('telescope').setup {
+    telescope.setup {
       defaults = {
         layout_strategy = 'flex',
         path_display = { truncate = 2 },
@@ -65,6 +73,8 @@ return {
         },
       },
     }
+
+    telescope.load_extension 'fzf'
   end,
   layout_config = layout_config,
 }
