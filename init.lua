@@ -1,12 +1,6 @@
 local u = require 'utils'
 local icons = require 'icons'
 
--- Load env.lua if it exists
-local env_config = vim.fn.stdpath 'config' .. '/env.lua'
-if vim.fn.filereadable(env_config) == 1 then
-  dofile(env_config)
-end
-
 -- Globals required for starting lazy.nvim
 vim.g.mapleader = ' '
 vim.g.winblend = 10
@@ -25,7 +19,7 @@ vim.lsp.enable {
 }
 
 vim.diagnostic.config {
-  virtual_text = { enabled = true, virtual_lines = true },
+  virtual_text = { enabled = true },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = icons.error,
