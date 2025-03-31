@@ -11,4 +11,5 @@ return {
   terminal = '',
   list = '',
   test = '',
+  toggle = ''
 }

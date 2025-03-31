@@ -24,21 +24,6 @@ u.keys {
   { ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "single" } })<CR>', 'diagnostic next' },
   { '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "single" } })<CR>', 'diagnostic previous' },
 
-  -- Toggle diagnostic virtual lines
-  {
-    '<leader>v',
-    function()
-      local config = vim.diagnostic.config()
-      if config then
-        vim.diagnostic.config {
-          virtual_text = { enabled = config.virtual_lines },
-          virtual_lines = not config.virtual_lines,
-        }
-      end
-    end,
-    'Toggle diagnostic virtual lines',
-  },
-
   -- Toggle between 2 buffers
   { '<leader><leader>', '<c-^>', 'Previous buffer' },
 

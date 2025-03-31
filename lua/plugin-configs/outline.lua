@@ -29,7 +29,7 @@ return {
   event = 'VeryLazy',
   keys = {
     -- Note: The exclamation mark means "open but don't focus"
-    { '<leader>o', '<cmd>Outline!<CR>', desc = 'Toggle outline' },
+    -- { '<leader>o', '<cmd>Outline!<CR>', desc = 'Toggle outline' },
   },
   opts = {
     preview_window = {
