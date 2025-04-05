@@ -82,6 +82,8 @@ return {
             prompt_position = 'top',
           },
         },
+        -- I think this is needed in addition to load_extension
+        fzf = {}
       },
     }
 
