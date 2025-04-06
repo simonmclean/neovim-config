@@ -30,8 +30,7 @@ u.options {
   wrap = false,
   switchbuf = 'usetab,uselast',
   startofline = true,
-  -- TODO: Uncomment winborder once the plugins like telescope and noice work nicely with it
-  -- winborder = 'rounded',
+  winborder = vim.g.winborder,
 }
 
 vim.opt_global.shortmess:append 's'

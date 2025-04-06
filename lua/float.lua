@@ -35,7 +35,7 @@ M.create = function(fn, title)
     width = width,
     row = math.floor((vim.o.lines - height) / 2),
     col = math.floor((vim.o.columns - width) / 2),
-    border = 'single',
+    border = vim.g.winborder,
     title = title,
     title_pos = 'center',
   })

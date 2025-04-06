@@ -5,10 +5,13 @@ return {
   dependencies = {
     'folke/neodev.nvim',
   },
+  ---@module 'mason'
+  ---@type MasonSettings
   opts = {
     ui = {
-      border = 'single',
-      winblend = vim.g.winblend
+      border = vim.g.winborder,
+      winblend = vim.g.winblend,
+      backdrop = 100
     },
   },
 }

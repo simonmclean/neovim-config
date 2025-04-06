@@ -3,7 +3,7 @@ return {
   event = 'VeryLazy',
   opts = {
     win = {
-      border = 'single',
+      border = vim.g.winborder,
     },
   },
 }

@@ -21,8 +21,8 @@ u.keys {
   { '<Esc>', '<C-\\><C-n>', 'Normal mode from terminal', modes = 't' },
 
   -- Jumps
-  { ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "single" } })<CR>', 'diagnostic next' },
-  { '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "single" } })<CR>', 'diagnostic previous' },
+  { ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'diagnostic next' },
+  { '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'diagnostic previous' },
 
   -- Toggle between 2 buffers
   { '<leader><leader>', '<c-^>', 'Previous buffer' },

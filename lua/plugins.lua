@@ -43,8 +43,9 @@ local plugins = {
 ---@type LazyConfig
 local lazy_opts = {
   ui = {
-    border = 'single',
+    border = vim.g.winborder,
     title = ' Plugins ',
+    backdrop = 100
   },
   dev = {
     path = '~/code',

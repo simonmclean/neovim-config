@@ -1,9 +1,9 @@
 local u = require 'utils'
 local icons = require 'icons'
 
--- Globals required for starting lazy.nvim
 vim.g.mapleader = ' '
 vim.g.winblend = 10
+vim.g.winborder = 'rounded'
 vim.g.active_colorscheme = u.eval(function()
   local themery_installed, themery = pcall(require, 'themery')
   if themery_installed then

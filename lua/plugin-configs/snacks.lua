@@ -29,7 +29,7 @@ return {
             height = 0.8,
             min_height = 30,
             box = 'vertical',
-            border = 'rounded',
+            border = vim.g.winborder,
             title = '{title} {live} {flags}',
             title_pos = 'center',
             { win = 'input', height = 1, border = 'bottom' },
