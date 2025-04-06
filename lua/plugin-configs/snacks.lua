@@ -105,13 +105,14 @@ return {
         picker().lsp_references()
       end,
       '[G]oto [R]eferences',
+      nowait = true
     },
     {
       '<leader>ss',
       function()
         picker().lsp_symbols()
       end,
-      '[S]earch [D]ocument Symbols',
+      '[S]earch Document [S]ymbols',
     },
     {
       '<leader>sws',
