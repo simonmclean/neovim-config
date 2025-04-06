@@ -16,8 +16,8 @@ return {
       ['<leader>sg'] = {
         mode = 'n',
         fn = function(target)
-          require('telescope.builtin').live_grep {
-            search_dirs = { target.path },
+          require('snacks').picker.grep {
+            dirs = { target.path },
           }
         end,
       },

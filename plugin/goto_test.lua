@@ -126,26 +126,6 @@ local function absolute_to_relative_path(absolute_path)
   return absolute_path:sub(#cwd + 2)
 end
 
---- Display list of possible test files in telescope
----@param matches string[]
-local function show_options_in_telescope(matches)
-  local pickers = require 'telescope.pickers'
-  local finders = require 'telescope.finders'
-  local sorters = require 'telescope.sorters'
-
-  local opts = {
-    finder = finders.new_table(matches),
-    sorter = sorters.get_generic_fuzzy_sorter {},
-  }
-
-  pickers
-    .new(opts, {
-      prompt_title = 'Matches',
-      previewer = require('telescope.config').values.file_previewer {},
-    })
-    :find()
-end
-
 -- These will be searched with case insensitivity
 local TEST_POSTFIXES = {
   '_spec',
@@ -164,12 +144,16 @@ local function handle_search_results(matches)
   elseif #matches == 1 then
     vim.cmd.edit(matches[1])
   else
-    -- If there's more than 1 match, show options in telescope
     local matches_relative = {}
     for _, match in ipairs(matches) do
       table.insert(matches_relative, absolute_to_relative_path(match))
     end
-    show_options_in_telescope(matches_relative)
+    vim.ui.select(matches, { prompt = 'Select file' }, function(choice)
+      if not choice then
+        return
+      end
+      vim.cmd.edit(choice)
+    end)
   end
 end
 

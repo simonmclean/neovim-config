@@ -57,9 +57,9 @@ return {
     {
       '<leader>sf',
       function()
-        picker().smart()
+        picker().files()
       end,
-      desc = 'Smart Find Files',
+      desc = '[S]earch [F]iles',
     },
     {
       '<leader>sp',
