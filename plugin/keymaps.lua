@@ -67,6 +67,9 @@ u.keys {
   -- LSP rename
   { '<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame' },
 
+  -- LSP code action
+  { '<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction' },
+
   -- Replace motion e.g. <leader>pq performs "paste in quotes"
   {
 
