@@ -2,6 +2,10 @@ local icons = require 'icons'
 local action_menu = require 'action_menu'
 local u = require 'utils'
 
+-- TODO:
+-- Persist settings
+-- Show current setting
+
 local function notify(name, value)
   u.fidget_notify(string.format('Set %s: %s', name, tostring(value)), 'info')
 end
@@ -46,6 +50,14 @@ action_menu.create {
     {
       label = 'word wrap',
       on_select = toggle_win_opt 'wrap',
+    },
+    {
+      label = 'context',
+      on_select = 'TSContextToggle',
+    },
+    {
+      label = 'markview',
+      on_select = 'Markview',
     },
   },
   key_binding = '<leader>o',
