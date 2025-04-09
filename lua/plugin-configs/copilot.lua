@@ -3,6 +3,9 @@ return {
   cmd = 'Copilot',
   event = 'VeryLazy',
   opts = {
+    suggestion = {
+      enabled = false,
+    },
     panel = {
       enabled = false,
     },
