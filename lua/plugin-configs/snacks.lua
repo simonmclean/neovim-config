@@ -23,7 +23,7 @@ return {
       layouts = {
         default = {
           layout = {
-            -- backdrop = false,
+            backdrop = false,
             width = 0.7,
             min_width = 80,
             height = 0.8,
