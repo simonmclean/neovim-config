@@ -180,7 +180,7 @@ end
 local function find_sister_file()
   local current_filename_without_extension = vim.fn.expand '%:t:r'
   for _, postfix in ipairs(TEST_POSTFIXES) do
-    local postfix_escaped = postfix:gsub('%.', '%%.')
+    local postfix_escaped = u.escape_pattern(postfix)
     local match = string.lower(current_filename_without_extension):match(postfix_escaped .. '$')
     if match then
       local current_file_extension = vim.fn.expand '%:e'

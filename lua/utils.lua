@@ -318,4 +318,25 @@ function M.confirm(question)
   return vim.fn.confirm(question, '&Yes\n&No', 2) == 1
 end
 
+function M.escape_pattern(str)
+  return str:gsub('%.', '%%.')
+end
+
+function M.is_test_file(path)
+  local test_words = {
+    '.test',
+    '.spec',
+    '_test',
+    '_spec',
+  }
+
+  for _, word in ipairs(test_words) do
+    if path:match(M.escape_pattern(word)) then
+      return true
+    end
+  end
+
+  return false
+end
+
 return M
