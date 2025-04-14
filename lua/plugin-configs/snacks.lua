@@ -70,6 +70,13 @@ return {
       '[S]earch [P]ickers',
     },
     {
+      '<leader>sb',
+      function()
+        picker().lines()
+      end,
+      '[S]earch [B]uffer',
+    },
+    {
       '<leader>sg',
       function()
         picker().grep()
