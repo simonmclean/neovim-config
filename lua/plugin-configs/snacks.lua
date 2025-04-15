@@ -40,7 +40,7 @@ return {
     },
     notifier = { enabled = false },
     quickfile = { enabled = false },
-    scope = { enabled = false },
+    scope = { enabled = true },
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
     words = { enabled = false },
