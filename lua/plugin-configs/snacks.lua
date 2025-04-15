@@ -67,7 +67,7 @@ return {
       function()
         require('snacks.terminal').toggle()
       end,
-      'Toggle floating terminal',
+      desc = 'Toggle floating terminal',
       mode = { 'n', 't' },
     },
     {
