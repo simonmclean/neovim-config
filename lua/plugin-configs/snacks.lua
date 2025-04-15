@@ -46,14 +46,38 @@ return {
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
     words = { enabled = false },
+    terminal = {
+      win = {
+        style = 'floating_terminal',
+      },
+    },
+    styles = {
+      ['floating_terminal'] = {
+        relative = 'editor',
+        position = 'float',
+        backdrop = 100,
+        height = 0.8,
+        width = 0.8,
+        zindex = 50,
+        border = vim.g.winborder,
+      },
+    },
   },
   keys = {
+    {
+      '<c-t>',
+      function()
+        require('snacks.terminal').toggle()
+      end,
+      'Toggle floating terminal',
+      mode = { 'n', 't' },
+    },
     {
       '<leader>sh',
       function()
         picker().help()
       end,
-      '[S]earch [H]elp',
+      desc = '[S]earch [H]elp',
     },
     {
       '<leader>sf',
