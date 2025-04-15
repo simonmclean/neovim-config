@@ -16,6 +16,7 @@ return {
     explorer = { enabled = false },
     indent = { enabled = true, animate = { enabled = false } },
     input = { enabled = true },
+    gitbrowse = {},
     picker = {
       enabled = true,
       layouts = {

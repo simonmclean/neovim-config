@@ -55,7 +55,9 @@ action_menu.create {
     },
     {
       label = 'github',
-      on_select = 'GBrowse',
+      on_select = function()
+        require('snacks').gitbrowse()
+      end,
     },
   },
   key_binding = '<leader>g',
