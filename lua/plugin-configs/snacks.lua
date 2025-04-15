@@ -91,28 +91,28 @@ return {
       function()
         picker()()
       end,
-      '[S]earch [P]ickers',
+      desc = '[S]earch [P]ickers',
     },
     {
       '<leader>sg',
       function()
         picker().grep()
       end,
-      '[S]earch [G]rep',
+      desc = '[S]earch [G]rep',
     },
     {
       '<leader>sd',
       function()
         picker().diagnostics()
       end,
-      '[S]earch [D]iagnostics',
+      desc = '[S]earch [D]iagnostics',
     },
     {
       '<leader>sr',
       function()
         picker().resume()
       end,
-      '[S]earch [R]esume',
+      desc = '[S]earch [R]esume',
     },
     -- { '<leader>spf', function ()
     --  picker().
@@ -122,14 +122,14 @@ return {
       function()
         picker().lsp_definitions()
       end,
-      '[G]oto [D]efinition',
+      desc = '[G]oto [D]efinition',
     },
     {
       'gr',
       function()
         picker().lsp_references()
       end,
-      '[G]oto [R]eferences',
+      desc = '[G]oto [R]eferences',
       nowait = true,
     },
     {
@@ -137,14 +137,14 @@ return {
       function()
         picker().lsp_symbols()
       end,
-      '[S]earch Document [S]ymbols',
+      desc = '[S]earch Document [S]ymbols',
     },
     {
       '<leader>sws',
       function()
         picker().lsp_workspace_symbols()
       end,
-      '[S]earch [W]orkspace [S]ymbols',
+      desc = '[S]earch [W]orkspace [S]ymbols',
     },
   },
 }
