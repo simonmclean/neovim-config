@@ -40,7 +40,7 @@ return {
           git.update_current_branch()
         end,
       })
-      require 'mini.git'.setup()
+      require('mini.git').setup()
     end,
   },
 }
