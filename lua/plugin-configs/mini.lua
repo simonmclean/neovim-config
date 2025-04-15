@@ -17,4 +17,11 @@ return {
     event = 'VeryLazy',
     opts = {},
   },
+  -- Pairs
+  {
+    'echasnovski/mini.pairs',
+    version = '*',
+    event = 'VeryLazy',
+    opts = {}
+  },
 }
