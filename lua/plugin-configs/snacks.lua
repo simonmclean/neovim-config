@@ -106,7 +106,7 @@ return {
         picker().lsp_references()
       end,
       '[G]oto [R]eferences',
-      nowait = true
+      nowait = true,
     },
     {
       '<leader>ss',
