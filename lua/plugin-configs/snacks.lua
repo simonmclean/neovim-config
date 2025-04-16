@@ -10,15 +10,13 @@ return {
   ---@module 'snacks'
   ---@type snacks.Config
   opts = {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
     image = { enabled = true },
     bigfile = { enabled = false },
     dashboard = { enabled = false },
     explorer = { enabled = false },
-    indent = { enabled = false },
+    indent = { enabled = true, animate = { enabled = false } },
     input = { enabled = true },
+    gitbrowse = {},
     picker = {
       enabled = true,
       layouts = {
@@ -42,18 +40,42 @@ return {
     },
     notifier = { enabled = false },
     quickfile = { enabled = false },
-    scope = { enabled = false },
+    scope = { enabled = true },
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
     words = { enabled = false },
+    terminal = {
+      win = {
+        style = 'floating_terminal',
+      },
+    },
+    styles = {
+      ['floating_terminal'] = {
+        relative = 'editor',
+        position = 'float',
+        backdrop = 100,
+        height = 0.8,
+        width = 0.8,
+        zindex = 50,
+        border = vim.g.winborder,
+      },
+    },
   },
   keys = {
+    {
+      '<c-t>',
+      function()
+        require('snacks.terminal').toggle()
+      end,
+      desc = 'Toggle floating terminal',
+      mode = { 'n', 't' },
+    },
     {
       '<leader>sh',
       function()
         picker().help()
       end,
-      '[S]earch [H]elp',
+      desc = '[S]earch [H]elp',
     },
     {
       '<leader>sf',
@@ -67,7 +89,7 @@ return {
       function()
         picker()()
       end,
-      '[S]earch [P]ickers',
+      desc = '[S]earch [P]ickers',
     },
     {
       '<leader>sb',
@@ -81,21 +103,21 @@ return {
       function()
         picker().grep()
       end,
-      '[S]earch [G]rep',
+      desc = '[S]earch [G]rep',
     },
     {
       '<leader>sd',
       function()
         picker().diagnostics()
       end,
-      '[S]earch [D]iagnostics',
+      desc = '[S]earch [D]iagnostics',
     },
     {
       '<leader>sr',
       function()
         picker().resume()
       end,
-      '[S]earch [R]esume',
+      desc = '[S]earch [R]esume',
     },
     -- { '<leader>spf', function ()
     --  picker().
@@ -105,29 +127,29 @@ return {
       function()
         picker().lsp_definitions()
       end,
-      '[G]oto [D]efinition',
+      desc = '[G]oto [D]efinition',
     },
     {
       'gr',
       function()
         picker().lsp_references()
       end,
-      '[G]oto [R]eferences',
-      nowait = true
+      desc = '[G]oto [R]eferences',
+      nowait = true,
     },
     {
       '<leader>ss',
       function()
         picker().lsp_symbols()
       end,
-      '[S]earch Document [S]ymbols',
+      desc = '[S]earch Document [S]ymbols',
     },
     {
       '<leader>sws',
       function()
         picker().lsp_workspace_symbols()
       end,
-      '[S]earch [W]orkspace [S]ymbols',
+      desc = '[S]earch [W]orkspace [S]ymbols',
     },
   },
 }

@@ -49,13 +49,13 @@ action_menu.create {
     },
     {
       label = 'commit',
-      on_select = function()
-        vim.api.nvim_feedkeys(':Git commit -m "', 'n', false)
-      end,
+      on_select = 'Git commit',
     },
     {
       label = 'github',
-      on_select = 'GBrowse',
+      on_select = function()
+        require('snacks').gitbrowse()
+      end,
     },
   },
   key_binding = '<leader>g',

@@ -4,7 +4,6 @@ local su = require 'statusline.utils'
 local icons = require 'icons'
 
 local FT_OVERRIDES = {
-  fugitive = { 'Git', icons.git },
   qf = { 'Quickfix', icons.list },
   ['copilot-chat'] = { 'Copilot', icons.copilot },
   Outline = { 'Outline', icons.list },
