@@ -41,10 +41,30 @@ return {
   'mfussenegger/nvim-dap',
   dependencies = {
     'williamboman/mason.nvim',
+    {
+      'igorlfs/nvim-dap-view',
+      branch = 'feat/scopes',
+      opts = {
+        winbar = {
+          show = true,
+          sections = {
+            'scopes',
+            'watches',
+            'exceptions',
+            'breakpoints',
+            'threads',
+            'repl',
+            'console',
+          },
+          default_section = 'scopes',
+        },
+      },
+    },
   },
   event = 'VeryLazy',
   config = function()
     local dap = require 'dap'
+    local dap_view = require 'dap-view'
 
     vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'Error', linehl = 'DiagnosticVirtualTextError' })
 
@@ -79,6 +99,19 @@ return {
       -- Misc
       { '<leader>dff', dap.focus_frame, '[d]ap [f]ocus [f]rame' },
     }
+
+    dap.listeners.before.attach['dap-view-config'] = function()
+      dap_view.open()
+    end
+    dap.listeners.before.launch['dap-view-config'] = function()
+      dap_view.open()
+    end
+    dap.listeners.before.event_terminated['dap-view-config'] = function()
+      dap_view.close()
+    end
+    dap.listeners.before.event_exited['dap-view-config'] = function()
+      dap_view.close()
+    end
 
     setup_javascript_dap()
   end,
