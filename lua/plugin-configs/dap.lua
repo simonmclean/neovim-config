@@ -43,7 +43,6 @@ return {
     'williamboman/mason.nvim',
     {
       'igorlfs/nvim-dap-view',
-      branch = 'feat/scopes',
       opts = {
         winbar = {
           show = true,
@@ -57,6 +56,9 @@ return {
             'console',
           },
           default_section = 'scopes',
+        },
+        windows = {
+          height = 20,
         },
       },
     },
@@ -100,11 +102,17 @@ return {
       { '<leader>dff', dap.focus_frame, '[d]ap [f]ocus [f]rame' },
     }
 
+    local ui_delay_ms = 1000
+
     dap.listeners.before.attach['dap-view-config'] = function()
-      dap_view.open()
+      vim.defer_fn(function()
+        dap_view.open()
+      end, ui_delay_ms)
     end
     dap.listeners.before.launch['dap-view-config'] = function()
-      dap_view.open()
+      vim.defer_fn(function()
+        dap_view.open()
+      end, ui_delay_ms)
     end
     dap.listeners.before.event_terminated['dap-view-config'] = function()
       dap_view.close()
