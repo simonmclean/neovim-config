@@ -30,8 +30,6 @@ local plugins = {
   very_lazy 'tpope/vim-repeat',
   -- Edit surrounding characters (braces, quotes etc)
   very_lazy 'tpope/vim-surround',
-  -- Adds :GBrowse to open repo in the browser
-  very_lazy 'tpope/vim-rhubarb',
   -- Smart substitution that preserves casing
   very_lazy 'tpope/vim-abolish',
   -- JSDoc
