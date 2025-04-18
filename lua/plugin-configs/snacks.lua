@@ -43,7 +43,7 @@ return {
     scope = { enabled = true },
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
-    words = { enabled = false },
+    words = { enabled = true },
     terminal = {
       win = {
         style = 'floating_terminal',
@@ -69,6 +69,13 @@ return {
       end,
       desc = 'Toggle floating terminal',
       mode = { 'n', 't' },
+    },
+    {
+      'gn',
+      function()
+        require('snacks.words').jump(1, true)
+      end,
+      desc = '[G]o [N]ext LSP reference',
     },
     {
       '<leader>sh',
