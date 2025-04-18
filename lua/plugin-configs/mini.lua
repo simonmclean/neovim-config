@@ -34,7 +34,7 @@ return {
     event = 'VeryLazy',
     config = function()
       vim.api.nvim_create_autocmd('User', {
-        pattern = 'MiniGitUpdated',
+        pattern = 'MiniGitCommandDone',
         callback = function()
           git.update_ahead_behind()
           git.update_current_branch()
