@@ -28,8 +28,6 @@ end
 local plugins = {
   -- Makes more things dot repeatable
   very_lazy 'tpope/vim-repeat',
-  -- Edit surrounding characters (braces, quotes etc)
-  very_lazy 'tpope/vim-surround',
   -- Smart substitution that preserves casing
   very_lazy 'tpope/vim-abolish',
   -- JSDoc

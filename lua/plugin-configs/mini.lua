@@ -43,4 +43,17 @@ return {
       require('mini.git').setup()
     end,
   },
+  -- Work with surround chars, ({" etc
+  {
+    'echasnovski/mini.surround',
+    version = '*',
+    event = 'VeryLazy',
+    opts = {
+      mappings = {
+        add = 'gs', -- Add surrounding in Normal and Visual modes
+        delete = 'ds', -- Delete surrounding
+        replace = 'cs', -- Replace surrounding
+      },
+    },
+  },
 }
