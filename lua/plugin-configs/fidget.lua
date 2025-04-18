@@ -1,3 +1,5 @@
+-- Progress notifications with LSP integration
+
 return {
   'j-hui/fidget.nvim',
   opts = {

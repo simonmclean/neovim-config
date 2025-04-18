@@ -1,3 +1,5 @@
+-- Fancy navigation
+
 return {
   'folke/flash.nvim',
   event = 'VeryLazy',

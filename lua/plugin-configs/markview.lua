@@ -1,3 +1,5 @@
+-- Pretty markdown files
+
 return {
   'OXY2DEV/markview.nvim',
   lazy = false, -- Recommended

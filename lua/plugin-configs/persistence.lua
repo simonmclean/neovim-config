@@ -1,3 +1,5 @@
+-- Session management
+
 return {
   'folke/persistence.nvim',
   event = 'VeryLazy',

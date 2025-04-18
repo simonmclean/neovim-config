@@ -1,3 +1,5 @@
+-- Manage language servers, linters, debuggers etc
+
 return {
   'williamboman/mason.nvim',
   build = ':MasonUpdate',

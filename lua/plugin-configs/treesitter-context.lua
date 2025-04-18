@@ -1,3 +1,5 @@
+-- Shows context like test descriptions, function names, params etc
+
 local u = require 'utils'
 
 local function auto_toggle()

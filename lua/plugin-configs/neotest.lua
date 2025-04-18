@@ -1,3 +1,5 @@
+-- Integrated test runner
+
 return {
   'nvim-neotest/neotest',
   dependencies = {

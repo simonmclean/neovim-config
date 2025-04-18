@@ -1,3 +1,5 @@
+-- Skip over unimportant characters when doing word-based motions
+
 return {
   'chrisgrieser/nvim-spider',
   opts = {
