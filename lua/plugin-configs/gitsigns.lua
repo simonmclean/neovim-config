@@ -36,10 +36,10 @@ return {
             'hunk previous',
           },
           -- Actions
-          { '<leader>hs', git_signs.stage_hunk, 'hunk stage', modes = { 'n', 'v' } },
-          { '<leader>hr', git_signs.reset_hunk, 'hunk reset', modes = { 'n', 'v' } },
-          { '<leader>hu', git_signs.undo_stage_hunk, 'hunk unstage', modes = { 'n', 'v' } },
-          { '<leader>hp', git_signs.preview_hunk, 'hunk previous' },
+          { '<leader>hs', git_signs.stage_hunk, 'hunk stage', modes = { 'n', 'v' }, opts = { nowait = true } },
+          { '<leader>hr', git_signs.reset_hunk, 'hunk reset', modes = { 'n', 'v' }, opts = { nowait = true } },
+          { '<leader>hu', git_signs.undo_stage_hunk, 'hunk unstage', modes = { 'n', 'v' }, opts = { nowait = true } },
+          { '<leader>hp', git_signs.preview_hunk, 'hunk preview', opts = { nowait = true } },
         })
       end,
     }
