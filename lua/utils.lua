@@ -39,6 +39,18 @@ function M.options(opts)
   end
 end
 
+---Safe access of buffer varaible. Handles nil case
+---@param name string
+---@param buf number?
+---@return unknown
+function M.buf_get_var(name, buf)
+  local ok, value = pcall(vim.api.nvim_buf_get_var, buf or 0, name)
+  if not ok then
+    return nil
+  end
+  return value
+end
+
 --- Check if a value is defined (not nil or empty).
 --- @param value nil|string|table: The value to check.
 --- @return boolean: True if the value is defined, false otherwise.
@@ -318,10 +330,17 @@ function M.confirm(question)
   return vim.fn.confirm(question, '&Yes\n&No', 2) == 1
 end
 
+--- Escape a string for use in a Lua pattern.
+---@param str string
+---@return string
+---@return integer count
 function M.escape_pattern(str)
   return str:gsub('%.', '%%.')
 end
 
+--- Heuristically check if a file is a test file based on its path.
+--- @param path string
+--- @return boolean
 function M.is_test_file(path)
   local test_words = {
     '.test',

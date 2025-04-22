@@ -52,8 +52,19 @@ action_menu.create {
       on_select = toggle_win_opt 'wrap',
     },
     {
-      label = 'context',
-      on_select = 'TSContextToggle',
+      label = 'context (buffer)',
+      on_select = function()
+        local ctx = require 'treesitter-context'
+        local is_enabled = ctx.enabled()
+        if is_enabled then
+          vim.api.nvim_buf_set_var(0, 'suspend_ts_context_autocmd', true)
+          ctx.disable()
+        else
+          vim.api.nvim_buf_set_var(0, 'suspend_ts_context_autocmd', false)
+          ctx.enable()
+        end
+        notify('virtual_lines', ctx.enabled())
+      end,
     },
     {
       label = 'markview',

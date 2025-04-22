@@ -3,6 +3,10 @@
 local u = require 'utils'
 
 local function auto_toggle()
+  if u.buf_get_var 'suspend_ts_context_autocmd' then
+    return
+  end
+
   local bufname = vim.api.nvim_buf_get_name(0)
   local context = require 'treesitter-context'
 
