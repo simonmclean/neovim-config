@@ -1,5 +1,3 @@
-local git = require 'git'
-
 -- Ecosystem of small plugins
 
 return {
@@ -25,23 +23,6 @@ return {
     version = '*',
     event = 'VeryLazy',
     opts = {},
-  },
-  -- Git helpers
-  {
-    'echasnovski/mini-git',
-    version = '*',
-    main = 'mini.git',
-    event = 'VeryLazy',
-    config = function()
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'MiniGitCommandDone',
-        callback = function()
-          git.update_ahead_behind()
-          git.update_current_branch()
-        end,
-      })
-      require('mini.git').setup()
-    end,
   },
   -- Work with surround chars, ({" etc
   {

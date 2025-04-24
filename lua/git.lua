@@ -53,6 +53,7 @@ function M.get_current_branch_name(callback)
   u.system('git rev-parse --abbrev-ref HEAD', callback)
 end
 
+---Use Fugitive to push.
 ---If there isn't a remote branch, ask for confirmation before creating one
 ---If pushing to main/master ask for confirmation
 function M.push()
