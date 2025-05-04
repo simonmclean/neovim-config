@@ -49,7 +49,9 @@ action_menu.create {
     },
     {
       label = 'commit',
-      on_select = 'Git commit',
+      on_select = function()
+        vim.api.nvim_feedkeys(':Git commit -m "', 'n', false)
+      end,
     },
     {
       label = 'github',
