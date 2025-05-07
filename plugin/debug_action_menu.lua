@@ -7,54 +7,56 @@ end
 
 action_menu.create {
   prompt = icons.info .. ' Debug',
-  key_binding = '<leader>d',
-  key_description = 'Open Debug menu',
+  key = {
+    key = '<leader>d',
+    desc = 'Open Debug menu',
+  },
   actions = {
     {
-      label = 'Continue',
-      on_select = function()
+      'Continue',
+      function()
         dap().continue()
       end,
     },
     {
-      label = 'Step into',
-      on_select = function()
+      'Step into',
+      function()
         dap().step_into()
       end,
     },
     {
-      label = 'Step over',
-      on_select = function()
+      'Step over',
+      function()
         dap().step_over()
       end,
     },
     {
-      label = 'Step out',
-      on_select = function()
+      'Step out',
+      function()
         dap().step_out()
       end,
     },
     {
-      label = 'Step back',
-      on_select = function()
+      'Step back',
+      function()
         dap().step_back()
       end,
     },
     {
-      label = 'Terminate',
-      on_select = function()
+      'Terminate',
+      function()
         dap().terminate()
       end,
     },
     {
-      label = 'Toggle breakpoint',
-      on_select = function()
+      'Toggle breakpoint',
+      function()
         dap().toggle_breakpoint()
       end,
     },
     {
-      label = 'Clear all breakpoints',
-      on_select = function()
+      'Clear all breakpoints',
+      function()
         dap().clear_breakpoints()
       end,
     },

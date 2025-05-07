@@ -28,10 +28,14 @@ end
 
 action_menu.create {
   prompt = icons.toggle .. ' Toggle',
+  key = {
+    key = '<leader>o',
+    desc = 'Open toggle menu',
+  },
   actions = {
     {
-      label = 'diagnostic virtual lines',
-      on_select = function()
+      'diagnostic virtual lines',
+      function()
         local config = vim.diagnostic.config()
         if config then
           local new_value = not config.virtual_lines
@@ -44,16 +48,16 @@ action_menu.create {
       end,
     },
     {
-      label = 'spell check',
-      on_select = toggle_opt 'spell',
+      'spell check',
+      toggle_opt 'spell',
     },
     {
-      label = 'word wrap',
-      on_select = toggle_win_opt 'wrap',
+      'word wrap',
+      toggle_win_opt 'wrap',
     },
     {
-      label = 'context (buffer)',
-      on_select = function()
+      'context (buffer)',
+      function()
         local ctx = require 'treesitter-context'
         local is_enabled = ctx.enabled()
         if is_enabled then
@@ -67,10 +71,8 @@ action_menu.create {
       end,
     },
     {
-      label = 'markview',
-      on_select = 'Markview',
+      'markview',
+      'Markview',
     },
   },
-  key_binding = '<leader>o',
-  key_description = 'Open toggle menu',
 }
