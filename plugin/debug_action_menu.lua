@@ -49,6 +49,13 @@ action_menu.create {
       end,
     },
     {
+      'debug nearest',
+      function()
+        ---@diagnostic disable-next-line: missing-fields
+        require('neotest').run.run { strategy = 'dap' }
+      end,
+    },
+    {
       'Toggle breakpoint',
       function()
         dap().toggle_breakpoint()
