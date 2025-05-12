@@ -11,5 +11,6 @@ return {
   modified = require 'statusline.components.modified',
   push_right = require 'statusline.components.push_right',
   readonly = require 'statusline.components.readonly',
+  unsaved_changes = require 'statusline.components.unsaved_changes',
   win_title = require 'statusline.components.win_title',
 }
