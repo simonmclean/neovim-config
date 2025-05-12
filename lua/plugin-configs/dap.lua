@@ -1,5 +1,3 @@
-local u = require 'utils'
-
 local function setup_javascript_dap()
   local dap = require 'dap'
   local mason_reg = require 'mason-registry'
@@ -9,17 +7,13 @@ local function setup_javascript_dap()
     return
   end
 
-  local js_debug_path = mason_reg.get_package('js-debug-adapter'):get_install_path()
-
-  local bin_path = js_debug_path .. '/js-debug/src/dapDebugServer.js'
-
   dap.adapters['pwa-node'] = {
     type = 'server',
     host = 'localhost',
     port = '${port}',
     executable = {
-      command = 'node',
-      args = { bin_path, '${port}' },
+      command = 'js-debug-adapter',
+      args = { '${port}' },
     },
   }
 
@@ -80,12 +74,14 @@ return {
       end, ui_delay_ms)
     end
     dap.listeners.before.launch['dap-view-config'] = function()
+      vim.notify 'Starting debug session'
       vim.defer_fn(function()
         dap_view.open()
       end, ui_delay_ms)
     end
     dap.listeners.before.event_terminated['dap-view-config'] = function()
       dap_view.close()
+      vim.notify 'Debug session terminated'
     end
     dap.listeners.before.event_exited['dap-view-config'] = function()
       dap_view.close()
