@@ -26,13 +26,3 @@ create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
-
-create_autocmd('BufEnter', {
-  desc = 'Notify tab change',
-  group = my_augroup,
-  callback = vim.schedule_wrap(function()
-    local bufname = vim.api.nvim_buf_get_name(0)
-    local tabpage_id = vim.api.nvim_get_current_tabpage()
-    vim.notify(string.format(' Tab %s |> %s', tabpage_id, bufname))
-  end),
-})
