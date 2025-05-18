@@ -1,6 +1,5 @@
 return {
   'simonmclean/triptych.nvim',
-  event = 'VeryLazy',
   -- dir = '~/code/triptych',
   -- dev = true,
   dependencies = {
