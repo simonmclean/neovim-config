@@ -1,4 +1,5 @@
 return {
+  enabled = false,
   'simonmclean/pretty-vanilla-tabline.nvim',
   config = function()
     local get_icon = require('nvim-web-devicons').get_icon_by_filetype
@@ -6,7 +7,6 @@ return {
 
     require('pretty-vanilla-tabline').setup {
       filetype_icons = {
-        fugitive = git_icon,
         DiffviewFiles = git_icon,
         DiffviewFileHistory = git_icon,
       },

@@ -9,10 +9,6 @@ u.keys {
   { '<C-k>', '5<C-y>', 'scroll up' },
   { '<C-j>', '5<C-e>', 'scroll down' },
 
-  -- Tab
-  { '<C-l>', 'gt', 'tab right' },
-  { '<C-h>', 'gT', 'tab left' },
-
   -- Lazy exec mode
   -- These can't silent, otherwise the fancy pop-up command line won't appear
   { ';', ':', 'exec mode', modes = { 'n', 'v' }, opts = { silent = false } },
