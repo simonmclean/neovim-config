@@ -113,6 +113,13 @@ return {
       desc = '[S]earch [G]rep',
     },
     {
+      '<leader>sc',
+      function()
+        picker().commands()
+      end,
+      desc = '[S]earch [C]ommands',
+    },
+    {
       '<leader>sd',
       function()
         picker().diagnostics()
