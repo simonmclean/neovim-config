@@ -358,4 +358,25 @@ function M.is_test_file(path)
   return false
 end
 
+--- Debounces a function on the trailing edge
+--- Credit: https://gist.github.com/runiq/31aa5c4bf00f8e0843cd267880117201
+--- @param fn function
+--- @param timeout_ms number
+--- @return function, table - Debounced function and timer. Remember to call `timer:close()` to avoid memory leak
+function M.debounce_trailing(fn, timeout_ms)
+  local timer = vim.loop.new_timer()
+  local wrapped_fn
+
+  function wrapped_fn(...)
+    local argv = { ... }
+    local argc = select('#', ...)
+
+    timer:start(timeout_ms, 0, function()
+      pcall(vim.schedule_wrap(fn), unpack(argv, 1, argc))
+    end)
+  end
+
+  return wrapped_fn, timer
+end
+
 return M

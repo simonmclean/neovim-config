@@ -1,6 +1,6 @@
 local icons = require 'icons'
 local action_menu = require 'action_menu'
-local git = require 'git'
+local git_utils = require 'git.utils'
 
 action_menu.create {
   prompt = icons.git .. ' Git',
@@ -29,7 +29,7 @@ action_menu.create {
     },
     {
       'push',
-      git.push,
+      git_utils.push,
     },
     {
       'pull',

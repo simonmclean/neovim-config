@@ -30,5 +30,6 @@ vim.diagnostic.config {
   },
 }
 
+require 'git.status'.setup()
 require 'plugins'
 require 'statusline.statusline'

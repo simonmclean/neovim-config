@@ -26,6 +26,8 @@ end
 -- Plugins without configs are here.
 -- Plugins with custom configs are imported from lua/plugin-configs/
 local plugins = {
+  -- Git integration
+  very_lazy 'tpope/vim-fugitive',
   -- Makes more things dot repeatable
   very_lazy 'tpope/vim-repeat',
   -- Smart substitution that preserves casing

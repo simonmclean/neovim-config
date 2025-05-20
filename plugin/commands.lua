@@ -1,10 +1,8 @@
-local git = require 'git'
+local git_utils = require 'git.utils'
 
 local create_cmd = vim.api.nvim_create_user_command
 
-create_cmd('Main', git.main, { desc = 'Switch to the main branch and pull the latest changes' })
-
-create_cmd('GitSync', git.sync, { desc = 'Sync the current git project, doing fetch, pull and push as needed' })
+create_cmd('Main', git_utils.main, { desc = 'Switch to the main branch and pull the latest changes' })
 
 create_cmd('TabWidth', function()
   vim.ui.input({ prompt = 'How many spaces? ', completion = 'command' }, function(arg)

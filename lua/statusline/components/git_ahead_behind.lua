@@ -1,24 +1,27 @@
-local u = require 'utils'
-local su = require 'statusline.utils'
 local icons = require 'icons'
-local git = require 'git'
 
-require 'statusline.git_commits'.new()
+return function()
+  local git = vim.g.git
 
-return su.conditional_component(git.is_cwd_a_git_repo(), function()
-  local state = vim.g.git_ahead_behind_count
-  if state then
-    if state.remote_exists then
-      return u.trim_string(u.list_join({
-        icons.up_arrow,
-        tostring(state.ahead),
-        icons.down_arrow,
-        tostring(state.behind),
-      }, ' '))
-    else
-      return '(no remote)'
-    end
-  else
-    return icons.up_arrow .. ' - ' .. icons.down_arrow .. ' -'
+  if git.state == 'INITIALISING' or git.state == 'NO_REPO' then
+    return
   end
-end)
+
+  local repo = git.repo
+
+  if not repo.branch_remote then
+    return '(no remote)'
+  end
+
+  if repo.status.local_commits_not_in_remote then
+    return string.format(
+      '%s %s %s %s',
+      icons.up_arrow,
+      repo.status.local_commits_not_in_remote,
+      icons.down_arrow,
+      repo.status.remote_commits_not_in_local
+    )
+  else
+    return string.format('%s - %s -', icons.up_arrow, icons.down_arrow)
+  end
+end
