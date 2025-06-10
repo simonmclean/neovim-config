@@ -41,7 +41,7 @@ vim.g.foldtext = function()
 end
 
 --- Set Ghostty's tab title to the current directory
-if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
+if vim.fn.getenv 'TERM_PROGRAM' == 'ghostty' then
   vim.opt.title = true
   vim.opt.titlestring = "nvim - %{fnamemodify(getcwd(), ':t')}"
 end

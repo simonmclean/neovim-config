@@ -5,6 +5,10 @@ u.keys {
   { '|', ':vertical split<cr>', 'split vertical' },
   { '-', ':split<cr>', 'split horizontal' },
 
+  -- TabAdd commentMore actions
+  { '<C-l>', 'gt', 'tab right' },
+  { '<C-h>', 'gT', 'tab left' },
+
   -- Scroll
   { '<C-k>', '5<C-y>', 'scroll up' },
   { '<C-j>', '5<C-e>', 'scroll down' },
