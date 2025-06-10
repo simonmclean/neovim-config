@@ -39,3 +39,9 @@ vim.g.foldtext = function()
   local folded_line_count = vim.v.foldend - vim.v.foldstart + 1
   return '--[' .. folded_line_count .. ' lines] ' .. line
 end
+
+--- Set Ghostty's tab title to the current directory
+if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
+  vim.opt.title = true
+  vim.opt.titlestring = "nvim - %{fnamemodify(getcwd(), ':t')}"
+end
