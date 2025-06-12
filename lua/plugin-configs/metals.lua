@@ -24,6 +24,9 @@ return {
     --
     -- metals_config.capabilities = lsp.capabilities
 
+    return metals_config
+  end,
+  config = function(_, metals_config)
     -- Autocmd that will actually be in charge of starting the whole thing
     local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
     vim.api.nvim_create_autocmd('FileType', {
@@ -36,7 +39,5 @@ return {
       end,
       group = nvim_metals_group,
     })
-
-    return metals_config
   end,
 }
