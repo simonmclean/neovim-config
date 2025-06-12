@@ -1,5 +1,3 @@
-local u = require 'utils'
-
 local M = {}
 
 -- Cache to store highlight groups so we don't recreate them unnecessarily
@@ -11,6 +9,7 @@ local hl_cache = {}
 --- @return string|nil - Hex color if found
 local function get_hl_color(hl_name, part)
   local hl = vim.api.nvim_get_hl(0, { name = hl_name, link = false })
+
   -- Convert to hex strings
   if part == 'fg' then
     return hl.fg and string.format('#%06x', hl.fg)
@@ -55,22 +54,6 @@ end
 
 function M.highlight(hi_group_name, str)
   return '%#' .. hi_group_name .. '#' .. str .. '%#%Winbar#'
-end
----If the condition is not met, return a no-op component
----@param pred any predicate function or value
----@param component function component function (should return a string or nil)
----@return function
-function M.conditional_component(pred, component)
-  local condition_met = u.eval(function()
-    if type(pred) == 'function' then
-      return pred()
-    end
-    return pred
-  end)
-  if condition_met then
-    return component
-  end
-  return function() end
 end
 
 return M
