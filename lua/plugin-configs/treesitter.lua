@@ -1,7 +1,8 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
-  dependencies = {},
+  dependencies = { 'OXY2DEV/markview.nvim' },
+  lazy = false,
   config = function()
     require('nvim-treesitter.configs').setup {
       indent = {
