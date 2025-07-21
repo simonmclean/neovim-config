@@ -5,6 +5,12 @@ local function check_for_update()
 
   -- Fetch latest release info from GitHub API.
   local response = vim.fn.system 'curl -s https://api.github.com/repos/neovim/neovim/releases/latest'
+
+  if not response or response == "" then
+    vim.notify 'Unable to fetch the latest Neovim version.'
+    return
+  end
+
   local json = vim.fn.json_decode(response)
   local latest_version = json and json.tag_name or nil
 
