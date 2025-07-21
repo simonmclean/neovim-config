@@ -109,11 +109,13 @@ local function count_ahead_behind(callback)
         ahead, behind = 0, 0
         error('Unable to parse response in function count_ahead_behind: ' .. tostring(response))
       end
+      log(response)
       callback {
         ahead = tonumber(ahead) or 0,
         behind = tonumber(behind) or 0,
       }
     else
+      log 'No upstream found'
       callback { ahead = 0, behind = 0 }
     end
   end)
@@ -124,13 +126,13 @@ local function get_current_branch_name(callback)
   u.system('git rev-parse --abbrev-ref HEAD', function(local_branch)
     u.system('git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null', function(maybe_remote_branch)
       local remote_branch
-      if maybe_remote_branch and maybe_remote_branch ~= "" then
+      if maybe_remote_branch and maybe_remote_branch ~= '' then
         remote_branch = maybe_remote_branch
       end
-      callback({
+      callback {
         local_branch = local_branch,
-        remote_branch = remote_branch
-      })
+        remote_branch = remote_branch,
+      }
     end)
   end)
 end
@@ -153,6 +155,13 @@ local function get_repo_root()
 
   return vim.trim(vim.fn.system 'git rev-parse --show-toplevel')
 end
+
+local redrawstatus_debounced = u.debounce_trailing(function()
+  log 'redrawstatus'
+  vim.schedule(function()
+    vim.cmd.redrawstatus()
+  end)
+end, DEBOUNCE_MS)
 
 local augroup = vim.api.nvim_create_augroup('GitAugroup', { clear = true })
 
@@ -188,7 +197,7 @@ local function refresh_state(callback, repo_root)
           repo = repo,
         }
 
-        vim.cmd.redrawstatus()
+        redrawstatus_debounced()
 
         if callback then
           callback()
@@ -203,10 +212,13 @@ local refresh_state_debounced = u.debounce_trailing(refresh_state, DEBOUNCE_MS)
 ---@param callback? fun()
 local function fetch(callback)
   log 'fetch()'
-  cache.last_fetch_time = os.time()
-  if callback then
-    callback()
-  end
+  u.system('git fetch', function()
+    cache.last_fetch_time = os.time()
+    redrawstatus_debounced()
+    if callback then
+      callback()
+    end
+  end)
 end
 
 local function fetch_and_refresh()
