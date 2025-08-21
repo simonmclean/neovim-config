@@ -13,11 +13,6 @@ vim.g.active_colorscheme = u.eval(function()
   end
 end)
 
-vim.lsp.enable {
-  'ts_ls',
-  'lua_ls',
-}
-
 vim.diagnostic.config {
   virtual_text = { enabled = true },
   signs = {
