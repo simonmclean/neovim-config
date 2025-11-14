@@ -8,6 +8,14 @@ return {
     'antoinemadec/FixCursorHold.nvim',
     'nvim-treesitter/nvim-treesitter',
     'marilari88/neotest-vitest',
+    'nvim-neotest/neotest-jest',
+    {
+      'fredrikaverpil/neotest-golang',
+      version = '*',
+      build = function()
+        -- vim.system({ 'go', 'install', 'gotest.tools/gotestsum@latest' }):wait() -- Optional, but recommended
+      end,
+    },
   },
   event = 'VeryLazy',
   config = function()
@@ -17,6 +25,20 @@ return {
     neotest.setup {
       adapters = {
         require 'neotest-vitest',
+        require 'neotest-golang',
+        require 'neotest-jest' {
+          jestCommand = 'yarn dlx jest',
+          jestArguments = function(defaultArguments, _)
+            return defaultArguments
+          end,
+          -- jestConfigFile = 'custom.jest.config.ts',
+          -- env = { CI = true },
+          cwd = function()
+            return vim.fn.getcwd()
+          end,
+          jest_test_discovery = true, -- enables parametric test discovery
+          isTestFile = require('neotest-jest.jest-util').defaultIsTestFile,
+        },
       },
     }
 
