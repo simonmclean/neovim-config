@@ -239,6 +239,13 @@ function M.list_contains(tbl, value)
   end) ~= false
 end
 
+---@param message string
+function M.warn(message)
+  vim.schedule(function()
+    vim.notify(message, vim.log.levels.WARN)
+  end)
+end
+
 ---Wrapper around fidget. Falls back to vim.notify()
 ---@param msg string
 ---@param level? ('warn' | 'info') Error level excluded deliberately. Use error() instead

@@ -1,5 +1,18 @@
 local u = require 'utils'
 local icons = require 'icons'
+local system_deps = require 'system_deps'
+
+system_deps.ensure_installed {
+  'node',
+  'npm',
+  'rg', -- ripgrep
+  'wget',
+  {
+    'tree-sitter-cli',
+    check_type = 'npm',
+    install = system_deps.installers.npm('tree-sitter-cli'),
+  },
+}
 
 vim.g.mapleader = ' '
 vim.g.winblend = 10
@@ -25,6 +38,6 @@ vim.diagnostic.config {
   },
 }
 
-require 'git.status'.setup()
+require('git.status').setup()
 require 'plugins'
 require 'statusline.statusline'
