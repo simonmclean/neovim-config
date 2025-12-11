@@ -15,9 +15,12 @@ system_deps.ensure_installed {
 }
 
 vim.g.mapleader = ' '
-vim.g.winblend = 10
-vim.g.winborder = 'rounded'
-vim.g.active_colorscheme = u.eval(function()
+
+-- user settings
+vim.g._settings_winblend = 10
+vim.g._settings_winborder = 'rounded'
+vim.g._settings_transparent_background = true
+vim.g._settings_active_colorscheme = u.eval(function()
   local themery_installed, themery = pcall(require, 'themery')
   if themery_installed then
     return themery.getCurrentThemes().name
