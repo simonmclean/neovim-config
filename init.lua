@@ -7,6 +7,7 @@ system_deps.ensure_installed {
   'npm',
   'rg', -- ripgrep
   'wget',
+  'luacheck',
   {
     'tree-sitter-cli',
     check_type = 'npm',
