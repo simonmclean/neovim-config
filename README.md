@@ -1,3 +1,6 @@
+> [!NOTE]  
+> This has been moved to my [dotfiles repo](https://github.com/simonmclean/dotfiles/tree/main/nvim/.config/nvim)
+
 # Neovim config
 
 This is my Neovim config. There are many like it, but this one is mine 🫡
